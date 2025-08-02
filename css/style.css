@@ -1,0 +1,145 @@
+/* Estilos generales del cuerpo */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Evita el scroll en el body, el scroll será en el iframe */
+}
+
+/* --- Header Styles --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    transition: transform 0.5s ease;
+    /* Aurora Animation */
+    background: linear-gradient(125deg, #00332b, #005a4b, #00876c, #00b68b, #34e4aa, #0d9488, #115e59);
+    background-size: 400% 400%;
+    animation: aurora 15s ease infinite;
+}
+
+@keyframes aurora {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 1.5em;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* --- Navigation Styles --- */
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main-nav li {
+    position: relative; /* Needed for dropdown positioning */
+    margin-left: 20px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.main-nav a:hover, .main-nav .dropbtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #004d40; /* Darker green background */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0 0 5px 5px;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-align: left;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* --- Toggle Button --- */
+.toggle-header-btn {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 30px;
+    background-color: #005a4b;
+    color: white;
+    border: none;
+    border-radius: 0 0 15px 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1.5;
+    z-index: 999;
+    transition: background-color 0.3s ease, bottom 0.5s ease;
+}
+
+.toggle-header-btn:hover {
+    background-color: #00876c;
+}
+
+/* --- Main Content & Iframe --- */
+main {
+    height: 100vh;
+    padding-top: 70px; /* Initial padding to account for header height */
+    box-sizing: border-box;
+    transition: padding-top 0.5s ease;
+}
+
+#site-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- State when header is hidden --- */
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+.main-content-fullscreen {
+    padding-top: 0;
+}
