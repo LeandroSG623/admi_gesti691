@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Completa del Agronegocio</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00796b;
+      --primary-dark: #004d40;
+      --primary-light: #b2dfdb;
+      --accent: #ffc107;
+      --text: #1f2937;
+      --light-bg: #f9fafb;
+      --card-bg: #ffffff;
+      --paper-light: #fffef0;
+      --paper-dark: #1a1a1a;
+    --header-h: 4rem;
+    }
+    
+    body {
+      font-family: 'Poppins', 'Inter', sans-serif;
+  margin: 0;
+      background-color: var(--paper-light);
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d7ccc8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: var(--text);
+      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    
+    
+    .header-gradient {
+      background: #0f1724; /* neutral dark */
+      height: var(--header-h);
+      line-height: var(--header-h);
+    }
+
+      /* header fixed to top so iframe can fill remaining viewport */
+      .fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+      }
+    
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+    
+    h2 {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+      position: relative;
+    }
+    
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+    }
+    
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    .sidebar-link:hover {
+      background-color: rgba(255,255,255,0.04);
+      color: #ffffff;
+    }
+    
+    .sidebar-link.active {
+      background-color: #111827;
+      color: #ffffff;
+    }
+    
+    .content-section {
+      animation: fadeIn 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      opacity: 0;
+      /* aurora styles removed */
+    }
+    /* cuando el header está fijo, empujar el contenido hacia abajo */
+    .content-area { padding-top: var(--header-h); }
+    
+    /* Animación de apertura */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Nuevos estilos para espacios de contenido */
+    .content-placeholder {
+      border: 3px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 30px;
+      min-height: 400px;
+      background-color: #f8fafc;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .content-placeholder:hover {
+      background-color: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    
+    .placeholder-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 15px;
+    }
+    
+    .placeholder-icon {
+      font-size: 3rem;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+    
+    .placeholder-instruction {
+      color: #64748b;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    
+    .placeholder-section {
+      margin-top: 40px;
+      font-weight: 600;
+      color: #334155;
+      background-color: #e2e8f0;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* ocultar elementos hasta que Alpine inicialice */
+    [x-cloak] { display: none !important; }
+
+    /* Scrollbar personalizado para el sidebar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #374151 #1f2937;
+    }
+
+    /* Aurora scoped para la sección de introducción (más grande para cubrir bordes blancos) */
+    .intro-aurora-body {
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      position: relative;
+      background-color: #0f1724; /* fondo oscuro para resaltar la aurora */
+      color: white;
+      border-radius: 0;
+      padding: 0; /* controlamos padding en el contenido interno */
+      height: calc(100vh - var(--header-h)); /* ocupar toda la pantalla debajo del header */
+      width: 100%;
+    }
+
+    .aurora-container {
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      z-index: 0;
+      overflow: visible;
+      pointer-events: none;
+      animation: auroraColor 14s linear infinite;
+      will-change: filter;
+    }
+
+    .aurora-light {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.55;
+      filter: blur(120px);
+      z-index: 0;
+      transform-origin: center;
+    }
+
+    .aurora-1 {
+      width: 1400px;
+      height: 1400px;
+      background: radial-gradient(circle, rgba(0,255,195,0.9), transparent 55%);
+      top: -40%;
+      left: -40%;
+      animation: moveAurora1 28s infinite alternate ease-in-out;
+    }
+
+    .aurora-2 {
+      width: 1200px;
+      height: 1200px;
+      background: radial-gradient(circle, rgba(74,0,255,0.85), transparent 55%);
+      bottom: -50%;
+      right: -35%;
+      animation: moveAurora2 32s infinite alternate ease-in-out;
+    }
+    
+    .aurora-3 {
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, rgba(0,195,255,0.8), transparent 55%);
+      top: 5%;
+      right: 5%;
+      animation: moveAurora3 22s infinite alternate ease-in-out;
+    }
+
+    @keyframes moveAurora1 {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      100% { transform: translate(200px, 220px) rotate(45deg) scale(1.25); }
+    }
+
+    @keyframes moveAurora2 {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      100% { transform: translate(-200px, -140px) rotate(-30deg) scale(1.15); }
+    }
+    
+    @keyframes moveAurora3 {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1.15); }
+      100% { transform: translate(80px, -120px) rotate(20deg) scale(1.05); }
+    }
+
+    /* Animación para los íconos */
+    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+    .icon-float { animation: float 3s ease-in-out infinite; }
+    .icon-float-delay-1 { animation-delay: 0.5s; }
+    .icon-float-delay-2 { animation-delay: 1s; }
+
+    .text-shadow-lg { text-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+
+    /* Animación de color para la aurora (cambia tonalidad) */
+    @keyframes auroraColor {
+      0% { filter: hue-rotate(0deg) saturate(1); }
+      25% { filter: hue-rotate(45deg) saturate(1.05); }
+      50% { filter: hue-rotate(90deg) saturate(1.1); }
+      75% { filter: hue-rotate(135deg) saturate(1.05); }
+      100% { filter: hue-rotate(180deg) saturate(1); }
+    }
+
+  /* small glow for sidebar links */
+    .sidebar-link{ position: relative; }
+    .sidebar-link::after{
+      content: '';
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 6px;
+      height: 3px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.0), rgba(255,255,255,0.08), rgba(255,255,255,0.0));
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 300ms cubic-bezier(.2,.9,.2,1), opacity 300ms;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sidebar-link:hover::after, .sidebar-link.active::after{
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    .main-iframe-full-frame{
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--header-h));
+      border: none;
+      background: transparent;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body x-data="app()" x-cloak
+  @resize.window="$data.isSidebarOpen = window.innerWidth >= 1024">
+
+  <div class="relative min-h-screen lg:flex">
+    <!-- Overlay for mobile -->
+    <div x-show="isSidebarOpen" @click="isSidebarOpen = false" 
+         class="fixed inset-0 bg-black/60 z-30 lg:hidden overlay-transition" 
+         x-transition:enter="transition-opacity ease-linear duration-300" 
+         x-transition:enter-start="opacity-0" 
+         x-transition:enter-end="opacity-100" 
+         x-transition:leave="transition-opacity ease-linear duration-300" 
+         x-transition:leave-start="opacity-100" 
+         x-transition:leave-end="opacity-0"></div>
+
+  <!-- Sidebar -->
+  <aside class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-gray-200 z-40 sidebar-transition aurora aurora-sidebar" 
+       :class="{ 'translate-x-0': $data.isSidebarOpen, '-translate-x-full': !$data.isSidebarOpen }">
+      <div class="p-4 header-gradient text-white text-center">
+        <h1 class="text-xl font-bold">Menú de Navegación</h1>
+      </div>
+      <nav class="p-4 space-y-2 overflow-y-auto h-[calc(100vh-64px)] pr-2 custom-scrollbar">
+  <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/inicio_1.html')" 
+     @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/inicio_1.html')" 
+     @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/inicio_1.html')" 
+     role="button" tabindex="0" :class="{ 'active': $data.activePage === 'intro' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/inicio_1.html' }" class="sidebar-link"><i class="fas fa-home"></i> Introducción</a>
+        
+        <h3 class="pt-4 pb-1 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider">Comercio</h3>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/incoterms.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/incoterms.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/incoterms.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'incoterms' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/incoterms.html' }" class="sidebar-link"><i class="fas fa-ship"></i> Incoterms</a>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/canales_1.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/canales_1.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/canales_1.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'canales' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/canales_1.html' }" class="sidebar-link"><i class="fas fa-network-wired"></i> Canales</a>
+
+        <h3 class="pt-4 pb-1 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider">Finanzas</h3>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/bolsa.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/bolsa.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/bolsa.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'bolsas' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/bolsa.html' }" class="sidebar-link"><i class="fas fa-building-columns"></i> Bolsas y Mercados</a>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/mercado_futuro.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/mercado_futuro.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/mercado_futuro.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'futuros' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/mercado_futuro.html' }" class="sidebar-link"><i class="fas fa-chart-line"></i> Futuros y Opciones</a>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/warrant.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/warrant.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/warrant.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'warrants' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/warrant.html' }" class="sidebar-link"><i class="fas fa-file-invoice"></i> Warrants</a>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/factoring.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/factoring.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/factoring.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'factoring' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/factoring.html' }" class="sidebar-link"><i class="fas fa-hand-holding-usd"></i> Factoring</a>
+
+        <h3 class="pt-4 pb-1 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider">Regulación</h3>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/derecho_economico.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/derecho_economico.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/derecho_economico.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'derecho' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/derecho_economico.html' }" class="sidebar-link"><i class="fas fa-gavel"></i> Derecho Económico</a>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/ley_agro.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/ley_agro.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/ley_agro.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'legislacion' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/ley_agro.html' }" class="sidebar-link"><i class="fas fa-book"></i> Leyes Clave</a>
+      <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/instituciones.html')" 
+        @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/instituciones.html')" 
+        @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/instituciones.html')" 
+        role="button" tabindex="0" :class="{ 'active': $data.activePage === 'instituciones' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/instituciones.html' }" class="sidebar-link"><i class="fas fa-university"></i> Instituciones</a>
+        
+        <h3 class="pt-4 pb-1 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider">Contexto</h3>
+  <a @click.prevent="$data.openPage('santafe')" 
+     @keydown.enter.prevent="$data.openPage('santafe')" 
+     @keydown.space.prevent="$data.openPage('santafe')" 
+     role="button" tabindex="0" :class="{ 'active': $data.activePage === 'santafe' }" class="sidebar-link"><i class="fas fa-map-marker-alt"></i> El Agro en Santa Fe</a>
+  <!-- Nuevos enlaces solicitados -->
+  <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/perito_tabla.html')"
+     @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/perito_tabla.html')"
+     @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/perito_tabla.html')"
+     role="button" tabindex="0" :class="{ 'active': $data.activePage === 'tabla_perito' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/perito_tabla.html' }" class="sidebar-link"><i class="fas fa-table"></i> Tabla Perito</a>
+  <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/tiempo_real1.html')"
+     @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/tiempo_real1.html')"
+     @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/tiempo_real1.html')"
+     role="button" tabindex="0" :class="{ 'active': $data.activePage === 'livemarket' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/tiempo_real1.html' }" class="sidebar-link"><i class="fas fa-broadcast-tower"></i> LiveMarket</a>
+  <a @click.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/puerto.html')"
+     @keydown.enter.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/puerto.html')"
+     @keydown.space.prevent="$data.openPage('https://leandrosg623.github.io/admi_gesti691/puerto.html')"
+     role="button" tabindex="0" :class="{ 'active': $data.activePage === 'puerto_santafe' || $data.mainIframeUrl === 'https://leandrosg623.github.io/admi_gesti691/puerto.html' }" class="sidebar-link"><i class="fas fa-ship"></i> Puerto Santa Fe</a>
+  <a @click.prevent="$data.openPage('manual_gestion')"
+    @keydown.enter.prevent="$data.openPage('manual_gestion')"
+    @keydown.space.prevent="$data.openPage('manual_gestion')"
+    role="button" tabindex="0" :class="{ 'active': $data.activePage === 'manual_gestion' }" class="sidebar-link"><i class="fas fa-book"></i> Manual de Gestión Agro</a>
+        
+        <h3 class="pt-4 pb-1 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider">Recursos</h3>
+  <a @click.prevent="$data.openPage('biblioteca')" 
+     @keydown.enter.prevent="$data.openPage('biblioteca')" 
+     @keydown.space.prevent="$data.openPage('biblioteca')" 
+     role="button" tabindex="0" :class="{ 'active': $data.activePage === 'biblioteca' }" class="sidebar-link"><i class="fas fa-book-open"></i> Biblioteca</a>
+      </nav>
+    </aside>
+
+  <!-- removed modal overlay iframe (not needed) -->
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden content-transition" :class="{ 'lg:ml-64': isSidebarOpen }">
+  <header class="header-gradient text-white p-4 shadow-lg flex items-center gap-4">
+        <button @click="$data.isSidebarOpen = !$data.isSidebarOpen" class="text-white text-2xl p-2 rounded-full hover:bg-white/20 focus:outline-none transition-colors duration-300">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a @click="$data.openPage('intro')" class="cursor-pointer">
+          <h1 class="text-2xl font-bold">🌾 Guía Interactiva del Agronegocio</h1>
+        </a>
+  <div class="ml-auto flex items-center gap-3"></div>
+      </header>
+
+      <main :class="{ 'p-0 sm:p-0': $data.noGaps }" class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100/30 p-4 sm:p-8">
+        <!-- Main iframe view for external pages (keeps header and sidebar visible) -->
+        <div x-show="$data.showMainIframe" class="w-full h-full" x-transition>
+          <!-- iframe full inside main -->
+          <iframe id="main-frame" class="main-iframe-full-frame" :src="$data.mainIframeUrl" frameborder="0" @load="$data.iframeLoadedMain()"></iframe>
+        </div>
+  <div x-show="!$data.showMainIframe">
+  <!-- Introduction Page -->
+        <section id="intro" x-show="activePage === 'intro'" class="content-section card p-8 intro-aurora-body">
+          <div class="aurora-container" aria-hidden="true">
+            <div class="aurora-light aurora-1"></div>
+            <div class="aurora-light aurora-2"></div>
+            <div class="aurora-light aurora-3"></div>
+          </div>
+
+          <div class="relative z-10 h-full flex flex-col items-center justify-center text-center p-8">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold mb-3 text-shadow-lg">🌾 Bienvenida a la Guía Interactiva del Agro</h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-4">Explorando el futuro de la agricultura con innovación y tecnología.</p>
+            <p class="text-sm text-gray-300 mb-6">EETP Nª691 "Laureana Ferrari de Olazabal"</p>
+            <p class="text-sm text-gray-300 mb-8">Laguna Paiva - Santa Fe</p>
+
+            <div class="flex space-x-8 sm:space-x-12 md:space-x-16 mt-2">
+              <div class="icon-float" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 sm:h-16 sm:w-16 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 15s4.5-4.5 9-4.5 9 4.5 9 4.5M3 15v6h18v-6M12 3v12" />
+                </svg>
+              </div>
+
+              <div class="icon-float icon-float-delay-1" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 sm:h-16 sm:w-16 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V12a1 1 0 011-1h12a1 1 0 011 1v4.382a1 1 0 01-.553.894L15 20M9 12V4a1 1 0 011-1h4a1 1 0 011 1v8M9 12h6" />
+                    <circle cx="6.5" cy="17.5" r="2.5" stroke="currentColor" stroke-width="2" fill="none" />
+                    <circle cx="17.5" cy="17.5" r="2.5" stroke="currentColor" stroke-width="2" fill="none" />
+                </svg>
+              </div>
+
+              <div class="icon-float icon-float-delay-2" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 sm:h-16 sm:w-16 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a7.5 7.5 0 1010 0c0-4.142-3.358-7.5-5-7.5s-5 3.358-5 7.5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V8" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Incoterms Page (contenido eliminado) -->
+        <section id="incoterms" x-show="activePage === 'incoterms'" class="content-section card p-8" aria-hidden="true">
+          <!-- Contenido eliminado por el usuario -->
+        </section>
+
+        <!-- Canales Page -->
+        <section id="canales" x-show="activePage === 'canales'" class="content-section card p-8">
+          <h2>🔗 Canales de Comercialización</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-network-wired"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Canales
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre canales de comercialización.<br>
+              Puedes pegar aquí información sobre la cadena de valor, intermediarios y procesos.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Canales
+            </div>
+          </div>
+        </section>
+        
+        <!-- Bolsas y Mercados Page -->
+        <section id="bolsas" x-show="activePage === 'bolsas'" class="content-section card p-8">
+          <h2>🏦 Bolsas y Mercados Financieros</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Bolsas y Mercados
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre mercados financieros.<br>
+              Puedes pegar aquí información sobre MATba, ROFEX, BYMA y otros mercados relevantes.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Bolsas y Mercados
+            </div>
+          </div>
+        </section>
+
+        <!-- Futuros Page -->
+        <section id="futuros" x-show="activePage === 'futuros'" class="content-section card p-8">
+          <h2>📈 Mercados de Futuros y Opciones</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-arrow-trend-up"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Futuros y Opciones
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre mercados de futuros.<br>
+              Puedes pegar aquí explicaciones sobre coberturas, especulación y estrategias.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Futuros y Opciones
+            </div>
+          </div>
+        </section>
+
+        <!-- Warrants Page -->
+        <section id="warrants" x-show="activePage === 'warrants'" class="content-section card p-8">
+          <h2>📄 Warrants: El Grano como Garantía (Ley 9.643)</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-file-contract"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Warrants
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre warrants.<br>
+              Puedes pegar aquí información sobre financiamiento prendario, certificados de depósito y procesos.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Warrants
+            </div>
+          </div>
+        </section>
+
+        <!-- Factoring Page -->
+        <section id="factoring" x-show="activePage === 'factoring'" class="content-section card p-8">
+          <h2>💸 Factoring: Liquidez Inmediata</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-money-bill-transfer"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Factoring
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre factoring.<br>
+              Puedes pegar aquí información sobre descuento de facturas, financiación a corto plazo y ventajas.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Factoring
+            </div>
+          </div>
+        </section>
+
+        <!-- Derecho Page -->
+        <section id="derecho" x-show="activePage === 'derecho'" class="content-section card p-8">
+          <h2>⚖️ Derecho Económico: Del Control Estatal a la Desregulación</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-scale-balanced"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Derecho Económico
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre marco legal.<br>
+              Puedes pegar aquí información sobre regulaciones, normativas y evolución histórica.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Derecho Económico
+            </div>
+          </div>
+        </section>
+
+        <!-- Legislacion Page -->
+        <section id="legislacion" x-show="activePage === 'legislacion'" class="content-section card p-8">
+          <h2>📚 Leyes Clave del Agronegocio</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Legislación
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre legislación.<br>
+              Puedes pegar aquí detalles sobre leyes específicas, marcos regulatorios y normativas sectoriales.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Legislación
+            </div>
+          </div>
+        </section>
+
+        <!-- Instituciones Page -->
+        <section id="instituciones" x-show="activePage === 'instituciones'" class="content-section card p-8">
+          <h2>🏛️ Instituciones Relevantes</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-landmark"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Instituciones
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre instituciones.<br>
+              Puedes pegar aquí información sobre SENASA, AFIP, CNV y otros organismos clave.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Instituciones
+            </div>
+          </div>
+        </section>
+
+        <!-- Santa Fe Page -->
+        <section id="santafe" x-show="activePage === 'santafe'" class="content-section card p-8">
+          <h2>🌍 El Agro en Santa Fe</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-tractor"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección del Agro Santafesino
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para el contenido sobre Santa Fe.<br>
+              Puedes pegar aquí información sobre producción regional, puertos y características específicas.
+            </p>
+            <div class="placeholder-section">
+              Contenido del Agro en Santa Fe
+            </div>
+          </div>
+        </section>
+        <!-- Tabla Perito -->
+        <section id="tabla_perito" x-show="activePage === 'tabla_perito'" class="content-section card p-8">
+          <h2>📊 Tabla Perito</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon"><i class="fas fa-table"></i></div>
+            <div class="placeholder-title">Tabla Perito</div>
+            <p class="placeholder-instruction">Espacio para datos y tablas perito.</p>
+            <div class="placeholder-section">Contenido Tabla Perito</div>
+          </div>
+        </section>
+
+        <!-- LiveMarket -->
+        <section id="livemarket" x-show="activePage === 'livemarket'" class="content-section card p-8">
+          <h2>📡 LiveMarket</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon"><i class="fas fa-broadcast-tower"></i></div>
+            <div class="placeholder-title">LiveMarket</div>
+            <p class="placeholder-instruction">Espacio para visualizaciones en vivo y datos de mercado.</p>
+            <div class="placeholder-section">Contenido LiveMarket</div>
+          </div>
+        </section>
+
+        <!-- Puerto Santa Fe -->
+        <section id="puerto_santafe" x-show="activePage === 'puerto_santafe'" class="content-section card p-8">
+          <h2>⚓ Puerto Santa Fe</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon"><i class="fas fa-ship"></i></div>
+            <div class="placeholder-title">Puerto Santa Fe</div>
+            <p class="placeholder-instruction">Información y logística del puerto local.</p>
+            <div class="placeholder-section">Contenido Puerto Santa Fe</div>
+          </div>
+        </section>
+
+        <!-- Manual de Gestión Agro -->
+        <section id="manual_gestion" x-show="activePage === 'manual_gestion'" class="content-section card p-8">
+          <h2>📘 Manual de Gestión Agro</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon"><i class="fas fa-book"></i></div>
+            <div class="placeholder-title">Manual de Gestión Agro</div>
+            <p class="placeholder-instruction">Aquí puedes añadir el manual o enlaces a PDF.</p>
+            <div class="placeholder-section">Contenido Manual de Gestión</div>
+          </div>
+        </section>
+        
+  <!-- Biblioteca Page -->
+        <section id="biblioteca" x-show="activePage === 'biblioteca'" class="content-section card p-8">
+          <h2>📚 Biblioteca de Recursos</h2>
+          <div class="content-placeholder">
+            <div class="placeholder-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <div class="placeholder-title">
+              Sección de Biblioteca
+            </div>
+            <p class="placeholder-instruction">
+              Este es el espacio para recursos adicionales.<br>
+              Puedes pegar aquí enlaces, documentos, videos u otros materiales de referencia.
+            </p>
+            <div class="placeholder-section">
+              Contenido de Biblioteca
+            </div>
+          </div>
+        </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ...existing code... -->
+  <script>
+    function app(){
+      return {
+  activePage: localStorage.getItem('activePage') || 'intro',
+  isSidebarOpen: window.innerWidth >= 1024,
+  noGaps: true,
+  _prevNoGaps: null,
+  showIframe: false,
+  externalUrl: '',
+  isLoading: false,
+  showMainIframe: false,
+  mainIframeUrl: '',
+  _mainIframeTimer: null,
+        _iframeTimer: null,
+
+        openPage(page){
+          // si la página parece una URL externa (comienza con http) la abrimos en el main iframe
+          if(/^https?:\/\//i.test(page)){
+            this.mainIframeUrl = page;
+            // guardar estado noGaps y forzar sin márgenes para vista embebida
+            this._prevNoGaps = this.noGaps;
+            this.noGaps = true;
+            this.showMainIframe = true;
+            this.isLoading = true;
+            clearTimeout(this._mainIframeTimer);
+            this._mainIframeTimer = setTimeout(() => {
+              if(this.isLoading){
+                this.isLoading = false;
+                this.openInNewTab(this.mainIframeUrl);
+                this.closeMainIframe();
+              }
+            }, 2500);
+
+            // ocultar la sidebar siempre cuando se visualiza una página externa en el main iframe
+            this.isSidebarOpen = false;
+            return;
+          }
+
+          // páginas internas: activamos la sección correspondiente
+          this.activePage = page;
+          localStorage.setItem('activePage', page);
+          if(window.innerWidth < 1024) this.isSidebarOpen = false;
+        },
+
+  // openActiveInNewTab removed
+
+        iframeLoaded(){
+          // carga completada (modal iframe): limpiamos timer y estado
+          clearTimeout(this._iframeTimer);
+          this.isLoading = false;
+        },
+
+        iframeLoadedMain(){
+          // carga completada (main iframe)
+          clearTimeout(this._mainIframeTimer);
+          this.isLoading = false;
+        },
+
+        closeIframe(){
+          clearTimeout(this._iframeTimer);
+          this.showIframe = false;
+          this.externalUrl = '';
+          this.isLoading = false;
+        },
+
+        closeMainIframe(){
+          clearTimeout(this._mainIframeTimer);
+          this.showMainIframe = false;
+          this.mainIframeUrl = '';
+          this.isLoading = false;
+          // restaurar estado de noGaps
+          if(this._prevNoGaps !== null){
+            this.noGaps = this._prevNoGaps;
+            this._prevNoGaps = null;
+          }
+        },
+
+        openInNewTab(url){
+          if(!url) return;
+          // abrir y marcar que es externo
+          window.open(url, '_blank', 'noopener');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
