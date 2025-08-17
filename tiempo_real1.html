@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercados Agrícolas en Tiempo Real</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --secondary: #ff9800;
+            --accent: #ffc107;
+            --background: #fffdf0; /* Fondo amarillo tenue */
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --up: #2E7D32;
+            --down: #C62828;
+            --neutral: #FF9800;
+            --card-bg: #ffffff;
+            --soy-color: #2e7d32;
+            --wheat-color: #e65100;
+            --corn-color: #f57f17;
+            --sunflower-color: #c62828;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: #000;
+            padding: 15px 0;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .market-ticker {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .ticker-container {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker-scroll 45s linear infinite;
+        }
+        
+        .ticker-item {
+            display: inline-block;
+            margin: 0 30px;
+            font-size: 1.1rem;
+            color: white;
+        }
+        
+        .ticker-name {
+            font-weight: 600;
+            color: var(--accent);
+            margin-right: 8px;
+        }
+        
+        .ticker-value {
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        
+        .ticker-change {
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .positive { background-color: rgba(46, 125, 50, 0.3); }
+        .negative { background-color: rgba(198, 40, 40, 0.3); }
+        .neutral { background-color: rgba(255, 152, 0, 0.3); }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .dashboard-title {
+            text-align: center;
+            padding: 40px 0 30px;
+            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .dashboard-title h1 {
+            font-size: 3.2rem;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            font-weight: 800;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
+        
+        .dashboard-title h1:after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .dashboard-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 800px;
+            margin: 0 auto 20px;
+            text-align: center;
+            font-weight: 400;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+            background: white;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        /* Colores distintivos para cada cereal */
+        .card-soy .card-header { 
+            background: linear-gradient(to right, var(--soy-color), #4CAF50);
+            color: white;
+        }
+        
+        .card-wheat .card-header { 
+            background: linear-gradient(to right, var(--wheat-color), #FF9800);
+            color: white;
+        }
+        
+        .card-corn .card-header { 
+            background: linear-gradient(to right, var(--corn-color), #FFC107);
+            color: white;
+        }
+        
+        .card-sunflower .card-header { 
+            background: linear-gradient(to right, var(--sunflower-color), #F44336);
+            color: white;
+        }
+        
+        .card-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 28px;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .card-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+        
+        .card-content {
+            padding: 20px;
+            background: white;
+        }
+        
+        .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        
+        .change {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .change.positive { 
+            background-color: rgba(46, 125, 50, 0.15); 
+            color: var(--up);
+        }
+        
+        .change.negative { 
+            background-color: rgba(198, 40, 40, 0.15); 
+            color: var(--down);
+        }
+        
+        .change.neutral { 
+            background-color: rgba(255, 152, 0, 0.15); 
+            color: var(--neutral);
+        }
+        
+        .update-time {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .update-time i {
+            margin-right: 8px;
+            color: var(--primary-light);
+        }
+        
+        .market-info {
+            background: rgba(245, 249, 246, 0.5);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .charts-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            font-weight: 700;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            color: var(--primary);
+            background: rgba(76, 175, 80, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chart-title i {
+            margin-right: 10px;
+            color: var(--primary-light);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        
+        .volume-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            padding: 30px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .volume-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .volume-table th, .volume-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .volume-table th {
+            background-color: rgba(245, 249, 246, 0.7);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .volume-table tr:hover {
+            background-color: rgba(245, 249, 246, 0.5);
+        }
+        
+        .volume-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .volume-icon {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            color: var(--primary-light);
+        }
+        
+        .dollar-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+            padding: 15px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .dollar-item {
+            margin: 0 25px;
+            text-align: center;
+        }
+        
+        .dollar-label {
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .dollar-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .dollar-change {
+            font-size: 0.9rem;
+            margin-left: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .explanation-box {
+            background: rgba(255, 152, 0, 0.08);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: var(--text-dark);
+        }
+        
+        .explanation-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .explanation-title i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        /* Animaciones */
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse-up {
+            animation: pulse 1s ease;
+            color: var(--up);
+        }
+        
+        .pulse-down {
+            animation: pulse 1s ease;
+            color: var(--down);
+        }
+        
+        .pulse-neutral {
+            animation: pulse 1s ease;
+            color: var(--neutral);
+        }
+        
+        @media (max-width: 768px) {
+            .ticker-item {
+                margin: 0 15px;
+                font-size: 0.9rem;
+            }
+            
+            .dashboard-title h1 {
+                font-size: 2.4rem;
+            }
+            
+            .dollar-bar {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+            
+            .dollar-item {
+                margin: 8px 15px;
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Banda superior de mercados globales en negro -->
+    <div class="header">
+        <div class="market-ticker">
+            <div class="ticker-container">
+                <div class="ticker-item">
+                    <span class="ticker-name">MERVAL:</span>
+                    <span class="ticker-value">1,450,300.50</span>
+                    <span class="ticker-change positive">▲ +1.25%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">NASDAQ:</span>
+                    <span class="ticker-value">18,243.65</span>
+                    <span class="ticker-change positive">▲ +0.78%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">DAX:</span>
+                    <span class="ticker-value">16,842.30</span>
+                    <span class="ticker-change negative">▼ -0.45%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">BOVESPA:</span>
+                    <span class="ticker-value">128,450.75</span>
+                    <span class="ticker-change neutral">► 0.00%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">NIKKEI:</span>
+                    <span class="ticker-value">38,650.20</span>
+                    <span class="ticker-change positive">▲ +1.10%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">S&P 500:</span>
+                    <span class="ticker-value">5,450.80</span>
+                    <span class="ticker-change positive">▲ +0.65%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Título con más presencia -->
+        <div class="dashboard-title">
+            <h1>Mercados Agrícolas en Tiempo Real</h1>
+            <p class="dashboard-subtitle">Seguimiento de precios de commodities con actualizaciones segundo a segundo</p>
+        </div>
+        
+        <div class="explanation-box">
+            <div class="explanation-title"><i class="fas fa-info-circle"></i> Cómo interpretar los colores</div>
+            <p>Los valores en <span style="color: var(--up); font-weight: 600">VERDE</span> indican que están subiendo, en <span style="color: var(--down); font-weight: 600">ROJO</span> que están bajando, y en <span style="color: var(--neutral); font-weight: 600">AMARILLO</span> que se mantienen estables. Los precios se actualizan cada segundo.</p>
+        </div>
+        
+        <div class="stats-grid">
+            <!-- Soja con fondo distintivo -->
+            <div class="stat-card card-soy">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h2 class="card-title">Soja</h2>
+                </div>
+                <div class="card-content">
+                    <div class="price-container">
+                        <div class="price" id="soy-price">1,035.80</div>
+                        <div class="change positive" id="soy-change">+5.25 (+0.51%)</div>
+                    </div>
+                    <div class="update-time">
+                        <i class="fas fa-sync-alt"></i> 
+                        <span id="soy-time">Actualizado hace 1s</span>
+                    </div>
+                    
+                    <div class="market-info">
+                        <div class="info-row">
+                            <span class="info-label">Mercado:</span>
+                            <span>CBOT (Chicago)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contrato:</span>
+                            <span>Ago 2025 (ZSQ5)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Volumen:</span>
+                            <span id="soy-volume">1.24M contratos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trigo con fondo distintivo -->
+            <div class="stat-card card-wheat">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h2 class="card-title">Trigo</h2>
+                </div>
+                <div class="card-content">
+                    <div class="price-container">
+                        <div class="price" id="wheat-price">543.25</div>
+                        <div class="change negative" id="wheat-change">-2.10 (-0.39%)</div>
+                    </div>
+                    <div class="update-time">
+                        <i class="fas fa-sync-alt"></i> 
+                        <span id="wheat-time">Actualizado hace 1s</span>
+                    </div>
+                    
+                    <div class="market-info">
+                        <div class="info-row">
+                            <span class="info-label">Mercado:</span>
+                            <span>CBOT (Chicago)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contrato:</span>
+                            <span>Sep 2025 (ZWU5)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Volumen:</span>
+                            <span id="wheat-volume">890K contratos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Maíz con fondo distintivo -->
+            <div class="stat-card card-corn">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-corn"></i>
+                    </div>
+                    <h2 class="card-title">Maíz</h2>
+                </div>
+                <div class="card-content">
+                    <div class="price-container">
+                        <div class="price" id="corn-price">412.75</div>
+                        <div class="change positive" id="corn-change">+1.25 (+0.30%)</div>
+                    </div>
+                    <div class="update-time">
+                        <i class="fas fa-sync-alt"></i> 
+                        <span id="corn-time">Actualizado hace 1s</span>
+                    </div>
+                    
+                    <div class="market-info">
+                        <div class="info-row">
+                            <span class="info-label">Mercado:</span>
+                            <span>CBOT (Chicago)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contrato:</span>
+                            <span>Sep 2025 (ZCU5)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Volumen:</span>
+                            <span id="corn-volume">1.52M contratos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Girasol con fondo distintivo -->
+            <div class="stat-card card-sunflower">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h2 class="card-title">Girasol</h2>
+                </div>
+                <div class="card-content">
+                    <div class="price-container">
+                        <div class="price" id="sunflower-price">782.40</div>
+                        <div class="change neutral" id="sunflower-change">0.00 (0.00%)</div>
+                    </div>
+                    <div class="update-time">
+                        <i class="fas fa-sync-alt"></i> 
+                        <span id="sunflower-time">Actualizado hace 1s</span>
+                    </div>
+                    
+                    <div class="market-info">
+                        <div class="info-row">
+                            <span class="info-label">Mercado:</span>
+                            <span>MATBA (Buenos Aires)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contrato:</span>
+                            <span>Oct 2025</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Volumen:</span>
+                            <span id="sunflower-volume">325K contratos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <h2 class="section-title"><i class="fas fa-chart-line"></i> Evolución de Precios</h2>
+            
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title"><i class="fas fa-calendar-week"></i> Último Mes</h3>
+                    <div class="chart-container">
+                        <canvas id="monthChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3 class="chart-title"><i class="fas fa-calendar-alt"></i> Último Año</h3>
+                    <div class="chart-container">
+                        <canvas id="yearChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="volume-section">
+            <h2 class="section-title"><i class="fas fa-chart-bar"></i> Volumen Diario de Mercados</h2>
+            
+            <table class="volume-table">
+                <thead>
+                    <tr>
+                        <th>Mercado</th>
+                        <th>Producto Principal</th>
+                        <th>Volumen Diario</th>
+                        <th>Variación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i class="fas fa-exchange-alt volume-icon"></i> Chicago (CBOT)</td>
+                        <td>Soja, Trigo, Maíz</td>
+                        <td id="cbot-volume">1.82M contratos</td>
+                        <td class="change positive">+4.5%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-building volume-icon"></i> MATBA Argentina</td>
+                        <td>Girasol, Soja</td>
+                        <td id="matba-volume">452K contratos</td>
+                        <td class="change negative">-2.3%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-wheat-alt volume-icon"></i> Euronext París</td>
+                        <td>Trigo Europeo</td>
+                        <td id="euronext-volume">625K contratos</td>
+                        <td class="change positive">+1.8%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-warehouse volume-icon"></i> Dalian China</td>
+                        <td>Soja, Maíz</td>
+                        <td id="dalian-volume">955K contratos</td>
+                        <td class="change positive">+3.2%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Barra inferior de dólar en Argentina en negro -->
+    <div class="dollar-bar">
+        <div class="dollar-item">
+            <span class="dollar-label">Dólar Blue Compra:</span>
+            <span class="dollar-value">$1.195 ARS</span>
+            <span class="dollar-change positive">▲ +0.42%</span>
+        </div>
+        <div class="dollar-item">
+            <span class="dollar-label">Dólar Blue Venta:</span>
+            <span class="dollar-value">$1.215 ARS</span>
+            <span class="dollar-change positive">▲ +0.41%</span>
+        </div>
+        <div class="dollar-item">
+            <span class="dollar-label">Dólar Oficial:</span>
+            <span class="dollar-value">$1.052 ARS</span>
+            <span class="dollar-change neutral">► 0.00%</span>
+        </div>
+    </div>
+
+    <script>
+        // Datos iniciales
+        const commodities = {
+            soy: { price: 1035.80, change: 0.51, volume: 1.24 },
+            wheat: { price: 543.25, change: -0.39, volume: 0.89 },
+            corn: { price: 412.75, change: 0.30, volume: 1.52 },
+            sunflower: { price: 782.40, change: 0.00, volume: 0.325 }
+        };
+        
+        const markets = {
+            cbot: 1.82,
+            matba: 0.452,
+            euronext: 0.625,
+            dalian: 0.955
+        };
+        
+        // Actualizar datos en tiempo real
+        function updateData() {
+            // Actualizar precios con variaciones aleatorias
+            for (const commodity in commodities) {
+                const change = (Math.random() - 0.5) * 0.3;
+                commodities[commodity].price = parseFloat((commodities[commodity].price * (1 + change/100)).toFixed(2));
+                commodities[commodity].change = parseFloat((commodities[commodity].change + change).toFixed(2));
+                commodities[commodity].volume = parseFloat((commodities[commodity].volume * (1 + (Math.random() - 0.5)/500)).toFixed(3));
+                
+                // Actualizar elementos HTML
+                const priceElement = document.getElementById(`${commodity}-price`);
+                const changeElement = document.getElementById(`${commodity}-change`);
+                const timeElement = document.getElementById(`${commodity}-time`);
+                const volumeElement = document.getElementById(`${commodity}-volume`);
+                
+                // Guardar el valor anterior para la animación
+                const prevPrice = parseFloat(priceElement.textContent.replace(/,/g, ''));
+                
+                // Actualizar precio con animación de cambio
+                priceElement.textContent = commodities[commodity].price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                
+                // Aplicar animación de pulso según el cambio
+                if (commodities[commodity].price > prevPrice) {
+                    priceElement.classList.add('pulse-up');
+                    setTimeout(() => priceElement.classList.remove('pulse-up'), 1000);
+                } else if (commodities[commodity].price < prevPrice) {
+                    priceElement.classList.add('pulse-down');
+                    setTimeout(() => priceElement.classList.remove('pulse-down'), 1000);
+                } else {
+                    priceElement.classList.add('pulse-neutral');
+                    setTimeout(() => priceElement.classList.remove('pulse-neutral'), 1000);
+                }
+                
+                // Actualizar cambio
+                const changeSign = commodities[commodity].change >= 0 ? '+' : '';
+                changeElement.textContent = `${changeSign}${commodities[commodity].change.toFixed(2)}%`;
+                
+                // Actualizar clase de cambio
+                changeElement.className = 'change';
+                if (commodities[commodity].change > 0) {
+                    changeElement.classList.add('positive');
+                } else if (commodities[commodity].change < 0) {
+                    changeElement.classList.add('negative');
+                } else {
+                    changeElement.classList.add('neutral');
+                }
+                
+                // Actualizar tiempo
+                timeElement.textContent = "Actualizado hace 1s";
+                
+                // Actualizar volumen
+                volumeElement.textContent = `${commodities[commodity].volume}M contratos`;
+            }
+            
+            // Actualizar volúmenes de mercado
+            for (const market in markets) {
+                markets[market] = parseFloat((markets[market] * (1 + (Math.random() - 0.5)/500)).toFixed(3));
+                document.getElementById(`${market}-volume`).textContent = `${markets[market]}M contratos`;
+            }
+        }
+        
+        // Actualizar datos cada segundo
+        setInterval(updateData, 1000);
+        
+        // Datos para los gráficos (simulados)
+        const monthData = {
+            labels: ['30 Mayo', '6 Jun', '13 Jun', '20 Jun', '27 Jun', '30 Jun'],
+            soy: [1050, 1040, 1030, 1025, 1035, 1033.25],
+            wheat: [550, 545, 530, 525, 538, 540.75],
+            corn: [400, 395, 405, 410, 408, 411.5],
+            sunflower: [810, 805, 795, 785, 790, 780.3]
+        };
+        
+        const yearData = {
+            labels: ['Jul 24', 'Sep 24', 'Nov 24', 'Ene 25', 'Mar 25', 'May 25', 'Jun 25'],
+            soy: [1150, 1100, 1070, 1050, 1020, 1040, 1033.25],
+            wheat: [600, 580, 560, 540, 520, 530, 540.75],
+            corn: [450, 430, 410, 400, 390, 400, 411.5],
+            sunflower: [850, 830, 820, 810, 800, 795, 780.3]
+        };
+        
+        // Inicializar gráfico de 1 mes
+        const monthCtx = document.getElementById('monthChart').getContext('2d');
+        new Chart(monthCtx, {
+            type: 'line',
+            data: {
+                labels: monthData.labels,
+                datasets: [
+                    {
+                        label: 'Soja',
+                        data: monthData.soy,
+                        borderColor: '#2e7d32',
+                        backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2e7d32'
+                    },
+                    {
+                        label: 'Trigo',
+                        data: monthData.wheat,
+                        borderColor: '#e65100',
+                        backgroundColor: 'rgba(230, 81, 0, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#e65100'
+                    },
+                    {
+                        label: 'Maíz',
+                        data: monthData.corn,
+                        borderColor: '#f57f17',
+                        backgroundColor: 'rgba(245, 127, 23, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#f57f17'
+                    },
+                    {
+                        label: 'Girasol',
+                        data: monthData.sunflower,
+                        borderColor: '#c62828',
+                        backgroundColor: 'rgba(198, 40, 40, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#c62828'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 13,
+                                family: 'Poppins'
+                            },
+                            padding: 15
+                        }
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins',
+                                size: 11
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins',
+                                size: 11
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Inicializar gráfico de 1 año
+        const yearCtx = document.getElementById('yearChart').getContext('2d');
+        new Chart(yearCtx, {
+            type: 'line',
+            data: {
+                labels: yearData.labels,
+                datasets: [
+                    {
+                        label: 'Soja',
+                        data: yearData.soy,
+                        borderColor: '#2e7d32',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    },
+                    {
+                        label: 'Trigo',
+                        data: yearData.wheat,
+                        borderColor: '#e65100',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    },
+                    {
+                        label: 'Maíz',
+                        data: yearData.corn,
+                        borderColor: '#f57f17',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    },
+                    {
+                        label: 'Girasol',
+                        data: yearData.sunflower,
+                        borderColor: '#c62828',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 13,
+                                family: 'Poppins'
+                            },
+                            padding: 15
+                        }
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins',
+                                size: 11
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Poppins',
+                                size: 11
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

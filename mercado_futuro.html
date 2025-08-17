@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Mercados de Futuros y Opciones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-dark: #1A1A2E;
+            --background-light: #2A2A4E;
+            --primary-accent: #00F6FF;   /* Cyan */
+            --secondary-accent: #FF00E4; /* Magenta */
+            --tertiary-accent: #F8D210;  /* Yellow */
+            --text-primary: #F9FAFB;
+            --text-secondary: #D1D5DB;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+            text-shadow: 0 0 10px var(--primary-accent), 0 0 20px var(--secondary-accent);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .intro-box {
+            background-color: var(--background-light);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 0 auto 40px;
+            max-width: 800px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .card {
+            background-color: var(--background-light);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .card-icon {
+            font-size: 1.75rem;
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--background-dark);
+            font-weight: bold;
+        }
+        
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        
+        .futures .card-icon {
+            background-color: var(--primary-accent);
+        }
+        
+        .options .card-icon {
+            background-color: var(--secondary-accent);
+        }
+        
+        .card-content {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .card-content ul {
+            margin: 20px 0;
+            padding-left: 25px;
+            list-style: none;
+        }
+        
+        .card-content li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .card-content li::before {
+            content: "✓";
+            position: absolute;
+            left: -25px;
+            font-weight: bold;
+        }
+
+        .futures li::before { color: var(--primary-accent); }
+        .options li::before { color: var(--secondary-accent); }
+        
+        .highlight {
+            color: var(--primary-accent);
+            font-weight: 600;
+        }
+        
+        .strategy-section {
+            background-color: var(--background-light);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.25rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .chart-container {
+            background-color: var(--background-dark);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            height: 400px;
+        }
+        
+        .scenarios {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 15px;
+        }
+        
+        .scenario {
+            background-color: #374151;
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            min-width: 200px;
+        }
+        
+        .scenario:hover {
+            background-color: #4B5563;
+            transform: translateY(-3px);
+        }
+        
+        .scenario.active {
+            background-color: #4B5563;
+        }
+        .scenario.no-hedge.active { border-color: var(--tertiary-accent); }
+        .scenario.futures.active { border-color: var(--primary-accent); }
+        .scenario.options.active { border-color: var(--secondary-accent); }
+        
+        .scenario-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        .scenario.no-hedge .scenario-icon { color: var(--tertiary-accent); }
+        .scenario.futures .scenario-icon { color: var(--primary-accent); }
+        .scenario.options .scenario-icon { color: var(--secondary-accent); }
+
+        .scenario-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: inline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 680px) {
+            .scenarios {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mercados de Futuros y Opciones</h1>
+            <p class="subtitle">Herramientas financieras clave para la gestión eficaz del riesgo de precios en materias primas.</p>
+        </header>
+        
+        <div class="intro-box">
+            <p>Los mercados de futuros y opciones son herramientas financieras que permiten fijar el precio de los granos para una fecha posterior. Su función principal no es la entrega física del producto, sino la <span class="highlight">gestión del riesgo de precio</span>.</p>
+        </div>
+        
+        <div class="cards-container">
+            <div class="card futures">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="card-title">Contratos de Futuros</h2>
+                </div>
+                <div class="card-content">
+                    <p>Un acuerdo para comprar o vender una cantidad estandarizada de un producto a un precio pactado hoy, para ser liquidado en una fecha futura.</p>
+                    <ul>
+                        <li><span class="highlight">Obliga</span> a ambas partes del contrato.</li>
+                        <li>Permite <span class="highlight">fijar un precio</span> para una transacción futura.</li>
+                        <li>Reduce la exposición a la volatilidad del mercado.</li>
+                        <li>Requiere un margen inicial como garantía.</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong> Un agricultor vende futuros de soja a $300/ton para la cosecha de marzo, asegurando su precio de venta.</p>
+                </div>
+            </div>
+            
+            <div class="card options">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2 class="card-title">Contratos de Opciones</h2>
+                </div>
+                <div class="card-content">
+                    <p>Otorgan el <span class="highlight">derecho, pero no la obligación</span>, de comprar (CALL) o vender (PUT) un activo a un precio determinado.</p>
+                    <ul>
+                        <li><span class="highlight">Opción CALL:</span> Derecho a comprar.</li>
+                        <li><span class="highlight">Opción PUT:</span> Derecho a vender.</li>
+                        <li>Funcionan como un <span class="highlight">seguro</span> contra movimientos adversos.</li>
+                        <li>El comprador paga una <span class="highlight">prima</span> por adquirir el derecho.</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong> Un productor compra un PUT para asegurarse un precio mínimo de $280/ton, protegiéndose de bajas sin renunciar a posibles subas.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="strategy-section">
+            <h2 class="section-title">Visualización de Estrategias</h2>
+            <p class="subtitle" style="text-align: center; margin-bottom: 30px;">El gráfico ilustra el desempeño de un productor en diferentes escenarios de precios.</p>
+            
+            <div class="scenarios">
+                <div class="scenario no-hedge" onclick="showScenario(0)">
+                    <i class="fas fa-wind scenario-icon"></i>
+                    <h3 class="scenario-title">Sin Cobertura</h3>
+                </div>
+                <div class="scenario futures active" onclick="showScenario(1)">
+                    <i class="fas fa-lock scenario-icon"></i>
+                    <h3 class="scenario-title">Con Futuros</h3>
+                </div>
+                <div class="scenario options" onclick="showScenario(2)">
+                    <i class="fas fa-umbrella scenario-icon"></i>
+                    <h3 class="scenario-title">Con Opciones</h3>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="strategyChart"></canvas>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Infografía interactiva sobre Mercados de Futuros y Opciones.</p>
+        </footer>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('strategyChart').getContext('2d');
+        let strategyChart;
+        
+        const scenarioData = [
+            { // Sin cobertura
+                label: 'Sin Cobertura',
+                data: [ -30, -20, -10, 0, 10, 20, 30 ],
+                borderColor: '#F8D210', // Yellow
+                backgroundColor: 'rgba(248, 210, 16, 0.1)',
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 5
+            },
+            { // Con futuros
+                label: 'Con Futuros (Precio fijado en $5)',
+                data: [ 5, 5, 5, 5, 5, 5, 5 ],
+                borderColor: '#00F6FF', // Cyan
+                backgroundColor: 'rgba(0, 246, 255, 0.1)',
+                borderWidth: 3,
+                tension: 0,
+                pointRadius: 5
+            },
+            { // Con opciones
+                label: 'Con Opciones (Piso en $0, costo prima -$2)',
+                data: [ 0, 0, 0, -2, 8, 18, 28 ],
+                borderColor: '#FF00E4', // Magenta
+                backgroundColor: 'rgba(255, 0, 228, 0.1)',
+                borderWidth: 3,
+                tension: 0.2,
+                pointRadius: 5
+            }
+        ];
+        
+        function initChart(activeIndex) {
+            if (strategyChart) {
+                strategyChart.destroy();
+            }
+            
+            const activeData = [scenarioData[activeIndex]];
+            
+            strategyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['-30%', '-20%', '-10%', 'Precio Objetivo', '+10%', '+20%', '+30%'],
+                    datasets: activeData
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#F9FAFB',
+                                font: { size: 14 }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Rendimiento vs. Cambio en el Precio de Mercado',
+                            color: '#F9FAFB',
+                            font: { size: 18, weight: '600' }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 26, 46, 0.8)',
+                            titleColor: '#00F6FF',
+                            bodyColor: '#F9FAFB',
+                            bodyFont: { size: 14 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            boxPadding: 4
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Resultado ($)',
+                                color: '#D1D5DB',
+                                font: { size: 14 }
+                            },
+                            ticks: {
+                                color: '#D1D5DB',
+                                callback: value => '$' + value
+                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Cambio en el precio de mercado',
+                                color: '#D1D5DB',
+                                font: { size: 14 }
+                            },
+                            ticks: { color: '#D1D5DB' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutCubic'
+                    }
+                }
+            });
+        }
+        
+        function showScenario(index) {
+            document.querySelectorAll('.scenario').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+            initChart(index);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart(1); // Iniciar con "Con Futuros"
+        });
+    </script>
+</body>
+</html>

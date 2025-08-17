@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puertos de Santa Fe - Infografía Completa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0fff4 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #1a5d1a 0%, #2e7d32 100%);
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            border-bottom: 8px solid #ffcc00;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .header-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+            font-size: 2.5rem;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-bottom: 5px solid #ffcc00;
+        }
+        
+        .stat-box {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            padding: 35px 25px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border-top: 8px solid #2e7d32;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .stat-icon {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: #2e7d32;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box:hover .stat-icon {
+            transform: scale(1.2);
+            color: #ff6b00;
+        }
+        
+        .stat-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #2e7d32;
+            margin: 15px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .products-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #fff9c4 0%, #ffecb3 100%);
+            text-align: center;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #1b5e20;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+        }
+        
+        .section-title i {
+            font-size: 3rem;
+            color: #ff6b00;
+            animation: pulse 2s infinite;
+        }
+        
+        .products-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .accordion {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .accordion-item {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            background: white;
+        }
+        
+        .accordion-header {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .accordion-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.1);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-header:hover:before {
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .product-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .product-icon {
+            font-size: 2rem;
+        }
+        
+        .percentage-badge {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-header:hover .percentage-badge {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .accordion-header i.fa-chevron-down {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-header.active {
+            background: rgba(0,0,0,0.1) !important;
+        }
+        
+        .accordion-header.active i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            background: white;
+            transition: all 0.4s ease;
+        }
+        
+        .accordion-content.show {
+            padding: 30px;
+            max-height: 500px;
+        }
+        
+        .product-info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .product-details {
+            text-align: left;
+            flex: 1;
+        }
+        
+        .product-details h3 {
+            font-size: 1.8rem;
+            color: #1b5e20;
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .product-details p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .tonnage {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .tonnage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Colores específicos para cada producto */
+        .soja-header { background: linear-gradient(90deg, #8bc34a 0%, #4caf50 100%); }
+        .trigo-header { background: linear-gradient(90deg, #ffd54f 0%, #fbc02d 100%); }
+        .maiz-header { background: linear-gradient(90deg, #ffb74d 0%, #ff9800 100%); }
+        .girasol-header { background: linear-gradient(90deg, #ffd740 0%, #ffc400 100%); }
+        .carne-header { background: linear-gradient(90deg, #e57373 0%, #f44336 100%); }
+        
+        .soja-tonnage { background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%); }
+        .trigo-tonnage { background: linear-gradient(135deg, #fbc02d 0%, #f57f17 100%); }
+        .maiz-tonnage { background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); }
+        .girasol-tonnage { background: linear-gradient(135deg, #ffc400 0%, #ffab00 100%); }
+        .carne-tonnage { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
+        
+        .visualization-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #e1f5fe 0%, #bbdefb 100%);
+            text-align: center;
+        }
+        
+        .visualization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .visual-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 4px solid #ffcc00;
+        }
+        
+        .visual-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 20px 0 40px;
+            position: relative;
+        }
+        
+        .map-container {
+            position: relative;
+            height: 400px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Mapa_de_la_provincia_de_Santa_Fe.svg/1200px-Mapa_de_la_provincia_de_Santa_Fe.svg.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 20px 0 40px;
+        }
+        
+        .map-marker {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #e53935;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .map-marker::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+        }
+        
+        .map-marker:hover {
+            transform: rotate(-45deg) scale(1.5);
+            z-index: 10;
+        }
+        
+        .map-marker.tooltip-active {
+            transform: rotate(-45deg) scale(1.5);
+            z-index: 10;
+        }
+        
+        .map-tooltip {
+            position: absolute;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            min-width: 220px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .map-tooltip h3 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+        }
+        
+        .map-tooltip ul {
+            list-style: none;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        
+        .map-tooltip li {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .map-tooltip li i {
+            color: #2e7d32;
+            font-size: 1rem;
+        }
+        
+        .importance-section {
+            padding: 80px 40px;
+            background: #f5f5f5;
+            background-image: radial-gradient(#c8e6c9 1px, transparent 2px);
+            background-size: 40px 40px;
+        }
+        
+        .importance-title {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #1b5e20;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+        }
+        
+        .importance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .importance-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 4px solid #ffcc00;
+        }
+        
+        .importance-card:hover {
+            transform: translateY(-15px) rotate(-1deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: #ff6b00;
+        }
+        
+        .importance-icon {
+            font-size: 4.5rem;
+            margin-bottom: 30px;
+            color: #2e7d32;
+            transition: all 0.3s ease;
+        }
+        
+        .importance-card:hover .importance-icon {
+            transform: scale(1.2) rotate(10deg);
+            color: #ff6b00;
+        }
+        
+        .importance-card h3 {
+            color: #1b5e20;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.9rem;
+            margin-bottom: 25px;
+        }
+        
+        .importance-card p {
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: #2c3e50;
+        }
+        
+        footer {
+            background: linear-gradient(90deg, #1a5d1a 0%, #2e7d32 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            border-top: 8px solid #ffcc00;
+        }
+        
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            font-size: 2.5rem;
+            color: #ffcc00;
+        }
+        
+        /* Animaciones */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @media (max-width: 1100px) {
+            .accordion {
+                grid-template-columns: 1fr;
+            }
+            
+            .visualization-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container, .map-container {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .product-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .product-details {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🚢 LOS PUERTOS DE SANTA FE</h1>
+                <p class="subtitle">El motor agroexportador de la economía argentina</p>
+                <div class="header-icons">
+                    <span>🌱</span>
+                    <span>🚜</span>
+                    <span>⚓</span>
+                    <span>🌍</span>
+                    <span>💰</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fas fa-ship"></i></div>
+                <div class="stat-value">70%</div>
+                <div class="stat-label">Exportaciones de granos de Argentina</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fas fa-weight-hanging"></i></div>
+                <div class="stat-value">61M</div>
+                <div class="stat-label">Toneladas exportadas (2024)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                <div class="stat-value">$25B</div>
+                <div class="stat-label">Ingresos anuales (USD)</div>
+            </div>
+        </div>
+        
+        <div class="products-section">
+            <h2 class="section-title">
+                <i class="fas fa-seedling"></i>
+                Productos Clave Exportados
+            </h2>
+            
+            <div class="products-container">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header soja-header">
+                            <div class="product-title">
+                                <i class="fas fa-seedling product-icon"></i>
+                                <span>Soja</span>
+                            </div>
+                            <div class="percentage-badge">
+                                <i class="fas fa-percentage"></i>
+                                <span>49.2%</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="product-info">
+                                <div class="product-details">
+                                    <h3>La Reina de las Exportaciones</h3>
+                                    <p>La soja es el principal producto de exportación de Argentina, y los puertos de Santa Fe manejan la mayor parte de estas exportaciones. La soja se exporta tanto en grano como procesada (harina y aceite).</p>
+                                    <p>El complejo sojero es vital para la economía argentina, generando miles de millones de dólares en divisas y sosteniendo una amplia cadena de valor que incluye producción, transporte, procesamiento y exportación.</p>
+                                    <div class="tonnage soja-tonnage">30 Millones de toneladas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header trigo-header">
+                            <div class="product-title">
+                                <i class="fas fa-bread-slice product-icon"></i>
+                                <span>Trigo</span>
+                            </div>
+                            <div class="percentage-badge">
+                                <i class="fas fa-percentage"></i>
+                                <span>16.4%</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="product-info">
+                                <div class="product-details">
+                                    <h3>El Oro Amarillo</h3>
+                                    <p>El trigo argentino es reconocido mundialmente por su calidad. Los puertos de Santa Fe exportan grandes volúmenes de trigo a mercados como Brasil, Indonesia y diversos países de África.</p>
+                                    <p>Este cereal es fundamental para la seguridad alimentaria global y representa una importante fuente de ingresos para el país, especialmente durante la temporada de cosecha.</p>
+                                    <div class="tonnage trigo-tonnage">10 Millones de toneladas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header maiz-header">
+                            <div class="product-title">
+                                <i class="fas fa-corn product-icon"></i>
+                                <span>Maíz</span>
+                            </div>
+                            <div class="percentage-badge">
+                                <i class="fas fa-percentage"></i>
+                                <span>32.8%</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="product-info">
+                                <div class="product-details">
+                                    <h3>El Combustible Agroindustrial</h3>
+                                    <p>Argentina es uno de los principales exportadores mundiales de maíz. Los puertos de Santa Fe manejan grandes volúmenes de este cereal, destinado principalmente a alimentación animal y producción de etanol.</p>
+                                    <p>La exportación de maíz ha crecido significativamente en los últimos años, impulsada por la demanda global y las mejoras en los rendimientos agrícolas.</p>
+                                    <div class="tonnage maiz-tonnage">20 Millones de toneladas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header girasol-header">
+                            <div class="product-title">
+                                <i class="fas fa-sun product-icon"></i>
+                                <span>Girasol</span>
+                            </div>
+                            <div class="percentage-badge">
+                                <i class="fas fa-percentage"></i>
+                                <span>5.7%</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="product-info">
+                                <div class="product-details">
+                                    <h3>El Sol que Exportamos</h3>
+                                    <p>Argentina es líder mundial en producción y exportación de aceite de girasol. Los puertos de Santa Fe son cruciales para la exportación de este producto, principalmente a la Unión Europea y Asia.</p>
+                                    <p>El girasol representa una alternativa importante en la rotación de cultivos y agrega valor a través del procesamiento industrial para la producción de aceites comestibles de alta calidad.</p>
+                                    <div class="tonnage girasol-tonnage">3.5 Millones de toneladas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header carne-header">
+                            <div class="product-title">
+                                <i class="fas fa-drumstick-bite product-icon"></i>
+                                <span>Carne</span>
+                            </div>
+                            <div class="percentage-badge">
+                                <i class="fas fa-percentage"></i>
+                                <span>1.6%</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="product-info">
+                                <div class="product-details">
+                                    <h3>La Tradición que Cruza Fronteras</h3>
+                                    <p>La carne argentina es reconocida mundialmente por su calidad. Los puertos de Santa Fe exportan cortes de carne bovina de alto valor a mercados exigentes como China, la Unión Europea y Estados Unidos.</p>
+                                    <p>La cadena de la carne genera importantes divisas y empleo en todo el país, desde la cría en los campos hasta los frigoríficos y puertos de exportación.</p>
+                                    <div class="tonnage carne-tonnage">1 Millón de toneladas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="visualization-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i>
+                Visualización de Datos
+            </h2>
+            
+            <div class="visualization-grid">
+                <div class="visual-card">
+                    <h3><i class="fas fa-chart-pie"></i> Distribución de Exportaciones</h3>
+                    <div class="chart-container">
+                        <canvas id="exportChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="visual-card">
+                    <h3><i class="fas fa-map-marked-alt"></i> Mapa de Puertos</h3>
+                    <div class="map-container">
+                        <div class="map-marker" style="top: 60%; left: 42%;" data-port="rosario"></div>
+                        <div class="map-marker" style="top: 55%; left: 45%;" data-port="sanlorenzo"></div>
+                        <div class="map-marker" style="top: 53%; left: 47%;" data-port="timbues"></div>
+                        
+                        <div class="map-tooltip" id="rosario-tooltip">
+                            <h3>Puerto de Rosario</h3>
+                            <ul>
+                                <li><i class="fas fa-ship"></i> Principal puerto de exportación</li>
+                                <li><i class="fas fa-warehouse"></i> 12 terminales especializadas</li>
+                                <li><i class="fas fa-box"></i> Capacidad: 8M toneladas</li>
+                                <li><i class="fas fa-chart-line"></i> Exporta 30M toneladas anuales</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="map-tooltip" id="sanlorenzo-tooltip">
+                            <h3>Puerto de San Lorenzo</h3>
+                            <ul>
+                                <li><i class="fas fa-industry"></i> Complejo industrial-portuario</li>
+                                <li><i class="fas fa-cogs"></i> Plantas de crushing de soja</li>
+                                <li><i class="fas fa-box"></i> Capacidad: 5M toneladas</li>
+                                <li><i class="fas fa-chart-line"></i> Exporta 20M toneladas anuales</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="map-tooltip" id="timbues-tooltip">
+                            <h3>Puerto de Timbúes</h3>
+                            <ul>
+                                <li><i class="fas fa-truck-loading"></i> Terminales especializadas</li>
+                                <li><i class="fas fa-seedling"></i> Granos y subproductos</li>
+                                <li><i class="fas fa-box"></i> Capacidad: 7M toneladas</li>
+                                <li><i class="fas fa-chart-line"></i> Exporta 11M toneladas anuales</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p>Haz clic en los marcadores para ver detalles de cada puerto</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="visualization-section" style="background: linear-gradient(135deg, #e1f5fe 0%, #bbdefb 100%);">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Evolución de Exportaciones
+            </h2>
+            
+            <div class="visualization-grid">
+                <div class="visual-card">
+                    <h3><i class="fas fa-seedling"></i> Exportaciones por Producto (2020-2024)</h3>
+                    <div class="chart-container">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                    <p>Evolución de las exportaciones de los principales productos agrícolas</p>
+                </div>
+                
+                <div class="visual-card">
+                    <h3><i class="fas fa-money-bill-wave"></i> Ingresos por Exportaciones (Miles de millones USD)</h3>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <p>Crecimiento de los ingresos generados por las exportaciones</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="importance-section">
+            <h2 class="importance-title">
+                <i class="fas fa-star"></i>
+                ¿Por qué son vitales para Argentina?
+            </h2>
+            <div class="importance-grid">
+                <div class="importance-card">
+                    <div class="importance-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3>Conectividad Global</h3>
+                    <p>Ubicación estratégica sobre el Río Paraná permite conexión directa con los principales mercados internacionales.</p>
+                </div>
+                <div class="importance-card">
+                    <div class="importance-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Generación de Divisas</h3>
+                    <p>Ingresan más de $25 mil millones de dólares anuales, fundamentales para la economía argentina.</p>
+                </div>
+                <div class="importance-card">
+                    <div class="importance-icon"><i class="fas fa-link"></i></div>
+                    <h3>Cadena Agroindustrial</h3>
+                    <p>Sostiene toda la cadena productiva desde agricultores hasta exportadores.</p>
+                </div>
+                <div class="importance-card">
+                    <div class="importance-icon"><i class="fas fa-users"></i></div>
+                    <h3>Generación de Empleo</h3>
+                    <p>Emplea a más de 500,000 personas en toda la provincia y zonas aledañas.</p>
+                </div>
+                <div class="importance-card">
+                    <div class="importance-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Infraestructura Especializada</h3>
+                    <p>Terminales con tecnología de punta para almacenamiento y procesamiento.</p>
+                </div>
+                <div class="importance-card">
+                    <div class="importance-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <h3>Control de Calidad</h3>
+                    <p>500+ peritos garantizan los estándares de calidad internacionales.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Infografía: El Agro en Santa Fe - Datos 2024 | Los puertos del Río Paraná son el motor de la economía agroexportadora argentina</p>
+            <div class="footer-icons">
+                <i class="fas fa-tractor"></i>
+                <i class="fas fa-ship"></i>
+                <i class="fas fa-warehouse"></i>
+                <i class="fas fa-globe-americas"></i>
+                <i class="fas fa-chart-line"></i>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Gráfico de distribución de exportaciones
+        const exportChart = new Chart(
+            document.getElementById('exportChart'),
+            {
+                type: 'doughnut',
+                data: {
+                    labels: ['Soja', 'Maíz', 'Trigo', 'Girasol', 'Carne'],
+                    datasets: [{
+                        label: 'Toneladas exportadas (millones)',
+                        data: [30, 20, 10, 3.5, 1],
+                        backgroundColor: [
+                            '#8bc34a',
+                            '#ffb74d',
+                            '#ffd54f',
+                            '#ffc400',
+                            '#e57373'
+                        ],
+                        borderColor: [
+                            '#7cb342',
+                            '#ff9800',
+                            '#fbc02d',
+                            '#ffab00',
+                            '#f44336'
+                        ],
+                        borderWidth: 3,
+                        hoverOffset: 20
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const percentage = ((context.raw / 64.5) * 100).toFixed(1);
+                                    return `${context.label}: ${context.raw}M t (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            }
+        );
+        
+        // Gráfico de tendencias
+        const trendChart = new Chart(
+            document.getElementById('trendChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [
+                        {
+                            label: 'Soja',
+                            data: [25, 27, 26, 28, 30],
+                            borderColor: '#8bc34a',
+                            backgroundColor: 'rgba(139, 195, 74, 0.1)',
+                            borderWidth: 4,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Maíz',
+                            data: [15, 16, 18, 19, 20],
+                            borderColor: '#ffb74d',
+                            backgroundColor: 'rgba(255, 183, 77, 0.1)',
+                            borderWidth: 4,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Trigo',
+                            data: [8, 9, 9, 9.5, 10],
+                            borderColor: '#ffd54f',
+                            backgroundColor: 'rgba(255, 213, 79, 0.1)',
+                            borderWidth: 4,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Girasol',
+                            data: [2.8, 3.0, 3.2, 3.3, 3.5],
+                            borderColor: '#ffc400',
+                            backgroundColor: 'rgba(255, 196, 0, 0.1)',
+                            borderWidth: 4,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Carne',
+                            data: [0.7, 0.8, 0.85, 0.9, 1],
+                            borderColor: '#e57373',
+                            backgroundColor: 'rgba(229, 115, 115, 0.1)',
+                            borderWidth: 4,
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Millones de toneladas',
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Año',
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+        
+        // Gráfico de ingresos
+        const revenueChart = new Chart(
+            document.getElementById('revenueChart'),
+            {
+                type: 'bar',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Ingresos (miles de millones USD)',
+                        data: [18.2, 20.5, 22.1, 23.8, 25.3],
+                        backgroundColor: [
+                            'rgba(67, 160, 71, 0.7)',
+                            'rgba(67, 160, 71, 0.8)',
+                            'rgba(67, 160, 71, 0.9)',
+                            'rgba(46, 125, 50, 0.9)',
+                            'rgba(27, 94, 32, 0.9)'
+                        ],
+                        borderColor: [
+                            '#43a047',
+                            '#43a047',
+                            '#43a047',
+                            '#2e7d32',
+                            '#1b5e20'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Miles de millones USD',
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Año',
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+        
+        // Acordeón interactivo
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                content.classList.toggle('show');
+            });
+        });
+        
+        // Abrir el primer elemento por defecto
+        document.querySelector('.accordion-header').classList.add('active');
+        document.querySelector('.accordion-content').classList.add('show');
+        
+        // Mapa interactivo
+        document.querySelectorAll('.map-marker').forEach(marker => {
+            marker.addEventListener('click', function() {
+                const port = this.getAttribute('data-port');
+                const tooltip = document.getElementById(`${port}-tooltip`);
+                
+                // Cerrar todos los tooltips
+                document.querySelectorAll('.map-tooltip').forEach(t => {
+                    t.style.display = 'none';
+                });
+                
+                // Remover clase activa de todos los marcadores
+                document.querySelectorAll('.map-marker').forEach(m => {
+                    m.classList.remove('tooltip-active');
+                });
+                
+                // Mostrar tooltip y marcar como activo
+                if (tooltip) {
+                    tooltip.style.display = 'block';
+                    tooltip.style.top = `${this.offsetTop - tooltip.offsetHeight - 10}px`;
+                    tooltip.style.left = `${this.offsetLeft - tooltip.offsetWidth/2 + 15}px`;
+                    this.classList.add('tooltip-active');
+                }
+            });
+        });
+        
+        // Cerrar tooltips al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.map-marker') && !e.target.closest('.map-tooltip')) {
+                document.querySelectorAll('.map-tooltip').forEach(t => {
+                    t.style.display = 'none';
+                });
+                document.querySelectorAll('.map-marker').forEach(m => {
+                    m.classList.remove('tooltip-active');
+                });
+            }
+        });
+        
+        // Animaciones al aparecer
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Animar elementos al aparecer
+            document.querySelectorAll('.stat-box, .accordion-item, .visual-card, .importance-card').forEach(el => {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(50px)";
+                el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

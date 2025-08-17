@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Definitiva de Incoterms 2025: Comercio de Granos</title>
+    
+    <!-- Scripts y Fuentes -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Estilos CSS Mejorados -->
+    <style>
+        :root {
+            --fob-color: #0093E9;
+            --cif-color: #800080;
+            --exw-color: #FBAB7E;
+            --primary: #8BC6EC;
+            --secondary: #9599E2;
+            --white: #ffffff;
+            --dark-text: #333;
+            --light-text: #555;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark-text);
+            line-height: 1.7;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            color: var(--white);
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 10px auto 0;
+            opacity: 0.9;
+        }
+        
+        /* Tarjetas y Secciones */
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #2a2a2a;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        strong {
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        /* Acordeón de Incoterms - Botones más visibles */
+        .incoterm-accordion .incoterm-item {
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: none;
+        }
+
+        .incoterm-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .incoterm-header:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .incoterm-header h3 {
+            margin: 0;
+            padding: 0;
+            border: none;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .incoterm-header .icon {
+            font-size: 1.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .incoterm-content {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            background-color: var(--white);
+        }
+        
+        .incoterm-content.active {
+            padding: 30px 25px;
+            max-height: 1200px;
+        }
+        
+        .incoterm-item.active .incoterm-header .icon {
+            transform: rotate(180deg);
+        }
+
+        /* Colores específicos de Incoterms */
+        #fob .incoterm-header { background: linear-gradient(135deg, #0093E9 0%, #80D0C7 100%); }
+        #cif .incoterm-header { background: linear-gradient(135deg, #800080 0%, #ffc0cb 100%); }
+        #exw .incoterm-header { background: linear-gradient(135deg, #FBAB7E 0%, #F7CE68 100%); }
+
+        .responsibilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .responsibility-card {
+            background-color: #f7f9fc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .responsibility-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .responsibility-card ul {
+            list-style-type: '✔ ';
+            padding-left: 20px;
+            color: var(--light-text);
+        }
+
+        /* Tabla Comparativa */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+        .comparison-table th {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .comparison-table td {
+            vertical-align: middle;
+        }
+        .comparison-table .header-fob { background-color: #e0f7fa; color: #0077c2; }
+        .comparison-table .header-cif { background-color: #f3e5f5; color: #6a1b9a; }
+        .comparison-table .header-exw { background-color: #fff3e0; color: #e65100; }
+        .comparison-table .check-mark { color: #4caf50; text-align: center; font-size: 1.5rem; }
+        .comparison-table .cross-mark { color: #f44336; text-align: center; font-size: 1.5rem; }
+
+        /* Gráficos */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .chart-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 400px;
+        }
+        .chart-container h3 {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            color: var(--white);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+            .comparison-table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía de Incoterms 2025 ✨</h1>
+            <p class="subtitle">¡La posta sobre los términos más usados para exportar granos desde Argentina, en un lenguaje que sí entendés!</p>
+        </header>
+        
+        <section class="card">
+            <h2>¿Qué onda con los Incoterms?</h2>
+            <p>Imaginate que los <strong>Incoterms</strong> son como las reglas de un juego para comprar y vender cosas a otros países. Definen quién paga qué y quién se hace cargo si algo sale mal con la mercadería. Para la zona de Santa Fe, que es una bestia exportando granos, saber de esto es clave.</p>
+        </section>
+
+        <section class="incoterm-accordion">
+            <h2 style="color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">Los Incoterms que la rompen en el Agro</h2>
+
+            <!-- FOB -->
+            <div class="incoterm-item" id="fob">
+                <div class="incoterm-header">
+                    <h3><i class="fas fa-ship"></i>FOB (Free On Board)</h3>
+                    <i class="fas fa-chevron-down icon"></i>
+                </div>
+                <div class="incoterm-content">
+                    <p><strong>En criollo:</strong> El vendedor se encarga de todo hasta que los granos están arriba del barco en el puerto (ponele, Rosario). Una vez que la carga está "a bordo", la responsabilidad es del comprador.</p>
+                    <div class="responsibilities-grid">
+                        <div class="responsibility-card">
+                            <h4>🚀 Misión del Vendedor</h4>
+                            <ul>
+                                <li>Llevar los granos al puerto.</li>
+                                <li>Pagar la aduana para exportar.</li>
+                                <li>Cubrir los gastos de carga al buque.</li>
+                            </ul>
+                        </div>
+                        <div class="responsibility-card">
+                            <h4>🌏 Misión del Comprador</h4>
+                            <ul>
+                                <li>Pagar el viaje en barco (flete).</li>
+                                <li>Contratar el seguro (¡muy recomendado!).</li>
+                                <li>Ocuparse de todo en el puerto de destino.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CIF -->
+            <div class="incoterm-item" id="cif">
+                <div class="incoterm-header">
+                    <h3><i class="fas fa-file-signature"></i>CIF (Cost, Insurance & Freight)</h3>
+                    <i class="fas fa-chevron-down icon"></i>
+                </div>
+                <div class="incoterm-content">
+                    <p><strong>En criollo:</strong> El vendedor se hace cargo de casi todo: paga el flete del barco y hasta un seguro básico para la mercadería. Pero ¡ojo! el riesgo de que algo pase en el viaje es del comprador desde que la carga está en el barco en origen.</p>
+                    <div class="responsibilities-grid">
+                        <div class="responsibility-card">
+                            <h4>🚀 Misión del Vendedor</h4>
+                            <ul>
+                                <li>Lo mismo que en FOB y además...</li>
+                                <li>Pagar el viaje en barco hasta destino.</li>
+                                <li>Contratar y pagar un seguro mínimo.</li>
+                            </ul>
+                        </div>
+                        <div class="responsibility-card">
+                            <h4>🌏 Misión del Comprador</h4>
+                            <ul>
+                                <li>"Hacerse cargo" del riesgo en el mar.</li>
+                                <li>Pagar la descarga y los trámites al llegar.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EXW -->
+            <div class="incoterm-item" id="exw">
+                <div class="incoterm-header">
+                    <h3><i class="fas fa-warehouse"></i>EXW (Ex Works)</h3>
+                    <i class="fas fa-chevron-down icon"></i>
+                </div>
+                <div class="incoterm-content">
+                    <p><strong>En criollo:</strong> La más fácil para el que vende. El vendedor solo tiene que dejar los granos listos en su campo o depósito. El comprador se encarga de absolutamente TODO lo demás.</p>
+                     <div class="responsibilities-grid">
+                        <div class="responsibility-card">
+                            <h4>🚀 Misión del Vendedor</h4>
+                            <ul>
+                                <li>Dejar los granos listos para que los pasen a buscar.</li>
+                            </ul>
+                        </div>
+                        <div class="responsibility-card">
+                            <h4>🌏 Misión del Comprador</h4>
+                            <ul>
+                                <li>Cargar la mercadería.</li>
+                                <li>Organizar y pagar todo el transporte.</li>
+                                <li>Hacer todos los papeles (exportación e importación).</li>
+                                <li>Básicamente, todo el trabajo pesado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Comparativa Rápida ⚡</h2>
+            <p>Para que no te quemes la cabeza, acá tenés un resumen de quién hace qué.</p>
+            <div class="table-responsive">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Responsabilidad</th>
+                            <th class="header-exw">EXW</th>
+                            <th class="header-fob">FOB</th>
+                            <th class="header-cif">CIF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Transporte en Argentina</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="check-mark"> vendedor</td>
+                            <td class="check-mark"> vendedor</td>
+                        </tr>
+                        <tr>
+                            <td>Aduana de exportación</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="check-mark"> vendedor</td>
+                            <td class="check-mark"> vendedor</td>
+                        </tr>
+                        <tr>
+                            <td>Carga al barco</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="check-mark"> vendedor</td>
+                            <td class="check-mark"> vendedor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Punto donde pasa el riesgo</strong></td>
+                            <td><strong>En el campo/depósito</strong></td>
+                            <td><strong>Arriba del barco</strong></td>
+                            <td><strong>Arriba del barco</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Viaje en barco (Flete)</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="check-mark"> vendedor</td>
+                        </tr>
+                        <tr>
+                            <td>Seguro del viaje</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="cross-mark"> comprador</td>
+                            <td class="check-mark"> vendedor</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2 style="color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">El Sector en Números 📊</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Movimiento en Puertos (Millones de Toneladas)</h3>
+                    <canvas id="portsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>¿Cómo llegan los granos al puerto?</h3>
+                    <canvas id="transportChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Guía hecha con buena onda para estudiantes y pros del comercio exterior | Santa Fe, Argentina | 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lógica del Acordeón
+            const accordionItems = document.querySelectorAll('.incoterm-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.incoterm-header');
+                header.addEventListener('click', () => {
+                    const content = item.querySelector('.incoterm-content');
+                    const wasActive = item.classList.contains('active');
+
+                    accordionItems.forEach(i => {
+                        if (i !== item) {
+                            i.classList.remove('active');
+                            i.querySelector('.incoterm-content').classList.remove('active');
+                        }
+                    });
+
+                    if (!wasActive) {
+                        item.classList.add('active');
+                        content.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                        content.classList.remove('active');
+                    }
+                });
+            });
+
+            // Lógica de Gráficos
+            const varPrimary = '#8BC6EC';
+            const varSecondary = '#9599E2';
+            const varFob = '#0093E9';
+            const varCif = '#800080';
+            const varExw = '#FBAB7E';
+            const varLightText = '#6c757d'; 
+
+            // Gráfico de puertos
+            const portsCtx = document.getElementById('portsChart').getContext('2d');
+            new Chart(portsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Rosario', 'San Lorenzo', 'Timbúes', 'Bahía Blanca', 'Quequén'],
+                    datasets: [{
+                        label: 'Millones de toneladas',
+                        data: [68, 35, 32, 22, 15],
+                        backgroundColor: [varFob, varCif, varExw, varSecondary, varPrimary],
+                        borderRadius: 5,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+            
+            // Gráfico de modos de transporte
+            const transportCtx = document.getElementById('transportChart').getContext('2d');
+            new Chart(transportCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Camión (65%)', 'Ferrocarril (30%)', 'Barcaza (5%)'],
+                    datasets: [{
+                        data: [65, 30, 5],
+                        backgroundColor: [varPrimary, varSecondary, '#B0C4DE'],
+                        borderColor: '#ffffff',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    cutout: '60%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

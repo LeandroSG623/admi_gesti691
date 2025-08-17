@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derecho Económico: Evolución del Comercio de Granos</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (para algunos iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- RESET Y VARIABLES CSS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #1a1a2e;
+            --card-color: #16213e;
+            --primary-glow: #0f3460;
+            --secondary-glow: #e94560;
+            --accent-1: #537895;
+            --accent-2: #09203f;
+            --text-color: #e0e0e0;
+            --header-text: #ffffff;
+            --highlight-color: #16c79a;
+            --shadow-color: rgba(22, 199, 154, 0.2);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 50%, var(--primary-glow), transparent 30%),
+                radial-gradient(circle at 85% 30%, var(--secondary-glow), transparent 25%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            padding: 1rem;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* --- ENCABEZADO --- */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--header-text);
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--highlight-color);
+            margin-bottom: 1rem;
+        }
+        
+        .title-icon {
+            display: inline-block;
+            animation: float-icon 4s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* --- CONTENEDOR DE ETAPAS (Timeline) --- */
+        .stages-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 992px) {
+            .stages-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .era {
+            background: var(--card-color);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .era.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .era:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 25px var(--shadow-color);
+        }
+
+        .era-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .era-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--header-text);
+            flex-shrink: 0;
+        }
+        
+        .state-icon { background: linear-gradient(45deg, #ff5e62, #ff9966); }
+        .deregulation-icon { background: linear-gradient(45deg, #16c79a, #2fdd92); }
+
+        .era-title h2 {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: 600;
+            color: var(--header-text);
+        }
+        
+        .era-title span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--highlight-color);
+            display: block;
+        }
+
+        .era-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        /* --- ACORDEÓN INTERACTIVO --- */
+        .accordion-item {
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(22, 199, 154, 0.1);
+        }
+
+        .accordion-header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .accordion-header-title span {
+            font-size: 1.1rem;
+        }
+
+        .accordion-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .accordion-arrow {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.2rem;
+            color: var(--highlight-color);
+        }
+
+        .accordion-content {
+            background: transparent;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+
+        .accordion-content p {
+            padding: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+
+        .accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* --- PIE DE PÁGINA --- */
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding: 2rem;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-icons {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .footer-icons i {
+            color: var(--highlight-color);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .footer-icons i:hover {
+            transform: scale(1.2) rotate(10deg);
+            color: white;
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float-icon {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Iconos animados para el acordeón */
+        .gavel-icon { animation: gavel-swing 2s ease-in-out infinite alternate; }
+        @keyframes gavel-swing {
+            from { transform: rotate(-15deg); }
+            to { transform: rotate(15deg); }
+        }
+
+        .chart-icon { animation: chart-grow 2.5s ease-in-out infinite; }
+        @keyframes chart-grow {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.8); }
+        }
+
+        .users-icon { animation: users-pulse 2s ease-in-out infinite; }
+        @keyframes users-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="title-icon">⚖️</span> Derecho Económico</h1>
+            <p class="subtitle">Una travesía interactiva por la historia del comercio de granos en Argentina: del control estatal a la liberación del mercado. 🌾</p>
+        </header>
+
+        <main class="stages-container">
+            <!-- ETAPA ESTATAL -->
+            <section class="era era-state reveal">
+                <div class="era-header">
+                    <div class="era-icon state-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="era-title">
+                        <h2>Etapa Estatal</h2>
+                        <span>📅 1933 - 1991</span>
+                    </div>
+                </div>
+                <p class="era-content">
+                    Durante casi 60 años, el Estado controló férreamente el comercio de granos. La Junta Nacional de Granos era el jugador principal: fijaba precios, compraba toda la producción y manejaba los puertos. 🏛️
+                </p>
+                
+                <div class="accordion">
+                    <!-- Item 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-title">
+                                <svg class="accordion-icon gavel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 14.5L19 19M6 6l7.5 7.5M11 11L21 21M3 3l6 6"/><path d="M15 3l6 6M3 15l6 6"/></svg>
+                                <span>Marco Legal</span>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-arrow"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>📜 La Ley 12.236 de 1935 fue la piedra angular, creando la Junta Nacional de Granos y dándole poder absoluto sobre la compra, venta y almacenamiento. Era un monopolio estatal por ley.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-title">
+                                <svg class="accordion-icon chart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8a2.4 2.4 0 0 0-4.1-1.8C13.4 6.8 12.3 7 11 7c-1.7 0-3 1.3-3 3s1.3 3 3 3c1.3 0 2.4-.2 3.6-.8a2.4 2.4 0 0 0 4.1-1.8z"/></svg>
+                                <span>Impacto Económico</span>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-arrow"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>💸 Si bien estabilizó precios internos, el modelo generó ineficiencia y falta de inversión. La producción se estancó y el país perdió competitividad en el mercado mundial. Un gigante dormido.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-title">
+                                <svg class="accordion-icon users-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <span>Rol de Productores</span>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-arrow"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>👨‍🌾 Los productores tenían un único cliente: el Estado. No había negociación de precios ni libertad de elección. Esto limitaba la iniciativa privada y la posibilidad de crecer.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ETAPA DE DESREGULACIÓN -->
+            <section class="era era-deregulation reveal">
+                <div class="era-header">
+                    <div class="era-icon deregulation-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="era-title">
+                        <h2>Etapa de Desregulación</h2>
+                        <span>🚀 1991 - Actualidad</span>
+                    </div>
+                </div>
+                <p class="era-content">
+                    En los 90, un cambio radical. El decreto 2284/91 desmanteló el sistema estatal, disolvió la Junta, privatizó los puertos y abrió el juego al sector privado. ¡El mercado se despertó!
+                </p>
+                
+                <div class="accordion">
+                    <!-- Item 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-title">
+                                <svg class="accordion-icon gavel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 14.5L19 19M6 6l7.5 7.5M11 11L21 21M3 3l6 6"/><path d="M15 3l6 6M3 15l6 6"/></svg>
+                                <span>Decreto Clave</span>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-arrow"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>📝 El Decreto 2284/91 fue la "big bang" de la desregulación. Eliminó precios sostén, liberó el comercio y permitió que múltiples empresas compitieran, transformando la economía agraria argentina.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-title">
+                                <svg class="accordion-icon chart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8a2.4 2.4 0 0 0-4.1-1.8C13.4 6.8 12.3 7 11 7c-1.7 0-3 1.3-3 3s1.3 3 3 3c1.3 0 2.4-.2 3.6-.8a2.4 2.4 0 0 0 4.1-1.8z"/></svg>
+                                <span>Transformación</span>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-arrow"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>🔄 La inversión privada modernizó los puertos, aumentando la eficiencia y la capacidad de exportación. Argentina se reinsertó con fuerza en el mercado global de granos, convirtiéndose en un jugador clave.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-title">
+                                <svg class="accordion-icon users-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <span>Nuevo Paradigma</span>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-arrow"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>🌍 Se pasó a un sistema de libre mercado, donde la oferta y la demanda marcan el ritmo. Los productores ganaron libertad para negociar y vender, fomentando la competencia y la innovación.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Infografía interactiva sobre Derecho Económico Argentino.</p>
+            <div class="footer-icons">
+                <i class="fas fa-balance-scale"></i>
+                <i class="fa-solid fa-wheat-awn"></i>
+                <i class="fas fa-book"></i>
+                <i class="fas fa-globe"></i>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lógica del Acordeón
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const activeItem = document.querySelector('.accordion-item.active');
+                    const clickedItem = this.parentNode;
+
+                    // Si se hace clic en un item ya abierto, se cierra.
+                    if (activeItem && activeItem === clickedItem) {
+                        activeItem.classList.remove('active');
+                    } else {
+                        // Cierra el item que estaba abierto (si existe)
+                        if (activeItem) {
+                            activeItem.classList.remove('active');
+                        }
+                        // Abre el nuevo item
+                        clickedItem.classList.add('active');
+                    }
+                });
+            });
+
+            // Lógica para animaciones al hacer scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // El elemento se considera visible cuando el 10% está en pantalla
+            });
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

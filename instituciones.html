@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituciones Agropecuarias Argentinas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f0f9eb 0%, #e6f4e6 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: #2c5f2d;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #5a9367;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-weight: 500;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .institution-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .institution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .card-header:hover {
+            background-color: rgba(44, 95, 45, 0.05);
+        }
+
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .senasa { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); }
+        .afip { background: linear-gradient(135deg, #2196F3 0%, #0D47A1 100%); }
+        .inase { background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%); }
+        .cnv { background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%); }
+        .bolsas { background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%); }
+        .camaras { background: linear-gradient(135deg, #009688 0%, #00796B 100%); }
+
+        .icon-container i {
+            font-size: 30px;
+            color: white;
+        }
+
+        .card-title {
+            flex-grow: 1;
+        }
+
+        .card-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            color: #2c5f2d;
+            margin-bottom: 5px;
+        }
+
+        .card-title .acronym {
+            font-size: 1rem;
+            color: #5a9367;
+            font-weight: 600;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            color: #5a9367;
+            transition: transform 0.3s;
+        }
+
+        .card-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+
+        .card-content.active {
+            max-height: 1000px;
+            padding: 0 20px 25px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin: 20px 0 10px;
+            color: #2c5f2d;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .function-list, .control-list {
+            padding-left: 25px;
+            margin: 15px 0;
+        }
+
+        .function-list li, .control-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .function-list li:before, .control-list li:before {
+            content: "•";
+            color: #4CAF50;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(to right, #43A047, #1B5E20);
+        }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #5a9367;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-header {
+                padding: 15px;
+            }
+            
+            .icon-container {
+                width: 60px;
+                height: 60px;
+                margin-right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Instituciones Agropecuarias Argentinas</h1>
+            <p class="subtitle">Conoce los organismos clave que regulan y controlan el sector agropecuario argentino. Haz clic en cada tarjeta para ver detalles sobre sus funciones y cómo operan.</p>
+        </header>
+
+        <div class="grid">
+            <!-- SENASA -->
+            <div class="institution-card">
+                <div class="card-header" onclick="toggleAccordion(this)">
+                    <div class="icon-container senasa">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>SENASA</h2>
+                        <div class="acronym">Servicio Nacional de Sanidad y Calidad Agroalimentaria</div>
+                    </div>
+                    <div class="accordion-icon">▼</div>
+                </div>
+                <div class="card-content">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Función Principal</h3>
+                    </div>
+                    <p>Garantizar la sanidad animal y vegetal, así como la calidad e inocuidad de los productos agroalimentarios en Argentina. Funciona como ente regulador entre el sector productivo y los mercados internacionales.</p>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        <h3>¿Cómo funciona?</h3>
+                    </div>
+                    <ul class="function-list">
+                        <li>Establece normas sanitarias para producción y comercialización</li>
+                        <li>Certifica productos para exportación e importación</li>
+                        <li>Controla plagas y enfermedades en cultivos y ganado</li>
+                        <li>Fiscaliza establecimientos agroalimentarios</li>
+                        <li>Implementa programas de prevención y erradicación</li>
+                    </ul>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Mecanismos de Control</h3>
+                    </div>
+                    <ul class="control-list">
+                        <li>Realiza inspecciones periódicas en campos, plantas procesadoras y puertos</li>
+                        <li>Mantiene laboratorios de diagnóstico para análisis precisos</li>
+                        <li>Implementa sistemas de trazabilidad para monitorear toda la cadena productiva</li>
+                        <li>Establece protocolos de cuarentena para productos de riesgo</li>
+                    </ul>
+                    
+                    <a href="https://www.argentina.gob.ar/senasa" target="_blank" class="btn">Visitar sitio oficial <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- AFIP -->
+            <div class="institution-card">
+                <div class="card-header" onclick="toggleAccordion(this)">
+                    <div class="icon-container afip">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>AFIP</h2>
+                        <div class="acronym">Administración Federal de Ingresos Públicos</div>
+                    </div>
+                    <div class="accordion-icon">▼</div>
+                </div>
+                <div class="card-content">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Función Principal</h3>
+                    </div>
+                    <p>Recaudar impuestos y fiscalizar obligaciones tributarias en Argentina. En el sector agropecuario, supervisa el pago de impuestos y derechos de exportación.</p>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        <h3>¿Cómo funciona?</h3>
+                    </div>
+                    <ul class="function-list">
+                        <li>Controla declaraciones juradas de productores y exportadores</li>
+                        <li>Fiscaliza pagos de derechos de exportación</li>
+                        <li>Verifica facturación y operaciones comerciales</li>
+                        <li>Gestiona el sistema de retenciones a exportaciones</li>
+                        <li>Coordina con bancos y entidades financieras</li>
+                    </ul>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Mecanismos de Control</h3>
+                    </div>
+                    <ul class="control-list">
+                        <li>Utiliza sistemas informáticos avanzados para cruzar datos de operaciones, bancos y otras instituciones</li>
+                        <li>Realiza auditorías presenciales y remotas</li>
+                        <li>Cuenta con equipos especializados en comercio exterior</li>
+                        <li>Implementa análisis de riesgo para focalizar controles</li>
+                    </ul>
+                    
+                    <a href="https://www.afip.gob.ar/" target="_blank" class="btn">Visitar sitio oficial <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- INASE -->
+            <div class="institution-card">
+                <div class="card-header" onclick="toggleAccordion(this)">
+                    <div class="icon-container inase">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>INASE</h2>
+                        <div class="acronym">Instituto Nacional de Semillas</div>
+                    </div>
+                    <div class="accordion-icon">▼</div>
+                </div>
+                <div class="card-content">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Función Principal</h3>
+                    </div>
+                    <p>Regular la producción y comercialización de semillas en Argentina, protegiendo los derechos de propiedad intelectual sobre nuevas variedades vegetales y garantizando la calidad genética.</p>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        <h3>¿Cómo funciona?</h3>
+                    </div>
+                    <ul class="function-list">
+                        <li>Registra nuevas variedades vegetales</li>
+                        <li>Controla la calidad de semillas comerciales</li>
+                        <li>Fiscaliza el cumplimiento de la Ley de Semillas</li>
+                        <li>Protege los derechos de los obtentores vegetales</li>
+                        <li>Certifica campos de multiplicación de semillas</li>
+                    </ul>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Mecanismos de Control</h3>
+                    </div>
+                    <ul class="control-list">
+                        <li>Realiza muestreos en campos y establecimientos</li>
+                        <li>Verifica documentación de origen</li>
+                        <li>Analiza muestras en laboratorios acreditados</li>
+                        <li>Trabaja en coordinación con SENASA para aspectos sanitarios</li>
+                        <li>Implementa sistemas de trazabilidad para semillas</li>
+                    </ul>
+                    
+                    <a href="https://www.argentina.gob.ar/inase" target="_blank" class="btn">Visitar sitio oficial <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- CNV -->
+            <div class="institution-card">
+                <div class="card-header" onclick="toggleAccordion(this)">
+                    <div class="icon-container cnv">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>CNV</h2>
+                        <div class="acronym">Comisión Nacional de Valores</div>
+                    </div>
+                    <div class="accordion-icon">▼</div>
+                </div>
+                <div class="card-content">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Función Principal</h3>
+                    </div>
+                    <p>Regular y supervisar el mercado de capitales en Argentina. En el sector agropecuario, controla a los Agentes de Liquidación y Compensación (ALyCs) y los mercados de futuros y opciones.</p>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        <h3>¿Cómo funciona?</h3>
+                    </div>
+                    <ul class="function-list">
+                        <li>Autoriza y fiscaliza a los ALyCs (brokers)</li>
+                        <li>Supervisa el funcionamiento de mercados como Matba-Rofex</li>
+                        <li>Controla la transparencia en operaciones de futuros</li>
+                        <li>Protege los derechos de los inversores</li>
+                        <li>Regula la emisión de warrants y otros títulos</li>
+                    </ul>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Mecanismos de Control</h3>
+                    </div>
+                    <ul class="control-list">
+                        <li>Exige información periódica a los intermediarios</li>
+                        <li>Realiza auditorías a los mercados</li>
+                        <li>Supervisa las cámaras compensadoras</li>
+                        <li>Cuenta con un sistema de denuncias para investigar irregularidades</li>
+                        <li>Implementa análisis de riesgo en operaciones financieras</li>
+                    </ul>
+                    
+                    <a href="https://www.cnv.gob.ar/" target="_blank" class="btn">Visitar sitio oficial <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- Bolsas de Comercio -->
+            <div class="institution-card">
+                <div class="card-header" onclick="toggleAccordion(this)">
+                    <div class="icon-container bolsas">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>Bolsas de Comercio</h2>
+                        <div class="acronym">Mercados organizados</div>
+                    </div>
+                    <div class="accordion-icon">▼</div>
+                </div>
+                <div class="card-content">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Función Principal</h3>
+                    </div>
+                    <p>Las Bolsas de Comercio (como Rosario y Buenos Aires) son mercados organizados donde se negocian commodities agrícolas y derivados financieros. Facilitan la formación de precios y proporcionan liquidez al sector.</p>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        <h3>¿Cómo funciona?</h3>
+                    </div>
+                    <ul class="function-list">
+                        <li>Proporcionan un entorno seguro para negociación</li>
+                        <li>Establecen estándares de calidad para productos</li>
+                        <li>Ofrecen herramientas de cobertura de precios</li>
+                        <li>Publican precios de referencia para el mercado</li>
+                        <li>Administran cámaras arbitrales para resolver disputas</li>
+                    </ul>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Mecanismos de Control</h3>
+                    </div>
+                    <ul class="control-list">
+                        <li>Operan bajo supervisión de la CNV</li>
+                        <li>Implementan sistemas de auditoría interna y externa</li>
+                        <li>Utilizan cámaras de compensación para garantizar operaciones</li>
+                        <li>Requieren garantías de los participantes</li>
+                        <li>Establecen límites de posición para controlar riesgos</li>
+                    </ul>
+                    
+                    <a href="https://www.bcr.com.ar/" target="_blank" class="btn">Visitar Bolsa de Rosario <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- Cámaras Arbitrales -->
+            <div class="institution-card">
+                <div class="card-header" onclick="toggleAccordion(this)">
+                    <div class="icon-container camaras">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="card-title">
+                        <h2>Cámaras Arbitrales</h2>
+                        <div class="acronym">Resolución de conflictos</div>
+                    </div>
+                    <div class="accordion-icon">▼</div>
+                </div>
+                <div class="card-content">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Función Principal</h3>
+                    </div>
+                    <p>Las Cámaras Arbitrales (como la de Cereales) resuelven conflictos comerciales en el sector agropecuario mediante procedimientos ágiles y especializados, evitando la vía judicial tradicional.</p>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        <h3>¿Cómo funciona?</h3>
+                    </div>
+                    <ul class="function-list">
+                        <li>Ofrecen procedimientos rápidos y especializados</li>
+                        <li>Resuelven disputas comerciales entre partes</li>
+                        <li>Cuentan con árbitros expertos en comercio de granos</li>
+                        <li>Proporcionan seguridad jurídica a las transacciones</li>
+                        <li>Emiten laudos con fuerza de sentencia judicial</li>
+                    </ul>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Mecanismos de Control</h3>
+                    </div>
+                    <ul class="control-list">
+                        <li>Operan bajo normas claras y procedimientos establecidos</li>
+                        <li>Supervisan la imparcialidad de los árbitros</li>
+                        <li>Garantizan la transparencia del proceso arbitral</li>
+                        <li>Establecen plazos perentorios para la resolución</li>
+                        <li>Controlan el cumplimiento de los laudos arbitrales</li>
+                    </ul>
+                    
+                    <a href="https://www.camaracereal.com.ar/" target="_blank" class="btn">Visitar Cámara Arbitral <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Infografía interactiva - Instituciones del Sector Agropecuario Argentino | Información actualizada 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+            
+            // Comprueba si el acordeón clickeado ya está activo
+            const isActive = content.classList.contains('active');
+
+            // Cierra todos los acordeones que estén abiertos
+            document.querySelectorAll('.card-content.active').forEach(openContent => {
+                openContent.classList.remove('active');
+                openContent.previousElementSibling.querySelector('.accordion-icon').textContent = '▼';
+            });
+            
+            // Si el acordeón clickeado no estaba activo, lo abre
+            if (!isActive) {
+                content.classList.add('active');
+                icon.textContent = '▲';
+            }
+        }
+    </script>
+</body>
+</html>

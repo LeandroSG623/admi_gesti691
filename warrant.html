@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warrants: El Grano como Garantía</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            color: #2c5f2d;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #5a8d5a;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: #2c5f2d;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 15px;
+            background: #e9f5e9;
+            padding: 12px;
+            border-radius: 50%;
+            color: #4caf50;
+        }
+
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 50px 0;
+        }
+
+        .flow-container::before {
+            content: '';
+            position: absolute;
+            top: 70px;
+            left: 10%;
+            right: 10%;
+            height: 8px;
+            background: linear-gradient(to right, #4caf50, #8bc34a, #ffc107, #ff9800);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .flow-step {
+            text-align: center;
+            width: 20%;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: scale(1.1);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+        }
+
+        .step-number {
+            background: #ff9800;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c5f2d;
+            font-size: 1.1rem;
+        }
+
+        .step-content {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            border-left: 5px solid #4caf50;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .step-card:hover {
+            background: #e8f5e9;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .step-icon-small {
+            width: 50px;
+            height: 50px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-title-small {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #2c5f2d;
+        }
+
+        .step-description {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .benefit {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: calc(33% - 20px);
+            min-width: 250px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .benefit:hover {
+            background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+
+        .benefit-title {
+            font-weight: 600;
+            color: #2c5f2d;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .benefit-content {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .legal {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #2c5f2d;
+        }
+
+        .legal-title {
+            font-weight: 600;
+            color: #2c5f2d;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #5a8d5a;
+            font-size: 0.9rem;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+            padding: 0 8px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .flow-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .flow-container::before {
+                display: none;
+            }
+            
+            .flow-step {
+                width: 100%;
+                margin-bottom: 40px;
+            }
+            
+            .benefit {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WARRANTS: El Grano como Garantía <span class="emoji">🌾</span></h1>
+            <p class="subtitle">Ley 9.643 - Una herramienta financiera clave para productores agrícolas que permite obtener liquidez sin vender la cosecha.</p>
+        </header>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-lightbulb"></i> ¿Qué es un Warrant?</h2>
+            <p>El <span class="highlight">Warrant</span> es un título de crédito que permite al productor obtener financiamiento utilizando su propia mercadería almacenada como garantía, <span class="highlight">sin necesidad de venderla</span>. Es una herramienta clave para obtener liquidez y decidir el momento óptimo de venta.</p>
+            
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-truck-loading"></i></div>
+                    <h3 class="step-title">Depósito de Grano</h3>
+                    <p class="step-content">El productor deposita sus granos en una empresa autorizada (Depósito Warrantera)</p>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-file-contract"></i></div>
+                    <h3 class="step-title">Emisión de Títulos</h3>
+                    <p class="step-content">La warrantera emite dos documentos: Certificado de Depósito y el Warrant</p>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3 class="step-title">Endoso al Banco</h3>
+                    <p class="step-content">El productor endosa (transfiere) el Warrant a una entidad financiera</p>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3 class="step-title">Recibe Préstamo</h3>
+                    <p class="step-content">El banco otorga el crédito, reteniendo el Warrant como garantía</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-cogs"></i> ¿Cómo funciona?</h2>
+            
+            <div class="how-it-works">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon-small"><i class="fas fa-warehouse"></i></div>
+                        <h3 class="step-title-small">Depósito del Grano</h3>
+                    </div>
+                    <p class="step-description">El productor deposita sus granos en una empresa autorizada (Depósito Warrantera) que cumple con los estándares de calidad y seguridad.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon-small"><i class="fas fa-file-invoice"></i></div>
+                        <h3 class="step-title-small">Emisión de Documentos</h3>
+                    </div>
+                    <p class="step-description">La warrantera emite dos documentos: el <span class="highlight">Certificado de Depósito</span> (acredita la propiedad) y el <span class="highlight">Warrant</span> (el título de crédito).</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon-small"><i class="fas fa-handshake"></i></div>
+                        <h3 class="step-title-small">Endoso del Warrant</h3>
+                    </div>
+                    <p class="step-description">El productor puede endosar (transferir) el Warrant a una entidad financiera para solicitar un préstamo, utilizando el grano como garantía.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon-small"><i class="fas fa-university"></i></div>
+                        <h3 class="step-title-small">Obtención del Crédito</h3>
+                    </div>
+                    <p class="step-description">El banco otorga el crédito, reteniendo el Warrant como garantía. Los granos quedan inmovilizados durante este período.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon-small"><i class="fas fa-money-check-alt"></i></div>
+                        <h3 class="step-title-small">Devolución y Retiro</h3>
+                    </div>
+                    <p class="step-description">Una vez pagado el crédito, el productor recupera el Warrant y, junto con el Certificado, puede retirar su mercadería.</p>
+                </div>
+            </div>
+            
+            <div class="legal">
+                <p class="legal-title"><i class="fas fa-balance-scale"></i> Base Legal: Ley 9.643</p>
+                <p>Esta herramienta financiera se encuentra regulada por la Ley 9.643 que establece los requisitos, derechos y obligaciones de todas las partes involucradas en el sistema de warrants agrícolas.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-star"></i> Beneficios Clave</h2>
+            
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-coins"></i></div>
+                    <h3 class="benefit-title">Liquidez Inmediata</h3>
+                    <p class="benefit-content">Acceso a capital de trabajo sin necesidad de vender la cosecha de inmediato, permitiendo mejores condiciones de venta.</p>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="benefit-title">Optimización de Precios</h3>
+                    <p class="benefit-content">Posibilidad de esperar al mejor momento de mercado para la venta de los granos, maximizando ganancias.</p>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="benefit-title">Seguridad Garantizada</h3>
+                    <p class="benefit-content">Los granos están protegidos y asegurados en depósitos autorizados durante todo el proceso.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Infografía Interactiva sobre Warrants Agrícolas | Ley 9.643 | Herramienta financiera para productores</p>
+            <p>Diseño Moderno con HTML, CSS y Font Awesome Icons</p>
+        </footer>
+    </div>
+</body>
+</html>
