@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factoring: Liquidez para Empresas Agrícolas | Infografía Dinámica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2a6bcc;
+            --secondary: #3a9efd;
+            --accent: #7b68ee;
+            --agriculture: #27ae60;
+            --light: #f8fbfe;
+            --dark: #1a2a3a;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --text: #2c3e50;
+            --soil: #d35400;
+            --contrast: #e74c3c;
+            --highlight: #f1c40f;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f8fbfe 0%, #e8f5e9 100%);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.6 36c2.4-2 5.4-3.2 8.6-3.2 3.2 0 6.2 1.2 8.6 3.2L60 67.6l31.2-31.6c2.4-2 5.4-3.2 8.6-3.2 3.2 0 6.2 1.2 8.6 3.2 3.2 3.2 3.2 8.4 0 11.6L71.6 83.2c-2.4 2-5.4 3.2-8.6 3.2-3.2 0-6.2-1.2-8.6-3.2L11.6 47.6c-3.2-3.2-3.2-8.4 0-11.6z' fill='%2327ae60' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--agriculture) 0%, var(--primary) 100%);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(39, 174, 96, 0.3);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            position: relative;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .tagline {
+            background: rgba(255, 255, 255, 0.25);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+            font-weight: 600;
+        }
+
+        .emoji-divider {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            letter-spacing: 15px;
+            opacity: 0.7;
+        }
+
+        .intro-box {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            margin: 30px auto 50px;
+            max-width: 900px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            color: var(--dark);
+            position: relative;
+            border-left: 6px solid var(--agriculture);
+            border-right: 2px solid var(--light);
+        }
+
+        .intro-box p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(243, 156, 18, 0.2), rgba(243, 156, 18, 0.2));
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--soil);
+            display: inline-block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--agriculture), var(--primary));
+            color: white;
+            padding: 25px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+        }
+
+        .card-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--success), var(--highlight));
+        }
+
+        .card-body {
+            padding: 35px;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 35px 0;
+        }
+
+        .process-steps::before {
+            content: "";
+            position: absolute;
+            top: 55px;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--agriculture), var(--primary));
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .step-icon {
+            width: 90px;
+            height: 90px;
+            background: white;
+            border: 5px solid var(--agriculture);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: var(--agriculture);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .step-title {
+            font-weight: 800;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .step-desc {
+            font-size: 1.05rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px 0;
+            border-bottom: 2px dashed #e2e8f0;
+        }
+
+        .benefit-item:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-icon {
+            background: var(--light);
+            color: var(--success);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .benefit-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .benefit-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .agriculture-section {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.08) 0%, rgba(39, 174, 96, 0.03) 100%);
+            border-radius: 22px;
+            padding: 35px;
+            margin: 40px 0;
+            border: 3px dashed var(--agriculture);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agriculture-section::before {
+            content: "🌱";
+            position: absolute;
+            font-size: 200px;
+            right: -40px;
+            bottom: -40px;
+            opacity: 0.05;
+            transform: rotate(20deg);
+            z-index: 0;
+        }
+
+        .agriculture-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            color: var(--agriculture);
+            position: relative;
+            z-index: 2;
+        }
+
+        .agriculture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .agri-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--agriculture);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .agri-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--agriculture), var(--success));
+        }
+
+        .agri-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .agri-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: var(--agriculture);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .agri-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .comparison-chart {
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            padding: 35px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .chart-container {
+            height: 350px;
+            margin-top: 30px;
+        }
+
+        .interactive-section {
+            background: linear-gradient(135deg, var(--agriculture) 0%, var(--primary) 100%);
+            border-radius: 22px;
+            padding: 40px;
+            color: white;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 50px rgba(39, 174, 96, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-section::before {
+            content: "💰 💵 💰";
+            position: absolute;
+            font-size: 100px;
+            right: -30px;
+            bottom: -30px;
+            opacity: 0.08;
+            transform: rotate(15deg);
+            z-index: 0;
+        }
+
+        .calculator {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px 20px 18px 60px;
+            border-radius: 15px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+        }
+
+        .btn {
+            background: white;
+            color: var(--agriculture);
+            border: none;
+            padding: 18px 35px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--light);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .result {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 18px;
+            margin-top: 35px;
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 35px;
+            color: var(--text);
+            font-size: 1rem;
+            background: white;
+            border-radius: 18px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--agriculture);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .agri-icon {
+            font-size: 1.8rem;
+            margin-right: 12px;
+            color: var(--agriculture);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark);
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .visual-hint {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+            gap: 20px;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 Factoring: Liquidez para Empresas Agrícolas 💰</h1>
+            <p class="subtitle">Transforma tus cuentas por cobrar en efectivo disponible hoy mismo</p>
+            <div class="tagline">Herramienta esencial para el desarrollo empresarial en el sector agrícola 🌾</div>
+            
+            <div class="visual-hint">
+                <div>📄 → 💵</div>
+                <div>⏳ → ⚡</div>
+            </div>
+        </header>
+        
+        <div class="emoji-divider">🌾 🌽 🚜 💰 🌱</div>
+        
+        <div class="intro-box">
+            <p><span class="highlight">📋 El factoring o factoraje financiero</span> es un contrato mediante el cual una empresa (el productor o exportador) cede sus facturas por cobrar a una entidad financiera (el "factor"). A cambio, recibe el monto de esas facturas de forma anticipada, menos una comisión.</p>
+            <p>💡 Esta herramienta financiera es especialmente útil para empresas agrícolas que necesitan mejorar su flujo de caja sin tener que esperar los plazos de pago de sus clientes, permitiendo continuar con sus operaciones y crecer de manera sostenible.</p>
+        </div>
+        
+        <h2 class="section-title"><i class="fas fa-sitemap"></i> Proceso y Beneficios del Factoring</h2>
+        
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-project-diagram"></i> Esquema del Factoring
+                </div>
+                <div class="card-body">
+                    <div class="process-steps">
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <h3 class="step-title">1. Factura por cobrar</h3>
+                            <p class="step-desc">La empresa agrícola tiene facturas pendientes de pago con vencimiento futuro 🗓️</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="step-title">2. Cesión al factor</h3>
+                            <p class="step-desc">La empresa cede las facturas a la entidad financiera (factor) 📤</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3 class="step-title">3. Recibe efectivo</h3>
+                            <p class="step-desc">El factor anticipa el valor de las facturas, menos su comisión 💸</p>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px; position: relative;">
+                        <div style="display: inline-block; background: var(--light); padding: 25px; border-radius: 18px; border: 3px dashed var(--agriculture); box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                            <i class="fas fa-user-tie" style="font-size: 36px; color: var(--agriculture); margin-bottom: 15px;"></i>
+                            <h3 style="color: var(--dark); font-size: 1.4rem;">👨‍💼 Cliente</h3>
+                            <p style="font-size: 1.1rem; margin-top: 10px;">Paga al factor al vencimiento ⏳</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-star"></i> Ventajas Principales
+                </div>
+                <div class="card-body">
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>🚀 Mejora el flujo de caja</h3>
+                                <p>Permite disponer de dinero inmediato sin esperar los plazos de pago de tus clientes. Ideal para cubrir gastos urgentes.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>📉 Reduce la carga administrativa</h3>
+                                <p>El factor se encarga de la gestión de cobranza, liberando recursos de tu empresa para actividades productivas.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>⚙️ Permite continuar operando</h3>
+                                <p>Con la liquidez obtenida, puedes comprar insumos, pagar salarios y cubrir gastos operativos sin interrupciones.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>🛡️ Reduce riesgos de impago</h3>
+                                <p>En modalidades con recurso, el factor asume el riesgo de insolvencia de tus clientes, protegiendo tus finanzas.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h3>📈 Facilita el crecimiento</h3>
+                                <p>Accede a capital de trabajo para aprovechar oportunidades de negocio sin endeudamiento tradicional.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="agriculture-section">
+            <div class="agriculture-header">
+                <i class="fas fa-tractor agri-icon"></i>
+                <h2 style="font-size: 2rem;">🚜 Importancia del Factoring para Empresas Agrícolas 🌱</h2>
+            </div>
+            
+            <p style="font-size: 1.2rem; line-height: 1.8; position: relative; z-index: 2;">El sector agrícola enfrenta desafíos únicos de liquidez debido a la naturaleza estacional de sus operaciones y los largos ciclos de producción. El factoring se convierte en una herramienta estratégica para:</p>
+            
+            <div class="agriculture-grid">
+                <div class="agri-card">
+                    <h4><i class="fas fa-calendar-alt"></i> Sincronizar flujos</h4>
+                    <p>Compensar la diferencia entre el momento de los gastos (siembra, cuidados) y el de los ingresos (cosecha, venta) 🔄</p>
+                </div>
+                
+                <div class="agri-card">
+                    <h4><i class="fas fa-seedling"></i> Financiar insumos</h4>
+                    <p>Adquirir semillas, fertilizantes y otros insumos necesarios para la próxima temporada 🌾</p>
+                </div>
+                
+                <div class="agri-card">
+                    <h4><i class="fas fa-users"></i> Mantener empleo</h4>
+                    <p>Garantizar el pago oportuno de salarios a trabajadores agrícolas durante todo el año 👨‍🌾</p>
+                </div>
+                
+                <div class="agri-card">
+                    <h4><i class="fas fa-bolt"></i> Responder a oportunidades</h4>
+                    <p>Actuar rápidamente ante oportunidades de mercado o condiciones climáticas favorables ⚡</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 35px; background: rgba(39, 174, 96, 0.1); padding: 25px; border-radius: 18px; position: relative; z-index: 2;">
+                <h3 style="color: var(--agriculture); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; font-size: 1.5rem;">
+                    <i class="fas fa-lightbulb"></i> 💡 Caso Práctico: Cooperativa Agrícola
+                </h3>
+                <p style="font-size: 1.2rem; line-height: 1.8;">Una cooperativa de café vende su cosecha a un tostador con pago a 90 días. Mediante factoring, obtiene el 95% del valor inmediatamente:</p>
+                <ul style="padding-left: 40px; margin-top: 20px; font-size: 1.1rem; line-height: 1.8;">
+                    <li>✅ Financia la próxima cosecha sin endeudamiento</li>
+                    <li>✅ Mantiene operaciones durante los meses de espera</li>
+                    <li>✅ Evita préstamos bancarios con altas tasas de interés</li>
+                    <li>✅ Mejora su posición financiera para negociaciones futuras</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2 class="section-title"><i class="fas fa-chart-bar"></i> Comparación de Opciones Financieras</h2>
+        
+        <div class="comparison-chart">
+            <div class="chart-container">
+                <canvas id="financeChart"></canvas>
+            </div>
+        </div>
+        
+        <h2 class="section-title"><i class="fas fa-calculator"></i> Calculadora de Factoring Agrícola</h2>
+        
+        <div class="interactive-section">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'tab1')">
+                    <i class="fas fa-calculator"></i> Cálculo básico
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'tab2')">
+                    <i class="fas fa-tractor"></i> Escenario agrícola
+                </button>
+            </div>
+            
+            <div class="calculator">
+                <div id="tab1" class="tab-content active">
+                    <div class="form-group">
+                        <label for="invoiceAmount">
+                            <i class="fas fa-file-invoice-dollar"></i> Valor de la factura (€)
+                        </label>
+                        <div style="position: relative;">
+                            <i class="fas fa-euro-sign input-icon"></i>
+                            <input type="number" id="invoiceAmount" placeholder="Ej: 10,000" value="25000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="days">
+                            <i class="fas fa-calendar-day"></i> Días hasta el vencimiento
+                        </label>
+                        <div style="position: relative;">
+                            <i class="fas fa-clock input-icon"></i>
+                            <input type="number" id="days" placeholder="Ej: 60" value="90">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="commission">
+                            <i class="fas fa-percent"></i> Comisión del factor (%)
+                        </label>
+                        <div style="position: relative;">
+                            <i class="fas fa-hand-holding-usd input-icon"></i>
+                            <input type="number" id="commission" placeholder="Ej: 3" value="4.2" step="0.1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="tab2" class="tab-content">
+                    <div class="form-group">
+                        <label for="cropValue">
+                            <i class="fas fa-wheat"></i> Valor de la cosecha (€)
+                        </label>
+                        <div style="position: relative;">
+                            <i class="fas fa-euro-sign input-icon"></i>
+                            <input type="number" id="cropValue" placeholder="Ej: 50,000" value="75000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentTerm">
+                            <i class="fas fa-hourglass-half"></i> Plazo de pago (días)
+                        </label>
+                        <div style="position: relative;">
+                            <i class="fas fa-calendar-alt input-icon"></i>
+                            <input type="number" id="paymentTerm" placeholder="Ej: 120" value="120">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agriCommission">
+                            <i class="fas fa-tractor"></i> Comisión agrícola (%)
+                        </label>
+                        <div style="position: relative;">
+                            <i class="fas fa-percent input-icon"></i>
+                            <input type="number" id="agriCommission" placeholder="Ej: 2.5" value="3.5" step="0.1">
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="calculateFactoring()">
+                    <i class="fas fa-calculator"></i> Calcular anticipo
+                </button>
+                
+                <div class="result" id="result">
+                    <h3 style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px; font-size: 1.6rem;">
+                        <i class="fas fa-coins"></i> Resultado de la operación
+                    </h3>
+                    <p style="font-size: 1.2rem;"><strong>📋 Valor nominal:</strong> <span id="nominalValue">25,000.00 €</span></p>
+                    <p style="font-size: 1.2rem;"><strong>💸 Comisión del factor:</strong> <span id="commissionValue">1,050.00 €</span></p>
+                    <p style="font-size: 1.3rem; margin: 15px 0;"><strong>💵 Anticipo recibido:</strong> <span id="advanceValue" style="font-size: 1.8rem; font-weight: 800;">23,950.00 €</span></p>
+                    <p style="font-size: 1.2rem;"><strong>📊 TCEA (Tasa de Coste Efectivo Anual):</strong> <span id="tceaValue">17.08%</span></p>
+                    <p style="margin-top: 20px; padding-top: 20px; border-top: 2px dashed rgba(255,255,255,0.4); font-size: 1.2rem;">
+                        <i class="fas fa-leaf"></i> <strong>🌾 Beneficio agrícola:</strong> Con este anticipo puedes financiar la siembra de <span id="hectares" style="font-weight: 700;">20</span> hectáreas adicionales
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Infografía Educativa sobre Factoring para Empresas Agrícolas | Material didáctico para estudiantes</p>
+            <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.9;"><i class="fas fa-lightbulb"></i> Esta herramienta es informativa. Consulta con un asesor financiero antes de tomar decisiones.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Inicializar gráfico comparativo
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            const financeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Efectivo inmediato (Factoring)', 'Pago a plazo (90 días)', 'Préstamo bancario'],
+                    datasets: [{
+                        label: 'Valor real después de costos',
+                        data: [23950, 25000, 23500],
+                        backgroundColor: [
+                            'rgba(39, 174, 96, 0.8)',
+                            'rgba(52, 152, 219, 0.8)',
+                            'rgba(155, 89, 182, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(39, 174, 96, 1)',
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(155, 89, 182, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Valor en Euros (€)',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Comparación de valor real recibido',
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            },
+                            padding: 20
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: {
+                                size: 16
+                            },
+                            bodyFont: {
+                                size: 14
+                            },
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Valor: ${context.parsed.y} €`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        });
+
+        // Función para abrir pestañas
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Función para la calculadora
+        function calculateFactoring() {
+            let invoiceAmount, days, commission;
+            
+            // Determinar qué pestaña está activa
+            if (document.getElementById('tab1').classList.contains('active')) {
+                invoiceAmount = parseFloat(document.getElementById('invoiceAmount').value);
+                days = parseFloat(document.getElementById('days').value);
+                commission = parseFloat(document.getElementById('commission').value);
+            } else {
+                invoiceAmount = parseFloat(document.getElementById('cropValue').value);
+                days = parseFloat(document.getElementById('paymentTerm').value);
+                commission = parseFloat(document.getElementById('agriCommission').value);
+            }
+            
+            // Validar entradas
+            if (isNaN(invoiceAmount) || invoiceAmount <= 0) {
+                alert("🚨 Por favor ingresa un valor válido para la factura o cosecha");
+                return;
+            }
+            
+            if (isNaN(days) || days <= 0) {
+                alert("🚨 Por favor ingresa un número válido de días");
+                return;
+            }
+            
+            if (isNaN(commission) || commission <= 0) {
+                alert("🚨 Por favor ingresa un porcentaje válido de comisión");
+                return;
+            }
+            
+            // Cálculos
+            const commissionValue = (invoiceAmount * commission) / 100;
+            const advanceValue = invoiceAmount - commissionValue;
+            
+            // Calcular TCEA (Tasa de Coste Efectivo Anual)
+            const discountRate = commissionValue / invoiceAmount;
+            const dailyRate = discountRate / days;
+            const annualRate = dailyRate * 360;
+            const tcea = (annualRate * 100).toFixed(2);
+            
+            // Calcular beneficio agrícola (ejemplo simplificado)
+            const hectares = Math.floor(advanceValue / 1200);
+            
+            // Formatear números
+            const formatCurrency = (value) => {
+                return value.toLocaleString('es-ES', {
+                    style: 'currency',
+                    currency: 'EUR',
+                    minimumFractionDigits: 2
+                });
+            };
+            
+            // Actualizar resultados
+            document.getElementById('nominalValue').textContent = formatCurrency(invoiceAmount);
+            document.getElementById('commissionValue').textContent = formatCurrency(commissionValue);
+            document.getElementById('advanceValue').textContent = formatCurrency(advanceValue);
+            document.getElementById('tceaValue').textContent = tcea + "%";
+            document.getElementById('hectares').textContent = hectares;
+            
+            // Mostrar resultados con animación
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.add('show');
+            
+            // Efecto de confeti visual
+            const confetti = document.createElement('div');
+            confetti.innerHTML = '🎉💰✨';
+            confetti.style.position = 'fixed';
+            confetti.style.top = '0';
+            confetti.style.left = '0';
+            confetti.style.width = '100%';
+            confetti.style.height = '100%';
+            confetti.style.display = 'flex';
+            confetti.style.justifyContent = 'center';
+            confetti.style.alignItems = 'center';
+            confetti.style.fontSize = '100px';
+            confetti.style.zIndex = '1000';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.opacity = '0';
+            confetti.style.animation = 'fadeInOut 2s ease';
+            document.body.appendChild(confetti);
+            
+            // Eliminar después de la animación
+            setTimeout(() => {
+                document.body.removeChild(confetti);
+            }, 2000);
+        }
+
+        // Añadir animación de confeti
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: scale(0.5); }
+                50% { opacity: 1; transform: scale(1.2); }
+                100% { opacity: 0; transform: scale(1.5); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Calcular inicialmente
+        calculateFactoring();
+    </script>
+</body>
+</html>

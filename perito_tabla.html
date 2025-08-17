@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Granos para Peritos en Cereales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .grain-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .grain-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .quality-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .quality-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: 500;
+            text-align: left;
+            padding: 12px 15px;
+        }
+        
+        .quality-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .quality-table tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        
+        .quality-table tr:hover {
+            background-color: #ebf8ff;
+        }
+        
+        .param-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+        }
+        
+        .grain-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .highlight-box {
+            border-left: 4px solid;
+            padding: 12px 15px;
+            background-color: #f8fafc;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="header-gradient text-white rounded-2xl p-6 mb-8 shadow-xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">
+                        <i class="fas fa-seedling mr-3"></i>Determinación Analítica de Granos
+                    </h1>
+                    <p class="text-blue-200 text-lg">Guía completa para Peritos en Cereales</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                        <p class="font-medium"><i class="far fa-calendar-alt mr-2"></i>Actualizado: Octubre 2023</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Introduction -->
+        <section class="bg-white rounded-2xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-book-open mr-2 text-blue-600"></i>Parámetros Clave en la Clasificación de Granos
+            </h2>
+            <p class="text-gray-700 mb-4">El análisis de calidad de granos requiere evaluar múltiples parámetros que determinan su clasificación y valor comercial. Esta guía presenta los principales indicadores para los cereales más importantes.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="text-blue-600 text-xl mb-2"><i class="fas fa-tint"></i></div>
+                    <h3 class="font-bold text-gray-800">Humedad</h3>
+                    <p class="text-sm text-gray-600">Contenido de agua en el grano</p>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    <div class="text-amber-600 text-xl mb-2"><i class="fas fa-trash"></i></div>
+                    <h3 class="font-bold text-gray-800">Materia Extraña</h3>
+                    <p class="text-sm text-gray-600">Impurezas y materiales no grano</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                    <div class="text-red-600 text-xl mb-2"><i class="fas fa-cookie-bite"></i></div>
+                    <h3 class="font-bold text-gray-800">Quebrados/Rotos</h3>
+                    <p class="text-sm text-gray-600">Granos dañados o fragmentados</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                    <div class="text-green-600 text-xl mb-2"><i class="fas fa-bug"></i></div>
+                    <h3 class="font-bold text-gray-800">Dañados</h3>
+                    <p class="text-sm text-gray-600">Granos afectados por plagas o enfermedades</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Grain Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Trigo -->
+            <div class="grain-card bg-white">
+                <div class="flex items-center p-5 border-b" style="background-color: #fef3c7;">
+                    <div class="grain-icon" style="background-color: #fbbf24;">
+                        <i class="fas fa-bread-slice text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Trigo</h3>
+                        <p class="text-gray-600">Triticum aestivum</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="highlight-box" style="border-color: #fbbf24;">
+                        <h4 class="font-bold text-gray-800 mb-2">Parámetros Especiales</h4>
+                        <div class="flex flex-wrap">
+                            <span class="param-badge" style="background-color: #fef3c7;">Peso Hectolítrico</span>
+                            <span class="param-badge" style="background-color: #fef3c7;">Gluten</span>
+                            <span class="param-badge" style="background-color: #fef3c7;">Índice de Caída</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-800 mt-4 mb-2">Tabla de Calidad (Grados 1-3)</h4>
+                    <table class="quality-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Grado 1</th>
+                                <th>Grado 2</th>
+                                <th>Grado 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Humedad Máx (%)</td>
+                                <td>14.0</td>
+                                <td>14.0</td>
+                                <td>14.0</td>
+                            </tr>
+                            <tr>
+                                <td>Materia Extraña Máx (%)</td>
+                                <td>1.0</td>
+                                <td>1.5</td>
+                                <td>2.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Quebrados/Rotos Máx (%)</td>
+                                <td>2.0</td>
+                                <td>4.0</td>
+                                <td>7.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Dañados Máx (%)</td>
+                                <td>1.5</td>
+                                <td>3.0</td>
+                                <td>5.0</td>
+                            </tr>
+                            <tr>
+                                <td>Peso Hectolítrico Mín (kg/hl)</td>
+                                <td>79</td>
+                                <td>76</td>
+                                <td>73</td>
+                            </tr>
+                            <tr>
+                                <td>Gluten Húmedo Mín (%)</td>
+                                <td>28</td>
+                                <td>25</td>
+                                <td>22</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Maíz -->
+            <div class="grain-card bg-white">
+                <div class="flex items-center p-5 border-b" style="background-color: #fef9c3;">
+                    <div class="grain-icon" style="background-color: #facc15;">
+                        <i class="fas fa-corn text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Maíz</h3>
+                        <p class="text-gray-600">Zea mays</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="highlight-box" style="border-color: #facc15;">
+                        <h4 class="font-bold text-gray-800 mb-2">Parámetros Especiales</h4>
+                        <div class="flex flex-wrap">
+                            <span class="param-badge" style="background-color: #fef9c3;">Granos Partidos</span>
+                            <span class="param-badge" style="background-color: #fef9c3;">Granos Picados</span>
+                            <span class="param-badge" style="background-color: #fef9c3;">Granos Ardidos</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-800 mt-4 mb-2">Tabla de Calidad (Grados 1-3)</h4>
+                    <table class="quality-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Grado 1</th>
+                                <th>Grado 2</th>
+                                <th>Grado 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Humedad Máx (%)</td>
+                                <td>14.5</td>
+                                <td>14.5</td>
+                                <td>14.5</td>
+                            </tr>
+                            <tr>
+                                <td>Materia Extraña Máx (%)</td>
+                                <td>1.0</td>
+                                <td>1.5</td>
+                                <td>2.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Quebrados/Rotos Máx (%)</td>
+                                <td>2.0</td>
+                                <td>4.0</td>
+                                <td>7.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Dañados Máx (%)</td>
+                                <td>3.0</td>
+                                <td>5.0</td>
+                                <td>7.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Partidos Máx (%)</td>
+                                <td>5.0</td>
+                                <td>7.0</td>
+                                <td>10.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Picados Máx (%)</td>
+                                <td>2.0</td>
+                                <td>3.0</td>
+                                <td>5.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Soja -->
+            <div class="grain-card bg-white">
+                <div class="flex items-center p-5 border-b" style="background-color: #dcfce7;">
+                    <div class="grain-icon" style="background-color: #34d399;">
+                        <i class="fas fa-leaf text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Soja</h3>
+                        <p class="text-gray-600">Glycine max</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="highlight-box" style="border-color: #34d399;">
+                        <h4 class="font-bold text-gray-800 mb-2">Parámetros Especiales</h4>
+                        <div class="flex flex-wrap">
+                            <span class="param-badge" style="background-color: #dcfce7;">Granos Verdes</span>
+                            <span class="param-badge" style="background-color: #dcfce7;">Granos Inmaduros</span>
+                            <span class="param-badge" style="background-color: #dcfce7;">Proteína</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-800 mt-4 mb-2">Tabla de Calidad (Estándar Comercial)</h4>
+                    <table class="quality-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Límite</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Humedad Máx (%)</td>
+                                <td>14.0</td>
+                                <td>Base comercial</td>
+                            </tr>
+                            <tr>
+                                <td>Materia Extraña Máx (%)</td>
+                                <td>1.0</td>
+                                <td>Incluye tierra, piedras, etc.</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Quebrados Máx (%)</td>
+                                <td>20.0</td>
+                                <td>En soja partida</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Dañados Máx (%)</td>
+                                <td>2.0</td>
+                                <td>Por insectos, hongos</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Verdes Máx (%)</td>
+                                <td>10.0</td>
+                                <td>Inmaduros</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Ardidos Máx (%)</td>
+                                <td>1.0</td>
+                                <td>Calentamiento</td>
+                            </tr>
+                            <tr>
+                                <td>Proteína Mín (%)</td>
+                                <td>35.0</td>
+                                <td>Base seca</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Girasol -->
+            <div class="grain-card bg-white">
+                <div class="flex items-center p-5 border-b" style="background-color: #fef3c7;">
+                    <div class="grain-icon" style="background-color: #f59e0b;">
+                        <i class="fas fa-sun text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Girasol</h3>
+                        <p class="text-gray-600">Helianthus annuus</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="highlight-box" style="border-color: #f59e0b;">
+                        <h4 class="font-bold text-gray-800 mb-2">Parámetros Especiales</h4>
+                        <div class="flex flex-wrap">
+                            <span class="param-badge" style="background-color: #fef3c7;">Aceite</span>
+                            <span class="param-badge" style="background-color: #fef3c7;">Granos Vanos</span>
+                            <span class="param-badge" style="background-color: #fef3c7;">Cáscara</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-800 mt-4 mb-2">Tabla de Calidad (Estándar Comercial)</h4>
+                    <table class="quality-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Límite</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Humedad Máx (%)</td>
+                                <td>9.0</td>
+                                <td>Para almacenamiento seguro</td>
+                            </tr>
+                            <tr>
+                                <td>Materia Extraña Máx (%)</td>
+                                <td>2.0</td>
+                                <td>Impurezas</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Quebrados Máx (%)</td>
+                                <td>5.0</td>
+                                <td>Semillas partidas</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Dañados Máx (%)</td>
+                                <td>3.0</td>
+                                <td>Por insectos, hongos</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Vanos Máx (%)</td>
+                                <td>3.0</td>
+                                <td>Sin semilla</td>
+                            </tr>
+                            <tr>
+                                <td>Aceite Mín (%)</td>
+                                <td>42.0</td>
+                                <td>Base seca</td>
+                            </tr>
+                            <tr>
+                                <td>Cáscara Máx (%)</td>
+                                <td>25.0</td>
+                                <td>En semilla descascarada</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Cebada -->
+            <div class="grain-card bg-white">
+                <div class="flex items-center p-5 border-b" style="background-color: #dbeafe;">
+                    <div class="grain-icon" style="background-color: #60a5fa;">
+                        <i class="fas fa-beer text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Cebada</h3>
+                        <p class="text-gray-600">Hordeum vulgare</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="highlight-box" style="border-color: #60a5fa;">
+                        <h4 class="font-bold text-gray-800 mb-2">Parámetros Especiales</h4>
+                        <div class="flex flex-wrap">
+                            <span class="param-badge" style="background-color: #dbeafe;">Poder Germinativo</span>
+                            <span class="param-badge" style="background-color: #dbeafe;">Proteína</span>
+                            <span class="param-badge" style="background-color: #dbeafe;">Calibre</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-800 mt-4 mb-2">Tabla de Calidad (Cervecera)</h4>
+                    <table class="quality-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Límite</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Humedad Máx (%)</td>
+                                <td>14.5</td>
+                                <td>Base comercial</td>
+                            </tr>
+                            <tr>
+                                <td>Materia Extraña Máx (%)</td>
+                                <td>1.0</td>
+                                <td>Impurezas</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Quebrados Máx (%)</td>
+                                <td>5.0</td>
+                                <td>Malteo</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Dañados Máx (%)</td>
+                                <td>2.0</td>
+                                <td>Por insectos, hongos</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Verdes Máx (%)</td>
+                                <td>5.0</td>
+                                <td>Inmaduros</td>
+                            </tr>
+                            <tr>
+                                <td>Poder Germinativo Mín (%)</td>
+                                <td>95.0</td>
+                                <td>Para malteo</td>
+                            </tr>
+                            <tr>
+                                <td>Proteína (%)</td>
+                                <td>9.5-11.5</td>
+                                <td>Base seca</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Arroz -->
+            <div class="grain-card bg-white">
+                <div class="flex items-center p-5 border-b" style="background-color: #ede9fe;">
+                    <div class="grain-icon" style="background-color: #8b5cf6;">
+                        <i class="fas fa-utensil-spoon text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Arroz</h3>
+                        <p class="text-gray-600">Oryza sativa</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="highlight-box" style="border-color: #8b5cf6;">
+                        <h4 class="font-bold text-gray-800 mb-2">Parámetros Especiales</h4>
+                        <div class="flex flex-wrap">
+                            <span class="param-badge" style="background-color: #ede9fe;">Granos Enteros</span>
+                            <span class="param-badge" style="background-color: #ede9fe;">Granos Yesosos</span>
+                            <span class="param-badge" style="background-color: #ede9fe;">Granos Manchados</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-800 mt-4 mb-2">Tabla de Calidad (Tipos 1-2)</h4>
+                    <table class="quality-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Tipo 1</th>
+                                <th>Tipo 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Humedad Máx (%)</td>
+                                <td>14.0</td>
+                                <td>14.0</td>
+                            </tr>
+                            <tr>
+                                <td>Materia Extraña Máx (%)</td>
+                                <td>0.1</td>
+                                <td>0.3</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Quebrados Máx (%)</td>
+                                <td>4.0</td>
+                                <td>8.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Dañados Máx (%)</td>
+                                <td>0.5</td>
+                                <td>1.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Manchados Máx (%)</td>
+                                <td>1.0</td>
+                                <td>3.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Yesosos Máx (%)</td>
+                                <td>2.0</td>
+                                <td>4.0</td>
+                            </tr>
+                            <tr>
+                                <td>Granos Enteros Mín (%)</td>
+                                <td>95.0</td>
+                                <td>90.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Methodology Section -->
+        <section class="bg-white rounded-2xl p-6 mt-8 shadow-md">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-flask mr-2 text-purple-600"></i>Metodología de Análisis
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 p-5 rounded-lg">
+                    <h3 class="font-bold text-lg text-gray-800 mb-3"><i class="fas fa-ruler-combined mr-2 text-blue-500"></i>Procedimientos Estándar</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li><span class="font-semibold">Muestreo:</span> Según normas ISO 24333 para obtener muestra representativa</li>
+                        <li><span class="font-semibold">Humedad:</span> Método de estufa (105°C ± 2°C hasta peso constante)</li>
+                        <li><span class="font-semibold">Materia Extraña:</span> Separación manual o por diferencia de densidad</li>
+                        <li><span class="font-semibold">Granos Quebrados:</span> Tamizado y clasificación visual</li>
+                        <li><span class="font-semibold">Granos Dañados:</span> Inspección visual y tinción para detectar daños</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-5 rounded-lg">
+                    <h3 class="font-bold text-lg text-gray-800 mb-3"><i class="fas fa-vial mr-2 text-green-500"></i>Normativas de Referencia</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Normas ISO para cereales y leguminosas</li>
+                        <li>Reglamento Técnico Mercosur para identidad y calidad de granos</li>
+                        <li>Normas GAFTA para comercio internacional</li>
+                        <li>Protocolos SENASA para certificación de calidad</li>
+                        <li>Métodos AACC Internacional para análisis de cereales</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h4 class="font-bold text-blue-800 mb-2"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i>Consideraciones para Estudiantes</h4>
+                <p class="text-gray-700">La determinación analítica requiere atención a detalles como la temperatura ambiente, calibración de equipos, y representatividad de la muestra. Siempre realizar análisis por duplicado y comparar con patrones de referencia.</p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-gray-600 py-6">
+            <div class="flex justify-center space-x-4 mb-3">
+                <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-blue-700 hover:text-blue-900"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-red-600 hover:text-red-800"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>© 2023 Instituto de Peritos en Cereales. Material educativo para uso en aula.</p>
+            <p class="text-sm mt-2">Basado en normas internacionales de calidad de granos</p>
+        </footer>
+    </div>
+</body>
+</html>

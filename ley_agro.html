@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leyes Clave del Agronegocio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9, #f9fbe7);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #558b2f;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            line-height: 1.7;
+        }
+        
+        .intro-box {
+            background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
+        
+        .intro-box p {
+            font-size: 1.1rem;
+            color: #1b5e20;
+            margin-bottom: 15px;
+        }
+        
+        .accordion {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .accordion:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.2);
+        }
+        
+        .accordion-header {
+            background: linear-gradient(135deg, #388e3c, #4caf50);
+            color: white;
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #2e7d32, #43a047);
+        }
+        
+        .accordion-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .accordion-header .icon {
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+        }
+        
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .accordion-content.show {
+            padding: 25px;
+            max-height: 1000px;
+        }
+        
+        .law-explanation {
+            margin-bottom: 25px;
+            padding-left: 10px;
+            border-left: 4px solid #aed581;
+        }
+        
+        .law-explanation h3 {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .law-explanation p {
+            margin-bottom: 15px;
+            color: #424242;
+            font-size: 1.05rem;
+        }
+        
+        .law-link {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .law-link:hover {
+            background: #388e3c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        }
+        
+        .law-link i {
+            margin-left: 8px;
+        }
+        
+        .key-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .point {
+            flex: 1;
+            min-width: 200px;
+            background: #f1f8e9;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .point i {
+            color: #4caf50;
+            font-size: 1.3rem;
+            margin-top: 3px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #558b2f;
+            font-size: 0.9rem;
+        }
+        
+        .decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        .leaf-1 {
+            top: 50px;
+            right: 50px;
+            font-size: 8rem;
+            transform: rotate(25deg);
+        }
+        
+        .leaf-2 {
+            bottom: 50px;
+            left: 50px;
+            font-size: 6rem;
+            transform: rotate(-15deg);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .accordion-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .accordion-header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration leaf-1">
+        <i class="fas fa-leaf"></i>
+    </div>
+    
+    <div class="decoration leaf-2">
+        <i class="fas fa-seedling"></i>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tractor"></i> Leyes Clave del Agronegocio</h1>
+            <p class="subtitle">Conoce las normativas que regulan la actividad agropecuaria en Argentina</p>
+            
+            <div class="intro-box">
+                <p>El sector agropecuario es fundamental para la economía y cuenta con un marco legal específico que regula sus diferentes aspectos. Conoce las leyes más importantes que todo profesional del agro debe conocer.</p>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Ley 1 -->
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h2><i class="fas fa-file-invoice-dollar"></i> Ley 9.643 de Warrants</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="law-explanation">
+                        <h3><i class="fas fa-info-circle"></i> ¿Qué regula esta ley?</h3>
+                        <p>La Ley de Warrants establece el marco legal para la emisión de certificados de depósito y bonos de prenda sobre productos agropecuarios. Permite a los productores obtener financiamiento utilizando sus productos almacenados como garantía.</p>
+                        
+                        <div class="key-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Facilita el acceso a crédito para pequeños y medianos productores</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Protege los derechos de los acreedores y depositantes</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Regula los almacenes generales de depósito</span>
+                            </div>
+                        </div>
+                        
+                        <p>Esta ley es fundamental para la comercialización de granos y otros productos agrícolas, ya que permite que los productores puedan financiar su actividad sin necesidad de vender inmediatamente su producción.</p>
+                        
+                        <a href="#" class="law-link">Ver texto completo <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ley 2 -->
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h2><i class="fas fa-seedling"></i> Ley 20.247 de Semillas y Creaciones Fitogenéticas</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="law-explanation">
+                        <h3><i class="fas fa-info-circle"></i> ¿Qué regula esta ley?</h3>
+                        <p>Esta ley protege la propiedad intelectual de las creaciones fitogenéticas y establece el régimen de comercialización de semillas. Fomenta la investigación y el desarrollo de nuevas variedades vegetales asegurando derechos a los obtentores.</p>
+                        
+                        <div class="key-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Reconoce derechos de propiedad sobre nuevas variedades vegetales</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Establece el Registro Nacional de Cultivares</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Regula la producción y comercialización de semillas</span>
+                            </div>
+                        </div>
+                        
+                        <p>La ley busca equilibrar los derechos de los fitomejoradores con los de los agricultores, permitiendo el uso propio de semillas pero protegiendo la inversión en investigación y desarrollo de nuevas variedades.</p>
+                        
+                        <a href="#" class="law-link">Ver texto completo <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ley 3 -->
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h2><i class="fas fa-tractor"></i> Ley 26.727 Régimen de Trabajo Agrario</h2>
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="law-explanation">
+                        <h3><i class="fas fa-info-circle"></i> ¿Qué regula esta ley?</h3>
+                        <p>Establece el marco legal para las relaciones laborales en el ámbito rural, regulando aspectos fundamentales como jornada laboral, salarios, condiciones de trabajo, vivienda y seguridad social para los trabajadores agrarios.</p>
+                        
+                        <div class="key-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Jornada laboral máxima de 8 horas diarias</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Salario mínimo agrario garantizado</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Protección especial para trabajadores temporales</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Derecho a vivienda digna cuando se requiere residencia</span>
+                            </div>
+                        </div>
+                        
+                        <p>Esta ley representa un avance fundamental en la protección de los derechos laborales en el sector rural, estableciendo condiciones mínimas que deben cumplir los empleadores y reconociendo la particularidad del trabajo agrario.</p>
+                        
+                        <a href="#" class="law-link">Ver texto completo <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2023 Infografía Interactiva de Leyes Agropecuarias | Diseño fresco con información actualizada</p>
+            <p><i class="fas fa-sync-alt"></i> Actualizado el 12 de julio de 2025</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    // Toggle current accordion
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('show');
+                    
+                    // Close other accordions
+                    accordionHeaders.forEach(otherHeader => {
+                        if (otherHeader !== header) {
+                            otherHeader.classList.remove('active');
+                            otherHeader.nextElementSibling.classList.remove('show');
+                        }
+                    });
+                });
+            });
+            
+            // Open first accordion by default
+            if (accordionHeaders.length > 0) {
+                accordionHeaders[0].classList.add('active');
+                accordionHeaders[0].nextElementSibling.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>
