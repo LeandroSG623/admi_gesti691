@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación Interactiva: Bolsas y Mercados Financieros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Professional Blue Accents -->
+    <!-- Application Structure Plan: The SPA follows a narrative flow designed for learning. It starts with the fundamental "What is a market?" using interactive cards. Then, it contextualizes the scale with a "Global vs. Local" comparative bar chart. Next, it explains the operational flow with a "How it works" HTML/CSS diagram. Finally, it details the key actors in a "Who is involved" glossary section. This top-down structure (Concept -> Scale -> Process -> People) is more intuitive for a beginner than the original report's layout, facilitating better understanding. -->
+    <!-- Visualization & Content Choices: 1. Core Functions: Report Info -> 3 vital roles of markets. Goal -> Inform. Viz -> Three interactive cards (HTML/CSS). Interaction -> Hover effect. Justification -> Separates concepts for clarity. 2. Market Scale: Report Info -> Global vs. Local markets. Goal -> Compare. Viz -> Bar Chart (Chart.js/Canvas). Interaction -> Tooltips on hover. Justification -> Best way to show magnitude differences visually. 3. Interaction Schema: Report Info -> Flow of participants. Goal -> Organize (Process). Viz -> Vertical flow diagram (HTML/CSS Flexbox). Interaction -> Visual path. Justification -> Clearly illustrates a sequence of events, especially on mobile. 4. Glossary: Report Info -> Definitions of key players. Goal -> Organize/Inform. Viz -> 2x2 Grid of cards (HTML/CSS). Justification -> Clean, scannable layout for definitions. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 400px;
+            }
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EDEAE5;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .nav-button {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .nav-button.active, .nav-button:hover {
+            background-color: #004E89;
+            color: #FFFFFF;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animated-icon {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-50 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-start md:justify-center items-center py-3 space-x-2 md:space-x-4 overflow-x-auto">
+                <button onclick="scrollToSection('header')" class="nav-button active">Inicio</button>
+                <button onclick="scrollToSection('core-functions')" class="nav-button">Funciones</button>
+                <button onclick="scrollToSection('markets-comparison')" class="nav-button">Mercados</button>
+                <button onclick="scrollToSection('ecosystem-flow')" class="nav-button">Ecosistema</button>
+                <button onclick="scrollToSection('key-players')" class="nav-button">Actores</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header id="header" class="text-center my-10 md:my-16 scroll-mt-20">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-[#004E89] mb-4">Bolsas y Mercados 💰</h1>
+            <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Una app interactiva para explorar el mundo financiero y su impacto en la economía.</p>
+        </header>
+
+        <section id="core-functions" class="my-12 md:my-24 scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#004E89]">El Motor de la Economía</h2>
+                <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Los mercados son la infraestructura crítica que permite que el dinero fluya. Cumplen tres roles clave.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card text-center fade-in-up">
+                    <div class="text-5xl mb-4"><span class="animated-icon">🌱</span></div>
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Formación de Precios</h3>
+                    <p>Establecen el valor de los activos a través de la oferta y la demanda, creando una referencia transparente.</p>
+                </div>
+                <div class="card text-center fade-in-up" style="transition-delay: 150ms;">
+                    <div class="text-5xl mb-4"><span class="animated-icon">📊</span></div>
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Asignación de Capital</h3>
+                    <p>Dirigen recursos a empresas y proyectos productivos, financiando la innovación y el crecimiento.</p>
+                </div>
+                <div class="card text-center fade-in-up" style="transition-delay: 300ms;">
+                    <div class="text-5xl mb-4"><span class="animated-icon">💹</span></div>
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Gestión de Riesgos</h3>
+                    <p>Permiten a todos protegerse contra la volatilidad de precios usando herramientas como futuros y opciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="markets-comparison" class="my-12 md:my-24 scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#004E89]">Mercados Globales y Locales 🇦🇷</h2>
+                <p class="mt-2 text-gray-600 max-w-3xl mx-auto">El precio de los granos argentinos se ve influenciado por mercados internacionales. Este gráfico compara el volumen (ilustrativo) del gigante CME Group con los mercados de Argentina.</p>
+            </div>
+            <div class="card fade-in-up">
+                <div class="chart-container">
+                    <canvas id="marketsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosystem-flow" class="my-12 md:my-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#004E89]">El Ecosistema: ¿Cómo Funciona?</h2>
+                <p class="mt-2 text-gray-600 max-w-3xl mx-auto">Una operación es una cadena de interacciones. Este es el flujo desde que un productor busca proteger su cosecha hasta que un inversor aporta liquidez.</p>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-4 text-center max-w-sm mx-auto">
+                <div class="card w-full fade-in-up"><div class="text-4xl mb-2"><span class="animated-icon" style="animation-delay: 0s;">👨‍🌾</span></div><h4 class="font-bold">Productor</h4><p class="text-sm text-gray-500">Busca cubrir riesgos de precios para su cosecha.</p></div>
+                <div class="flex items-center justify-center text-4xl text-[#AD8350] font-light transform rotate-90">➡️</div>
+                <div class="card w-full fade-in-up" style="transition-delay: 200ms;"><div class="text-4xl mb-2"><span class="animated-icon" style="animation-delay: 0.2s;">👔</span></div><h4 class="font-bold">ALyC (Broker)</h4><p class="text-sm text-gray-500">Es el intermediario que ejecuta la orden en el mercado.</p></div>
+                <div class="flex items-center justify-center text-4xl text-[#AD8350] font-light transform rotate-90">➡️</div>
+                <div class="card w-full fade-in-up" style="transition-delay: 400ms;"><div class="text-4xl mb-2"><span class="animated-icon" style="animation-delay: 0.4s;">🏛️</span></div><h4 class="font-bold">Mercado</h4><p class="text-sm text-gray-500">Provee la plataforma donde se encuentran compradores y vendedores.</p></div>
+                <div class="flex items-center justify-center text-4xl text-[#AD8350] font-light transform rotate-90">➡️</div>
+                <div class="card w-full fade-in-up" style="transition-delay: 600ms;"><div class="text-4xl mb-2"><span class="animated-icon" style="animation-delay: 0.6s;">🏦</span></div><h4 class="font-bold">Cámara Comp.</h4><p class="text-sm text-gray-500">Garantiza que todas las partes cumplan con la operación.</p></div>
+                <div class="flex items-center justify-center text-4xl text-[#AD8350] font-light transform rotate-90">➡️</div>
+                <div class="card w-full fade-in-up" style="transition-delay: 800ms;"><div class="text-4xl mb-2"><span class="animated-icon" style="animation-delay: 0.8s;">👨‍💼</span></div><h4 class="font-bold">Inversor</h4><p class="text-sm text-gray-500">Aporta liquidez buscando una ganancia y toma la otra parte.</p></div>
+            </div>
+        </section>
+
+        <section id="key-players" class="my-12 md:my-24 scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#004E89]">Actores Clave del Mercado</h2>
+                <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Cada participante tiene un rol específico. Conocerlos es fundamental para entender la dinámica del mercado.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card fade-in-up">
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Agentes de Liquidación (ALyCs)</h3>
+                    <p>Son los "brokers" autorizados para operar en el mercado por cuenta de clientes. Actúan como el puente esencial entre los inversores y los mercados.</p>
+                </div>
+                <div class="card fade-in-up" style="transition-delay: 150ms;">
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Hedgers (Productores, Exportadores)</h3>
+                    <p>Participantes que buscan protegerse de las fluctuaciones de precios. Su objetivo principal es reducir el riesgo financiero de su actividad.</p>
+                </div>
+                <div class="card fade-in-up" style="transition-delay: 300ms;">
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Inversores y Especuladores</h3>
+                    <p>Buscan obtener ganancias de las variaciones de precios. Su participación es crucial porque aportan la liquidez necesaria para que el mercado funcione.</p>
+                </div>
+                <div class="card fade-in-up" style="transition-delay: 450ms;">
+                    <h3 class="text-xl font-bold text-[#004E89] mb-2">Cámara Compensadora</h3>
+                    <p>Es la entidad que garantiza todas las operaciones, eliminando el riesgo de incumplimiento. Actúa como comprador para cada vendedor y viceversa.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-[#00294B] text-white mt-8">
+        <p>&copy; 2025 App Interactiva de Mercados Financieros. Contenido educativo.</p>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section, header');
+            const navButtons = document.querySelectorAll('.nav-button');
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navButtons.forEach(button => {
+                            button.classList.remove('active');
+                            if (button.getAttribute('onclick').includes(entry.target.id)) {
+                                button.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-40% 0px -60% 0px' });
+
+            sections.forEach(section => sectionObserver.observe(section));
+
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => animationObserver.observe(el));
+        });
+
+        const ctx = document.getElementById('marketsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['CME Group (Chicago)', 'Matba-Rofex (Arg)', 'BYMA (Arg)'],
+                datasets: [{
+                    label: 'Volumen Anual (en millones, ilustrativo)',
+                    data: [120, 25, 45],
+                    backgroundColor: [
+                        'rgba(0, 78, 137, 0.7)',
+                        'rgba(173, 131, 80, 0.7)',
+                        'rgba(119, 141, 169, 0.7)'
+                    ],
+                    borderColor: [
+                        '#004E89',
+                        '#AD8350',
+                        '#778DA9'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#4A4A4A', font: { weight: '600' } },
+                        grid: { color: '#EDEAE5' }
+                    },
+                    x: {
+                       ticks: { color: '#4A4A4A', font: { weight: '600' } },
+                       grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Comparativa de Volumen de Operaciones',
+                        font: { size: 16, weight: 'bold' },
+                        color: '#004E89',
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
