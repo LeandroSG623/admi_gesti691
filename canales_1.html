@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Viaje Interactivo del Grano 🌾</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados y animaciones */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Fondo oscuro principal */
+            color: #d1d5db; /* Texto principal más suave */
+        }
+
+        .font-lexend {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        /* Animación para el header */
+        .header-grain {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Estilos y transiciones del acordeón */
+        .accordion-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-panel.open {
+            max-height: 1000px; /* Un valor suficientemente grande */
+            padding: 1.5rem 1.5rem;
+        }
+        
+        .accordion-btn .chevron {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .accordion-btn[aria-expanded="true"] .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* --- Animaciones de Íconos del Acordeón --- */
+        .icon-container svg {
+            transition: transform 0.3s ease;
+        }
+        .accordion-btn:hover .icon-container svg {
+            transform: scale(1.1);
+        }
+
+        /* Animación Tractor */
+        #tractor-icon .wheel {
+            animation: spin 4s linear infinite;
+            transform-origin: center;
+        }
+        #tractor-icon .ground-line {
+            animation: move-ground 2s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes move-ground {
+            from { transform: translateX(0); }
+            to { transform: translateX(-10px); }
+        }
+
+        /* Animación Almacén */
+        #warehouse-icon .grain {
+            animation: drop-grain 3s ease-out infinite;
+            opacity: 0;
+        }
+        #warehouse-icon .grain-2 { animation-delay: 1s; }
+        #warehouse-icon .grain-3 { animation-delay: 2s; }
+        @keyframes drop-grain {
+            0% { transform: translateY(-10px); opacity: 0; }
+            30% { opacity: 1; }
+            80% { transform: translateY(15px); opacity: 1; }
+            100% { transform: translateY(20px); opacity: 0; }
+        }
+
+        /* Animación Corredor */
+        #handshake-icon .hand {
+            animation: shake 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            transform-origin: bottom right;
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-10deg); }
+        }
+
+        /* Animación Exportador */
+        #ship-icon {
+            animation: rock-ship 4s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        #ship-icon .wave {
+            animation: move-wave 3s linear infinite;
+        }
+        #ship-icon .wave-2 { animation-delay: -1.5s; }
+        @keyframes rock-ship {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(3deg); }
+        }
+        @keyframes move-wave {
+            from { transform: translateX(0); }
+            to { transform: translateX(-20px); }
+        }
+
+        /* Animación Industrial */
+        #industry-icon .gear-1 {
+            animation: spin 6s linear infinite;
+            transform-origin: center;
+        }
+        #industry-icon .gear-2 {
+            animation: spin 6s linear infinite reverse;
+            transform-origin: center;
+        }
+
+        /* Animación Perito */
+        #perito-icon .magnifying-glass {
+            animation: inspect 4s ease-in-out infinite;
+            transform-origin: bottom right;
+        }
+        @keyframes inspect {
+            0%, 100% { transform: translate(0, 0) rotate(0); }
+            25% { transform: translate(-5px, 5px) rotate(-15deg); }
+            75% { transform: translate(5px, -5px) rotate(10deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-lg overflow-hidden relative border-b-4 border-indigo-500">
+         <div class="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-indigo-600/30 opacity-20"></div>
+        <div class="container mx-auto px-6 py-16 text-center relative">
+            <div class="relative inline-block">
+                <span class="text-6xl md:text-8xl absolute -top-8 -left-12 opacity-10 header-grain">🌾</span>
+                <h1 class="text-4xl md:text-5xl font-lexend font-bold text-white tracking-tight">
+                    El Viaje Interactivo del Grano
+                </h1>
+            </div>
+            <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+                Descubre el fascinante camino que recorre el grano, desde el campo 🚜 hasta tu mesa 🍞.
+            </p>
+        </div>
+    </header>
+    
+    <!-- Contenedor Principal del Acordeón -->
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-lexend font-bold text-center mb-8 text-white">Las Etapas de la Cadena</h2>
+            
+            <div class="space-y-4">
+                <!-- 1. Productor Agrícola -->
+                <div class="accordion-item bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/10 hover:border-cyan-500">
+                    <h2>
+                        <button class="accordion-btn flex items-center justify-between w-full p-5 text-left" aria-expanded="true">
+                            <span class="flex items-center">
+                                <span class="icon-container mr-4 bg-lime-500/10 text-lime-400 rounded-lg p-3">
+                                    <svg id="tractor-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18v1"/><path d="M15.5 15.5l-2.5-2.5"/><path d="M12 13l-2 2"/><path d="M6 13l-2 2"/><path d="M6 19a2 2 0 0 1-2 2h16a2 2 0 0 1-2-2v-3H6v3z"/><circle class="wheel" cx="8" cy="11" r="2"/><circle class="wheel" cx="18" cy="11" r="2"/><path d="M12 11V9"/><path d="M12 9H8v-.5A2.5 2.5 0 0 1 10.5 6h1A2.5 2.5 0 0 1 14 8.5V9h-2"/><path class="ground-line" d="M-2 22h28"/></svg>
+                                </span>
+                                <span class="font-lexend text-lg font-semibold text-white">Productor Agrícola</span>
+                            </span>
+                            <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="accordion-panel open">
+                        <div class="text-gray-300 space-y-4">
+                            <p>🌱 El productor es el origen de todo. Su labor empieza con la selección de semillas y la preparación de la tierra. Utiliza tecnología como drones y riego inteligente para maximizar la producción y cuidar los recursos.</p>
+                            <p>La cosecha es el resultado de meses de esfuerzo, donde se usan máquinas de precisión para no perder ni un grano. ¡Es un trabajo de paciencia y mucha ciencia!</p>
+                            <div class="mt-4 p-4 bg-lime-500/10 border-l-4 border-lime-500 rounded-r-lg">
+                                <h4 class="font-bold text-lime-300">Su Rol Clave:</h4>
+                                <p class="text-lime-400">Inicia la cadena entregando el grano. Sin su trabajo, no habría materia prima.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Acopiador -->
+                <div class="accordion-item bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/10 hover:border-cyan-500">
+                    <h2>
+                        <button class="accordion-btn flex items-center justify-between w-full p-5 text-left" aria-expanded="false">
+                            <span class="flex items-center">
+                                <span class="icon-container mr-4 bg-yellow-500/10 text-yellow-400 rounded-lg p-3">
+                                    <svg id="warehouse-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8"/><path d="M22 8.4c0-1-1.4-2.4-3-2.4s-3 1.4-3 2.4c0-1-1.4-2.4-3-2.4s-3 1.4-3 2.4c0-1-1.4-2.4-3-2.4S4 7.4 4 8.4"/><path d="M2 12h20"/><circle class="grain grain-1" cx="12" cy="12" r="1" fill="currentColor"/><circle class="grain grain-2" cx="12" cy="12" r="1" fill="currentColor"/><circle class="grain grain-3" cx="12" cy="12" r="1" fill="currentColor"/></svg>
+                                </span>
+                                <span class="font-lexend text-lg font-semibold text-white">Acopiador</span>
+                            </span>
+                            <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="accordion-panel">
+                        <div class="text-gray-300 space-y-4">
+                            <p>📦 El acopiador recibe el grano de muchos productores. En sus silos, lo seca, limpia y clasifica. Es como un gran centro de control que garantiza que el grano se conserve en perfectas condiciones.</p>
+                            <p>Implementa estrictos controles de calidad y usa tecnología para monitorear la humedad y temperatura, evitando que el grano se eche a perder.</p>
+                            <div class="mt-4 p-4 bg-yellow-500/10 border-l-4 border-yellow-500 rounded-r-lg">
+                                <h4 class="font-bold text-yellow-300">Su Rol Clave:</h4>
+                                <p class="text-yellow-400">Conecta a los productores con los grandes compradores, organizando la logística y asegurando la calidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Corredor -->
+                <div class="accordion-item bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/10 hover:border-cyan-500">
+                     <h2>
+                        <button class="accordion-btn flex items-center justify-between w-full p-5 text-left" aria-expanded="false">
+                            <span class="flex items-center">
+                                <span class="icon-container mr-4 bg-cyan-500/10 text-cyan-400 rounded-lg p-3">
+                                    <svg id="handshake-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/><path class="hand" d="M20.9 18.35a2.1 2.1 0 0 0-2.24-2.24L13 21.78V15a2 2 0 0 0-2-2H4"/><path d="M12.5 11.5 11 13l1.5 1.5"/></svg>
+                                </span>
+                                <span class="font-lexend text-lg font-semibold text-white">Corredor</span>
+                            </span>
+                            <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="accordion-panel">
+                        <div class="text-gray-300 space-y-4">
+                            <p>🤝 El corredor es el experto en mercados. Conecta a quienes venden el grano con quienes lo compran, negociando el mejor precio para ambos. ¡Es un negociador nato!</p>
+                            <p>Maneja información en tiempo real sobre precios mundiales y tendencias de consumo, usando su conocimiento para facilitar transacciones seguras y eficientes.</p>
+                            <div class="mt-4 p-4 bg-cyan-500/10 border-l-4 border-cyan-500 rounded-r-lg">
+                                <h4 class="font-bold text-cyan-300">Su Rol Clave:</h4>
+                                <p class="text-cyan-400">Agiliza el comercio, asegurando que el grano llegue a quien lo necesita al precio justo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Exportador -->
+                <div class="accordion-item bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/10 hover:border-cyan-500">
+                     <h2>
+                        <button class="accordion-btn flex items-center justify-between w-full p-5 text-left" aria-expanded="false">
+                            <span class="flex items-center">
+                                <span class="icon-container mr-4 bg-orange-500/10 text-orange-400 rounded-lg p-3">
+                                    <svg id="ship-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2.4 2.4 0 0 0 2 2h16a2.4 2.4 0 0 0 2-2V8l-7-4H9L2 8v12Z"/><path d="M2 14h20"/><path d="M12 4v4"/><path class="wave wave-1" d="M-2 18s2-2 5-2 5 2 5 2 5-2 5-2"/><path class="wave wave-2" d="M-2 20s2-2 5-2 5 2 5 2 5-2 5-2"/></svg>
+                                </span>
+                                <span class="font-lexend text-lg font-semibold text-white">Exportador</span>
+                            </span>
+                            <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="accordion-panel">
+                        <div class="text-gray-300 space-y-4">
+                            <p>🌍 El exportador se encarga de la compleja logística de llevar el grano a otros países. Coordina el transporte en camiones, trenes y enormes barcos graneleros.</p>
+                            <p>Además, maneja toda la documentación necesaria, como aduanas y certificados sanitarios, para cumplir con las normas de más de 50 países. ¡Un verdadero ciudadano del mundo!</p>
+                            <div class="mt-4 p-4 bg-orange-500/10 border-l-4 border-orange-500 rounded-r-lg">
+                                <h4 class="font-bold text-orange-300">Su Rol Clave:</h4>
+                                <p class="text-orange-400">Conecta el mercado local con el global, abriendo las puertas del mundo al grano.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Industrial -->
+                <div class="accordion-item bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/10 hover:border-cyan-500">
+                     <h2>
+                        <button class="accordion-btn flex items-center justify-between w-full p-5 text-left" aria-expanded="false">
+                            <span class="flex items-center">
+                                <span class="icon-container mr-4 bg-purple-500/10 text-purple-400 rounded-lg p-3">
+                                    <svg id="industry-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="12" width="20" height="10" rx="2"/><path d="M2 12V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><circle class="gear-1" cx="8" cy="17" r="2"/><circle class="gear-2" cx="16" cy="17" r="2"/><path d="M12 7V5l2-1 2 1v2"/></svg>
+                                </span>
+                                <span class="font-lexend text-lg font-semibold text-white">Industrial</span>
+                            </span>
+                            <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="accordion-panel">
+                        <div class="text-gray-300 space-y-4">
+                            <p>🏭 El industrial es quien transforma el grano. Lo convierte en harina para pan, aceite para cocinar o alimento para animales. Es la fábrica donde la magia ocurre.</p>
+                            <p>Usa tecnología avanzada para moler, prensar y procesar la materia prima, creando los productos que encontramos en el supermercado. 🛒</p>
+                            <div class="mt-4 p-4 bg-purple-500/10 border-l-4 border-purple-500 rounded-r-lg">
+                                <h4 class="font-bold text-purple-300">Su Rol Clave:</h4>
+                                <p class="text-purple-400">Agrega el valor final, convirtiendo el grano en productos listos para el consumo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Perito -->
+                <div class="accordion-item bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg transition-all duration-300 hover:shadow-cyan-500/10 hover:border-cyan-500">
+                     <h2>
+                        <button class="accordion-btn flex items-center justify-between w-full p-5 text-left" aria-expanded="false">
+                            <span class="flex items-center">
+                                <span class="icon-container mr-4 bg-fuchsia-500/10 text-fuchsia-400 rounded-lg p-3">
+                                    <svg id="perito-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><circle class="magnifying-glass" cx="14" cy="14" r="3"/><path class="magnifying-glass" d="m16.5 16.5 2.5 2.5"/></svg>
+                                </span>
+                                <span class="font-lexend text-lg font-semibold text-white">Perito</span>
+                            </span>
+                            <svg class="chevron w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="accordion-panel">
+                        <div class="text-gray-300 space-y-4">
+                            <p>🔬 El perito es el guardián de la calidad. En cada etapa, toma muestras y las analiza en su laboratorio para asegurarse de que el grano cumpla con todos los estándares.</p>
+                            <p>Su trabajo es fundamental para dar confianza a toda la cadena. Emite certificados que son como un sello de garantía, confirmando que el producto es de primera. ✅</p>
+                            <div class="mt-4 p-4 bg-fuchsia-500/10 border-l-4 border-fuchsia-500 rounded-r-lg">
+                                <h4 class="font-bold text-fuchsia-300">Su Rol Clave:</h4>
+                                <p class="text-fuchsia-400">Proporciona confianza técnica a todos, garantizando la calidad del grano en cada paso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sección de Distribución de Valor -->
+    <section class="bg-gray-900 mt-12 py-12">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-3xl font-lexend font-bold text-white mb-2">Distribución del Valor</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-8">Así se reparte el valor generado por cada tonelada de grano. Los porcentajes pueden variar según el mercado.</p>
+            
+            <div class="w-full max-w-4xl mx-auto bg-gray-800 rounded-full p-2 flex flex-col md:flex-row gap-2 text-sm md:text-base">
+                <div class="group flex-grow text-center py-3 px-4 rounded-full transition-all" style="background-color: #84cc16;">
+                    <span class="font-semibold text-lime-950">Productor: 45%</span>
+                </div>
+                <div class="group flex-grow text-center py-3 px-4 rounded-full transition-all" style="background-color: #facc15;">
+                    <span class="font-semibold text-yellow-950">Acopio: 15%</span>
+                </div>
+                <div class="group flex-grow text-center py-3 px-4 rounded-full transition-all" style="background-color: #22d3ee;">
+                    <span class="font-semibold text-cyan-950">Transporte: 10%</span>
+                </div>
+                <div class="group flex-grow text-center py-3 px-4 rounded-full transition-all" style="background-color: #a78bfa;">
+                     <span class="font-semibold text-violet-950">Proceso: 20%</span>
+                </div>
+                <div class="group flex-grow text-center py-3 px-4 rounded-full transition-all" style="background-color: #e879f9;">
+                    <span class="font-semibold text-fuchsia-950">Comercio: 10%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-white mt-12">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="font-lexend text-xl">El Viaje del Grano</p>
+            <p class="text-gray-500 mt-2">© 2024 | Un recorrido interactivo por la cadena de valor.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            
+            // Abrir el primer item por defecto
+            const firstItem = accordionItems[0];
+            const firstButton = firstItem.querySelector('.accordion-btn');
+            const firstPanel = firstItem.querySelector('.accordion-panel');
+            firstButton.setAttribute('aria-expanded', 'true');
+            firstPanel.classList.add('open');
+
+            accordionItems.forEach(item => {
+                const btn = item.querySelector('.accordion-btn');
+                const panel = item.querySelector('.accordion-panel');
+
+                btn.addEventListener('click', () => {
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+                    // Cerrar todos los paneles antes de abrir el nuevo
+                    accordionItems.forEach(otherItem => {
+                        otherItem.querySelector('.accordion-btn').setAttribute('aria-expanded', 'false');
+                        otherItem.querySelector('.accordion-panel').classList.remove('open');
+                    });
+
+                    // Si el panel estaba cerrado, abrirlo
+                    if (!isExpanded) {
+                        btn.setAttribute('aria-expanded', 'true');
+                        panel.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
