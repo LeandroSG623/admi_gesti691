@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Guía de Gestión Agropecuaria para Estudiantes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #10b981; /* Un verde más brillante y moderno */
+            --primary-dark: #059669;
+            --primary-light: #d1fae5;
+            --accent: #f59e0b; /* Un ámbar cálido */
+            --text: #374151; /* Gris oscuro para texto principal */
+            --text-light: #6b7280; /* Gris más claro para texto secundario */
+            --light-bg: #f9fafb; /* Fondo principal muy claro */
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text);
+            line-height: 1.7; /* Aumentado para mejor legibilidad */
+        }
+
+        .header-gradient {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.4rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary-light), rgba(245, 158, 11, 0.1));
+            border-left: 5px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #f0fdfa, #fffbeb);
+            border-left: 5px solid var(--accent);
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+        }
+
+
+
+        .back-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--light-bg);
+        }
+
+        .icon-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-section i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        /* Animaciones y efectos visuales mejorados */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+
+        @keyframes colorShift {
+            0%, 100% { border-color: var(--primary); }
+            25% { border-color: var(--accent); }
+            50% { border-color: #4f46e5; }
+            75% { border-color: #059669; }
+        }
+
+        /* Clases de animación */
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in {
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-pulse-custom {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .shimmer-effect {
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            background-size: 200px 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        /* Efectos hover mejorados */
+        .card {
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Iconos animados */
+        .icon-section i {
+            transition: all 0.3s ease;
+        }
+
+        .icon-section:hover i {
+            transform: rotate(15deg) scale(1.2);
+            color: var(--accent);
+        }
+
+        /* Tablas interactivas */
+        table {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        th {
+            position: relative;
+            overflow: hidden;
+        }
+
+        th::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        tr {
+            transition: all 0.3s ease;
+        }
+
+        tr:hover {
+            background: linear-gradient(90deg, var(--light-bg), rgba(16, 185, 129, 0.05), var(--light-bg));
+            transform: scale(1.01);
+        }
+
+        /* Cajas destacadas animadas */
+        .highlight-box {
+            position: relative;
+            border-left: 5px solid var(--primary);
+            animation: colorShift 4s ease-in-out infinite;
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .tip-box {
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.95);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .tip-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(245, 158, 11, 0.05), transparent);
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .tip-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navegación mejorada */
+        .chapter-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chapter-nav a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .chapter-nav a:hover::before {
+            width: 100%;
+        }
+
+        /* Botón de regreso mejorado */
+        .back-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Efectos de entrada escalonados */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1.0s; }
+
+        .tip-box:nth-child(odd) { animation-delay: 0.2s; }
+        .tip-box:nth-child(even) { animation-delay: 0.4s; }
+
+        /* Scroll suave personalizado */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Indicador de progreso de lectura */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px; /* Más grueso */
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Estilos para secciones colapsables */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .section-header:hover {
+            background-color: rgba(16, 185, 129, 0.05);
+        }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease, opacity 0.5s ease;
+            padding: 0 1.5rem;
+            opacity: 0;
+        }
+
+        section.active .section-content {
+            max-height: 5000px; /* Un valor grande para permitir que el contenido se expanda */
+            padding: 1.5rem;
+            opacity: 1;
+        }
+
+        .section-header .chevron {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        section.active .section-header .chevron {
+            transform: rotate(90deg);
+        }
+
+        section.card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        section.card .icon-section {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        section.card .icon-section i {
+            font-size: 1.5rem;
+        }
+
+        section.card .icon-section h2 {
+            margin: 0;
+        }
+
+        /* Menú único con emoticon de hojas */
+        .leaf-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .leaf-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .leaf-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .leaf-menu-btn.active {
+            transform: rotate(180deg) scale(1.1);
+        }
+
+        .leaf-dropdown {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            min-width: 250px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .leaf-dropdown.active {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .leaf-dropdown-content {
+            padding: 1rem;
+        }
+
+        .leaf-dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            text-decoration: none;
+            color: var(--text);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .leaf-dropdown-content a:hover {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        .leaf-dropdown-content a i {
+            width: 20px;
+            text-align: center;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .leaf-dropdown-header {
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, var(--primary-light), rgba(245, 158, 11, 0.1));
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--primary-dark);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Optimizaciones para móviles */
+        @media (max-width: 1024px) {
+            /* Ajustar contenido para eliminar padding del header */
+            body {
+                padding-top: 0;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Menú de hojas en móvil */
+            .leaf-menu {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .leaf-menu-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .leaf-dropdown {
+                right: -10px;
+                min-width: 220px;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Headers responsivos */
+            h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+                margin-top: 2rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+                margin-top: 1.5rem;
+            }
+            
+            /* Cards optimizadas para móvil */
+            .card {
+                margin-bottom: 1.5rem;
+                padding: 1.5rem;
+            }
+            
+            .highlight-box, .tip-box {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            
+            /* Grids responsivos */
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            /* Tablas responsivas mejoradas */
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            }
+            
+            .mobile-friendly-table {
+                min-width: 100%;
+                width: 100%;
+            }
+            
+            /* Transformar tabla en cards en móviles muy pequeños */
+            @media (max-width: 600px) {
+                .mobile-friendly-table,
+                .mobile-friendly-table thead,
+                .mobile-friendly-table tbody,
+                .mobile-friendly-table th,
+                .mobile-friendly-table td,
+                .mobile-friendly-table tr {
+                    display: block;
+                }
+                
+                .mobile-friendly-table thead tr {
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+                }
+                
+                .mobile-friendly-table tr {
+                    background: white;
+                    border: 1px solid var(--border-color);
+                    border-radius: 0.5rem;
+                    margin-bottom: 1rem;
+                    padding: 1rem;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                }
+                
+                .mobile-friendly-table td {
+                    border: none;
+                    position: relative;
+                    padding: 0.75rem 0;
+                    padding-left: 40%;
+                    text-align: left;
+                    border-bottom: 1px solid #f3f4f6;
+                }
+                
+                .mobile-friendly-table td:last-child {
+                    border-bottom: none;
+                }
+                
+                .mobile-friendly-table td:before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 0;
+                    width: 35%;
+                    padding-right: 10px;
+                    white-space: nowrap;
+                    font-weight: 600;
+                    color: var(--primary-dark);
+                }
+            }
+            
+            table {
+                min-width: 600px;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            /* Iconos más grandes para móvil */
+            .icon-section i {
+                font-size: 2rem;
+            }
+            
+            /* Botones táctiles más grandes */
+            .back-button {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+                min-height: 48px;
+            }
+            
+            /* Header móvil optimizado */
+            .header-gradient {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .header-gradient h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .header-gradient p {
+                font-size: 1.1rem;
+                margin-top: 1rem;
+            }
+            
+            /* Footer móvil */
+            footer .grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            /* Animaciones optimizadas para móvil */
+            .card:hover {
+                transform: translateY(-2px) scale(1.01);
+            }
+            
+            /* Casos de estudio móvil */
+            .space-y-8 > div {
+                margin-bottom: 2rem;
+            }
+            
+            /* Controles de zoom para imágenes */
+            img {
+                max-width: 100%;
+                height: auto;
+                touch-action: pinch-zoom;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            body {
+                padding-top: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Ajustes adicionales para pantallas muy pequeñas */
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            
+            .card {
+                padding: 1.25rem;
+                border-radius: 0.5rem;
+            }
+            
+            .header-gradient h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Ajustes para pantallas extra pequeñas */
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            .header-gradient {
+                padding: 2rem 1rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+            
+            .highlight-box, .tip-box {
+                padding: 1rem;
+            }
+        }
+        
+        /* Mejoras para touch */
+        @media (hover: none) and (pointer: coarse) {
+            /* Dispositivos táctiles */
+            .card:hover {
+                transform: none;
+            }
+            
+            .icon-section:hover i {
+                transform: none;
+            }
+            
+            /* Efectos táctiles */
+            .card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Estilos para impresión */
+        @media print {
+            body {
+                font-size: 12pt;
+                color: #000;
+                background-color: #fff;
+                padding-top: 0;
+            }
+
+            .mobile-header,
+            .chapter-nav,
+            footer,
+            .reading-progress,
+            button[onclick*="guia_gestion_agropecuaria.pdf"] {
+                display: none !important;
+            }
+
+            main, .card, .section-content {
+                display: block !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 0 1.5rem 0 !important;
+            }
+
+            section.card {
+                page-break-inside: avoid;
+            }
+
+            section.active .section-content, .section-content {
+                max-height: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 0 !important;
+                margin-top: 0.5rem !important;
+            }
+
+            .section-header .chevron {
+                display: none !important;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                color: #000 !important;
+                page-break-after: avoid;
+            }
+
+            a {
+                text-decoration: none;
+                color: #000 !important;
+            }
+
+            .highlight-box, .tip-box {
+                background-color: #f0f0f0 !important;
+                border: 1px solid #ccc !important;
+                padding: 1rem !important;
+            }
+
+            .table-responsive, table, tr, td, th {
+                display: block !important;
+                width: 100% !important;
+            }
+
+            table {
+                border: 1px solid #ccc;
+            }
+            
+            thead { display: none; }
+
+            tr { 
+                border-bottom: 1px solid #ccc;
+                padding: 0.5rem 0;
+                margin-bottom: 1rem;
+            }
+
+            td {
+                border: none;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 font-sans leading-relaxed">
+    <div class="reading-progress"></div>
+    
+    <!-- Menú único con emoticon de hojas -->
+    <div class="leaf-menu">
+        <button class="leaf-menu-btn" onclick="toggleLeafMenu()" id="leafMenuBtn">
+            🌿
+        </button>
+        <div class="leaf-dropdown" id="leafDropdown">
+            <div class="leaf-dropdown-header">
+                📚 Navegación de la Guía
+            </div>
+            <div class="leaf-dropdown-content">
+                <a href="#introduccion" onclick="closeLeafMenu()">
+                    <i class="fas fa-play"></i>
+                    <span>Introducción</span>
+                </a>
+                <a href="#conceptos-basicos" onclick="closeLeafMenu()">
+                    <i class="fas fa-book"></i>
+                    <span>Conceptos Básicos</span>
+                </a>
+                <a href="#planificacion" onclick="closeLeafMenu()">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Planificación</span>
+                </a>
+                <a href="#recursos" onclick="closeLeafMenu()">
+                    <i class="fas fa-tools"></i>
+                    <span>Gestión de Recursos</span>
+                </a>
+                <a href="#financiamiento" onclick="closeLeafMenu()">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>Financiamiento</span>
+                </a>
+                <a href="#marketing" onclick="closeLeafMenu()">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Marketing</span>
+                </a>
+                <a href="#comercializacion" onclick="closeLeafMenu()">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Comercialización</span>
+                </a>
+                <a href="#tecnologia" onclick="closeLeafMenu()">
+                    <i class="fas fa-laptop"></i>
+                    <span>Tecnología</span>
+                </a>
+                <a href="#sostenibilidad" onclick="closeLeafMenu()">
+                    <i class="fas fa-leaf"></i>
+                    <span>Sostenibilidad</span>
+                </a>
+                <a href="#casos-estudio" onclick="closeLeafMenu()">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Casos de Estudio</span>
+                </a>
+                <a href="#conclusion" onclick="closeLeafMenu()">
+                    <i class="fas fa-flag-checkered"></i>
+                    <span>Conclusión</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 md:px-8 lg:px-16 relative">
+        <div id="reading-progress-bar" class="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-green-400 to-blue-500 z-50" style="width: 0%;"></div>
+
+        <button onclick="window.open('guia_gestion_agropecuaria.pdf', '_blank')" class="fixed top-4 right-4 z-50 px-4 py-2 rounded-full flex items-center justify-center bg-blue-600 text-white shadow-lg transition-transform transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <i class="fas fa-print mr-2"></i>
+            <span class="hidden md:inline">Imprimir / Descargar PDF</span>
+        </button>
+
+        <div class="flex flex-col">
+            <!-- Contenido Principal -->
+            <div class="w-full"
+                <!-- Header del documento -->
+                <header class="text-center mb-16">
+                    <div class="header-gradient text-white p-10 rounded-xl relative overflow-hidden shadow-2xl">
+                        <!-- Efectos de fondo animados -->
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute -top-10 -left-10 w-48 h-48 bg-white rounded-full animate-float" style="animation-delay: 0s;"></div>
+                            <div class="absolute top-20 right-10 w-32 h-32 bg-yellow-300 rounded-full animate-float" style="animation-delay: 1s;"></div>
+                            <div class="absolute bottom-5 left-20 w-24 h-24 bg-green-300 rounded-full animate-float" style="animation-delay: 2s;"></div>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <div class="animate-fade-in">
+                                <h1 class="text-white border-b-4 border-yellow-400 text-4xl md:text-5xl lg:text-6xl font-extrabold">
+                                    <span class="animate-float">📚</span> 
+                                    Guía de Gestión Agropecuaria
+                                </h1>
+                            </div>
+                            <div class="animate-slide-in" style="animation-delay: 0.3s; opacity: 0;">
+                                <p class="text-lg md:text-xl text-green-100 mt-4">Manual completo para la gestión moderna del agronegocio</p>
+                            </div>
+                            <div class="mt-8 animate-fade-in" style="animation-delay: 0.6s; opacity: 0;">
+                                <div class="flex justify-center items-center space-x-6 text-sm text-green-200">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-school animate-pulse-custom"></i>
+                                        <span>EETP Nª691 "Laureana Ferrari de Olazabal"</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-map-marker-alt animate-pulse-custom"></i>
+                                        <span>Laguna Paiva - Santa Fe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Indicadores de scroll -->
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-float">
+                            <i class="fas fa-chevron-down text-white opacity-70 text-2xl"></i>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Contenido principal -->
+                <main class="space-y-10">
+                    <!-- Introducción -->
+                    <section id="introduccion" class="card active">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-seedling"></i>
+                                <h2>Introducción a la Gestión Agropecuaria</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <p class="text-lg mb-4 text-slate-600">
+                            La gestión agropecuaria moderna requiere una comprensión integral de múltiples factores que influyen en la productividad, rentabilidad y sostenibilidad de las operaciones agrícolas.
+                            </p>
+
+                            <div class="highlight-box">
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-lightbulb text-yellow-500 text-2xl mr-3 animate-pulse-custom"></i>
+                                    <h3 class="text-xl">Objetivos de Aprendizaje</h3>
+                                </div>
+                                <ul class="list-none space-y-3">
+                                    <li class="flex items-start space-x-3 animate-slide-in" style="animation-delay: 0.1s; opacity: 0;">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span class="text-slate-700">Comprender los fundamentos de la gestión agropecuaria moderna</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3 animate-slide-in" style="animation-delay: 0.3s; opacity: 0;">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span class="text-slate-700">Desarrollar habilidades para la planificación y control de operaciones</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3 animate-slide-in" style="animation-delay: 0.5s; opacity: 0;">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span class="text-slate-700">Aplicar herramientas financieras en el contexto agropecuario</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3 animate-slide-in" style="animation-delay: 0.7s; opacity: 0;">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span class="text-slate-700">Integrar conceptos de sostenibilidad en la gestión</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Conceptos Básicos -->
+                    <section id="conceptos-basicos" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-book-open"></i>
+                                <h2>Conceptos Básicos</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Definiciones Fundamentales</h3>
+                            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-green-700">🌱 Agronegocio</h4>
+                                    <p class="text-sm text-slate-600">Conjunto integrado de actividades empresariales que incluye desde la producción hasta la comercialización de productos agropecuarios.</p>
+                                </div>
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-blue-700">📊 Gestión</h4>
+                                    <p class="text-sm text-slate-600">Proceso de planificación, organización, dirección y control de recursos para alcanzar objetivos específicos.</p>
+                                </div>
+                            </div>
+
+                            <h3>Características del Sector Agropecuario</h3>
+                            <ul class="list-disc pl-6 space-y-2 text-slate-600">
+                                <li><strong>Estacionalidad:</strong> Los ciclos productivos están determinados por factores climáticos</li>
+                                <li><strong>Dependencia climática:</strong> Alta vulnerabilidad a condiciones meteorológicas</li>
+                                <li><strong>Volatilidad de precios:</strong> Fluctuaciones constantes en los mercados</li>
+                                <li><strong>Inversiones a largo plazo:</strong> Recuperación de capital en períodos extensos</li>
+                            </ul>
+
+                            <div class="highlight-box mb-6">
+                                <h3>🏛️ Subsistemas del Agronegocio</h3>
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                        <i class="fas fa-industry text-3xl text-blue-600 mb-2"></i>
+                                        <h4 class="font-semibold text-blue-800">Antes de la Finca</h4>
+                                        <ul class="text-sm text-left mt-2 space-y-1 text-slate-600">
+                                            <li>• Insumos (semillas, fertilizantes)</li>
+                                            <li>• Maquinaria agrícola</li>
+                                            <li>• Servicios de consultoría</li>
+                                            <li>• Financiamiento</li>
+                                        </ul>
+                                    </div>
+                                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                                        <i class="fas fa-tractor text-3xl text-green-600 mb-2"></i>
+                                        <h4 class="font-semibold text-green-800">Dentro de la Finca</h4>
+                                        <ul class="text-sm text-left mt-2 space-y-1 text-slate-600">
+                                            <li>• Producción primaria</li>
+                                            <li>• Manejo de cultivos/ganado</li>
+                                            <li>• Control de calidad</li>
+                                            <li>• Gestión ambiental</li>
+                                        </ul>
+                                    </div>
+                                    <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                        <i class="fas fa-truck text-3xl text-purple-600 mb-2"></i>
+                                        <h4 class="font-semibold text-purple-800">Después de la Finca</h4>
+                                        <ul class="text-sm text-left mt-2 space-y-1 text-slate-600">
+                                            <li>• Procesamiento</li>
+                                            <li>• Distribución</li>
+                                            <li>• Comercialización</li>
+                                            <li>• Consumo final</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>Tipos de Sistemas Productivos</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-green-700">🌾 Sistemas Agrícolas</h4>
+                                    <ul class="text-sm list-disc pl-4 space-y-1 text-slate-600">
+                                        <li><strong>Intensivos:</strong> Alta productividad por hectárea</li>
+                                        <li><strong>Extensivos:</strong> Grandes superficies, menor intensidad</li>
+                                        <li><strong>Orgánicos:</strong> Sin agroquímicos sintéticos</li>
+                                        <li><strong>Hidropónicos:</strong> Cultivo sin suelo</li>
+                                        <li><strong>Agroforestales:</strong> Combinación con árboles</li>
+                                    </ul>
+                                </div>
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-orange-700">🐄 Sistemas Pecuarios</h4>
+                                    <ul class="text-sm list-disc pl-4 space-y-1 text-slate-600">
+                                        <li><strong>Pastoriles:</strong> Basados en pasturas</li>
+                                        <li><strong>Intensivos:</strong> Feedlots, granjas avícolas</li>
+                                        <li><strong>Semi-intensivos:</strong> Combinación de métodos</li>
+                                        <li><strong>Trashumantes:</strong> Movimiento estacional</li>
+                                        <li><strong>Integrados:</strong> Agricultura-ganadería</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4 class="font-semibold mb-3">📈 Indicadores de Gestión Clave</h4>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-semibold text-blue-600 mb-2">Productividad</h5>
+                                        <ul class="text-sm list-disc pl-4 space-y-1 text-slate-600">
+                                            <li>Rendimiento por hectárea (kg/ha)</li>
+                                            <li>Productividad de la mano de obra</li>
+                                            <li>Eficiencia en el uso de insumos</li>
+                                            <li>Índices de conversión alimenticia</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-green-600 mb-2">Rentabilidad</h5>
+                                        <ul class="text-sm list-disc pl-4 space-y-1 text-slate-600">
+                                            <li>Margen bruto por hectárea</li>
+                                            <li>ROI (Retorno sobre la inversión)</li>
+                                            <li>Punto de equilibrio</li>
+                                            <li>Flujo de caja operativo</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Planificación -->
+                    <section id="planificacion" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-clipboard-check"></i>
+                                <h2>Planificación Estratégica</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Análisis FODA en el Agronegocio</h3>
+                            <div class="table-responsive mb-6">
+                                <table class="mobile-friendly-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fortalezas</th>
+                                            <th>Oportunidades</th>
+                                            <th>Debilidades</th>
+                                            <th>Amenazas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-slate-600">
+                                        <tr>
+                                            <td data-label="Fortalezas">Suelos fértiles</td>
+                                            <td data-label="Oportunidades">Demanda mundial creciente</td>
+                                            <td data-label="Debilidades">Falta de tecnología</td>
+                                            <td data-label="Amenazas">Cambio climático</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Fortalezas">Experiencia técnica</td>
+                                            <td data-label="Oportunidades">Nuevos mercados</td>
+                                            <td data-label="Debilidades">Capital limitado</td>
+                                            <td data-label="Amenazas">Volatilidad de precios</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Fortalezas">Ubicación geográfica</td>
+                                            <td data-label="Oportunidades">Innovación tecnológica</td>
+                                            <td data-label="Debilidades">Infraestructura deficiente</td>
+                                            <td data-label="Amenazas">Políticas gubernamentales</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="highlight-box">
+                                <h3>Pasos para la Planificación</h3>
+                                <ol class="list-decimal pl-6 space-y-2 text-slate-700">
+                                    <li><strong>Diagnóstico inicial:</strong> Evaluación de recursos disponibles</li>
+                                    <li><strong>Definición de objetivos:</strong> Metas a corto, mediano y largo plazo</li>
+                                    <li><strong>Selección de estrategias:</strong> Métodos para alcanzar los objetivos</li>
+                                    <li><strong>Implementación:</strong> Ejecución del plan establecido</li>
+                                    <li><strong>Seguimiento y control:</strong> Monitoreo continuo y ajustes</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Gestión de Recursos -->
+                    <section id="recursos" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-cogs"></i>
+                                <h2>Gestión de Recursos</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Tipos de Recursos</h3>
+                            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-green-600">🌾 Recursos Naturales</h4>
+                                    <ul class="text-sm list-disc pl-4 text-slate-600">
+                                        <li>Suelo</li>
+                                        <li>Agua</li>
+                                        <li>Clima</li>
+                                        <li>Biodiversidad</li>
+                                    </ul>
+                                </div>
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-blue-600">👥 Recursos Humanos</h4>
+                                    <ul class="text-sm list-disc pl-4 text-slate-600">
+                                        <li>Mano de obra</li>
+                                        <li>Capacitación</li>
+                                        <li>Liderazgo</li>
+                                        <li>Organización</li>
+                                    </ul>
+                                </div>
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-purple-600">🏭 Recursos Físicos</h4>
+                                    <ul class="text-sm list-disc pl-4 text-slate-600">
+                                        <li>Maquinaria</li>
+                                        <li>Instalaciones</li>
+                                        <li>Tecnología</li>
+                                        <li>Infraestructura</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3>Optimización de Recursos</h3>
+                            <p class="text-slate-600">La eficiencia en el uso de recursos es fundamental para maximizar la rentabilidad. Esto incluye:</p>
+                            <ul class="list-disc pl-6 space-y-1 mt-2 text-slate-600">
+                                <li>Rotación de cultivos para mantener la fertilidad del suelo</li>
+                                <li>Sistemas de riego eficientes para conservar agua</li>
+                                <li>Mantenimiento preventivo de maquinaria</li>
+                                <li>Capacitación continua del personal</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Financiamiento -->
+                    <section id="financiamiento" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-dollar-sign"></i>
+                                <h2>Gestión Financiera</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Fuentes de Financiamiento</h3>
+                            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-green-700">💰 Recursos Propios</h4>
+                                    <ul class="text-sm list-disc pl-4 text-slate-600">
+                                        <li>Capital inicial</li>
+                                        <li>Reinversión de utilidades</li>
+                                        <li>Venta de activos</li>
+                                    </ul>
+                                </div>
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-blue-700">🏦 Recursos Externos</h4>
+                                    <ul class="text-sm list-disc pl-4 text-slate-600">
+                                        <li>Préstamos bancarios</li>
+                                        <li>Créditos gubernamentales</li>
+                                        <li>Inversores privados</li>
+                                        <li>Cooperativas</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3>Instrumentos Financieros Específicos</h3>
+                            <div class="space-y-4">
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h4 class="font-semibold">Warrants</h4>
+                                    <p class="text-sm text-slate-600">Certificados de depósito que permiten obtener financiamiento usando la cosecha como garantía.</p>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h4 class="font-semibold">Contratos de Futuros</h4>
+                                    <p class="text-sm text-slate-600">Herramientas para fijar precios de venta y reducir riesgos de mercado.</p>
+                                </div>
+                                <div class="border-l-4 border-yellow-500 pl-4">
+                                    <h4 class="font-semibold">Factoring</h4>
+                                    <p class="text-sm text-slate-600">Venta de cuentas por cobrar para obtener liquidez inmediata.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Marketing Agropecuario -->
+                    <section id="marketing" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-bullhorn"></i>
+                                <h2>Marketing Agropecuario</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Fundamentos del Marketing Rural</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-green-700">🎯 Marketing Mix (4P's)</h4>
+                                    <ul class="text-sm list-disc pl-4 space-y-1 text-slate-600">
+                                        <li><strong>Producto:</strong> Calidad, variedades, certificaciones</li>
+                                        <li><strong>Precio:</strong> Estrategias de fijación competitiva</li>
+                                        <li><strong>Plaza:</strong> Canales de distribución efectivos</li>
+                                        <li><strong>Promoción:</strong> Comunicación y publicidad</li>
+                                    </ul>
+                                </div>
+                                <div class="tip-box">
+                                    <h4 class="font-semibold text-blue-700">📊 Análisis de Mercado</h4>
+                                    <ul class="text-sm list-disc pl-4 space-y-1 text-slate-600">
+                                        <li>Identificación de segmentos objetivo</li>
+                                        <li>Análisis de la competencia</li>
+                                        <li>Tendencias de consumo</li>
+                                        <li>Estacionalidad y demanda</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="highlight-box mb-6">
+                                <h3>🌐 Marketing Digital Agropecuario</h3>
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                        <i class="fab fa-facebook text-3xl text-blue-600 mb-2"></i>
+                                        <h4 class="font-semibold text-blue-800">Redes Sociales</h4>
+                                        <p class="text-sm text-slate-600">Facebook, Instagram, YouTube para mostrar productos</p>
+                                    </div>
+                                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                                        <i class="fas fa-globe text-3xl text-green-600 mb-2"></i>
+                                        <h4 class="font-semibold text-green-800">E-commerce</h4>
+                                        <p class="text-sm text-slate-600">Plataformas online para venta directa</p>
+                                    </div>
+                                    <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                        <i class="fas fa-envelope text-3xl text-purple-600 mb-2"></i>
+                                        <h4 class="font-semibold text-purple-800">Email Marketing</h4>
+                                        <p class="text-sm text-slate-600">Comunicación directa con clientes</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>Estrategias de Posicionamiento</h3>
+                            <div class="space-y-4 mb-6">
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h4 class="font-semibold flex items-center">
+                                        <i class="fas fa-leaf text-green-600 mr-2"></i>
+                                        Productos Orgánicos
+                                    </h4>
+                                    <p class="text-sm text-slate-600">Enfoque en sostenibilidad y salud del consumidor</p>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h4 class="font-semibold flex items-center">
+                                        <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i>
+                                        Origen Geográfico
+                                    </h4>
+                                    <p class="text-sm text-slate-600">Denominación de origen y productos regionales</p>
+                                </div>
+                                <div class="border-l-4 border-orange-500 pl-4">
+                                    <h4 class="font-semibold flex items-center">
+                                        <i class="fas fa-award text-orange-600 mr-2"></i>
+                                        Diferenciación por Calidad
+                                    </h4>
+                                    <p class="text-sm text-slate-600">Certificaciones, procesos especiales, trazabilidad</p>
+                                </div>
+                                <div class="border-l-4 border-purple-500 pl-4">
+                                    <h4 class="font-semibold flex items-center">
+                                        <i class="fas fa-clock text-purple-600 mr-2"></i>
+                                        Conveniencia
+                                    </h4>
+                                    <p class="text-sm text-slate-600">Productos listos para consumo, empaque innovador</p>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4 class="font-semibold mb-3">💡 Herramientas de Marketing Rural</h4>
+                                <div class="grid md:grid-cols-2 gap-4 text-slate-600">
+                                    <ul class="list-disc pl-6 space-y-1">
+                                        <li>Ferias y exposiciones agropecuarias</li>
+                                        <li>Degustaciones y muestras gratuitas</li>
+                                        <li>Alianzas con chefs y restaurantes</li>
+                                        <li>Programas de responsabilidad social</li>
+                                    </ul>
+                                    <ul class="list-disc pl-6 space-y-1">
+                                        <li>Storytelling del proceso productivo</li>
+                                        <li>Visitas guiadas a la finca</li>
+                                        <li>Programas de adopción de árboles</li>
+                                        <li>Certificaciones de terceros</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Comercialización -->
+                    <section id="comercializacion" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-chart-line"></i>
+                                <h2>Comercialización</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Canales de Comercialización</h3>
+                            <div class="mb-6">
+                                <div class="flex flex-col space-y-4">
+                                    <div class="flex items-center space-x-4 p-4 bg-slate-100 rounded-lg">
+                                        <i class="fas fa-store text-2xl text-green-600"></i>
+                                        <div>
+                                            <h4 class="font-semibold">Venta Directa</h4>
+                                            <p class="text-sm text-slate-600">Productor → Consumidor final</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 p-4 bg-slate-100 rounded-lg">
+                                        <i class="fas fa-truck text-2xl text-blue-600"></i>
+                                        <div>
+                                            <h4 class="font-semibold">Intermediarios</h4>
+                                            <p class="text-sm text-slate-600">Productor → Acopiador → Industria → Consumidor</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 p-4 bg-slate-100 rounded-lg">
+                                        <i class="fas fa-building text-2xl text-purple-600"></i>
+                                        <div>
+                                            <h4 class="font-semibold">Cooperativas</h4>
+                                            <p class="text-sm text-slate-600">Productores asociados → Mercados</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="highlight-box">
+                                <h3>Estrategias de Comercialización</h3>
+                                <ul class="list-disc pl-6 space-y-2 text-slate-700">
+                                    <li><strong>Diferenciación de productos:</strong> Certificaciones orgánicas, origen geográfico</li>
+                                    <li><strong>Diversificación de mercados:</strong> Mercado interno y exportación</li>
+                                    <li><strong>Agregado de valor:</strong> Procesamiento básico, empaque, marca</li>
+                                    <li><strong>Gestión de riesgos:</strong> Contratos a futuro, seguros de cosecha</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tecnología -->
+                    <section id="tecnologia" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-microchip"></i>
+                                <h2>Tecnología e Innovación</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Agricultura de Precisión</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="text-slate-600">
+                                    <h4 class="font-semibold mb-3 text-slate-800">Tecnologías Emergentes</h4>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fas fa-satellite text-green-600"></i>
+                                            <span>GPS y sistemas de navegación</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fas fa-drone text-blue-600"></i>
+                                            <span>Drones para monitoreo</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fas fa-mobile-alt text-purple-600"></i>
+                                            <span>Aplicaciones móviles</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fas fa-database text-orange-600"></i>
+                                            <span>Big Data y Analytics</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fas fa-robot text-red-600"></i>
+                                            <span>Robótica agrícola</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fas fa-brain text-indigo-600"></i>
+                                            <span>Inteligencia Artificial</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="text-slate-600">
+                                    <h4 class="font-semibold mb-3 text-slate-800">Beneficios</h4>
+                                    <ul class="list-disc pl-6 space-y-1">
+                                        <li>Optimización del uso de insumos</li>
+                                        <li>Reducción de costos operativos</li>
+                                        <li>Mejora en la productividad</li>
+                                        <li>Monitoreo en tiempo real</li>
+                                        <li>Toma de decisiones basada en datos</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="highlight-box mb-6">
+                                <h3>📱 Herramientas Digitales Esenciales</h3>
+                                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                                    <div class="tip-box">
+                                        <h4 class="font-semibold text-blue-700">🌦️ Estaciones Meteorológicas</h4>
+                                        <ul class="text-sm list-disc pl-4 text-slate-600">
+                                            <li>Monitoreo climático en tiempo real</li>
+                                            <li>Predicción de condiciones adversas</li>
+                                            <li>Optimización de riego</li>
+                                            <li>Planificación de aplicaciones</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tip-box">
+                                        <h4 class="font-semibold text-green-700">🚜 Maquinaria Inteligente</h4>
+                                        <ul class="text-sm list-disc pl-4 text-slate-600">
+                                            <li>Tractores con GPS integrado</li>
+                                            <li>Sembradoras de precisión</li>
+                                            <li>Pulverizadoras automáticas</li>
+                                            <li>Cosechadoras con mapeo</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tip-box">
+                                        <h4 class="font-semibold text-purple-700">📊 Software de Gestión</h4>
+                                        <ul class="text-sm list-disc pl-4 text-slate-600">
+                                            <li>ERP agropecuario</li>
+                                            <li>Control de inventarios</li>
+                                            <li>Gestión financiera</li>
+                                            <li>Trazabilidad de productos</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tip-box">
+                                        <h4 class="font-semibold text-orange-700">🌱 Sensores IoT</h4>
+                                        <ul class="text-sm list-disc pl-4 text-slate-600">
+                                            <li>Humedad del suelo</li>
+                                            <li>Nutrientes disponibles</li>
+                                            <li>Calidad del agua</li>
+                                            <li>Condiciones ambientales</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>Implementación Tecnológica</h3>
+                            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-search text-3xl text-blue-600 mb-2"></i>
+                                    <h4 class="font-semibold text-blue-800">1. Evaluación</h4>
+                                    <p class="text-sm text-slate-600">Análisis de necesidades y capacidades actuales</p>
+                                </div>
+                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                    <i class="fas fa-cogs text-3xl text-green-600 mb-2"></i>
+                                    <h4 class="font-semibold text-green-800">2. Planificación</h4>
+                                    <p class="text-sm text-slate-600">Selección de tecnologías apropiadas y cronograma</p>
+                                </div>
+                                <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                    <i class="fas fa-rocket text-3xl text-purple-600 mb-2"></i>
+                                    <h4 class="font-semibold text-purple-800">3. Implementación</h4>
+                                    <p class="text-sm text-slate-600">Instalación, capacitación y puesta en marcha</p>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <h4 class="font-semibold mb-3">💡 Consejos para la Adopción Tecnológica</h4>
+                                <ul class="list-disc pl-6 space-y-2 text-slate-600">
+                                    <li><strong>Comenzar gradualmente:</strong> Implementar tecnologías paso a paso</li>
+                                    <li><strong>Capacitación continua:</strong> Invertir en formación del personal</li>
+                                    <li><strong>Análisis costo-beneficio:</strong> Evaluar el retorno de inversión</li>
+                                    <li><strong>Soporte técnico:</strong> Asegurar asistencia y mantenimiento</li>
+                                    <li><strong>Integración de sistemas:</strong> Buscar compatibilidad entre tecnologías</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sostenibilidad -->
+                    <section id="sostenibilidad" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-leaf"></i>
+                                <h2>Gestión Sostenible</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <h3>Pilares de la Sostenibilidad</h3>
+                            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                    <i class="fas fa-tree text-3xl text-green-600 mb-2"></i>
+                                    <h4 class="font-semibold text-green-800">Ambiental</h4>
+                                    <p class="text-sm text-slate-600">Conservación de recursos naturales y biodiversidad</p>
+                                </div>
+                                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-users text-3xl text-blue-600 mb-2"></i>
+                                    <h4 class="font-semibold text-blue-800">Social</h4>
+                                    <p class="text-sm text-slate-600">Bienestar de comunidades y trabajadores</p>
+                                </div>
+                                <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                                    <i class="fas fa-coins text-3xl text-yellow-600 mb-2"></i>
+                                    <h4 class="font-semibold text-yellow-800">Económico</h4>
+                                    <p class="text-sm text-slate-600">Viabilidad financiera a largo plazo</p>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <h3>Prácticas Sostenibles</h3>
+                                <ul class="list-disc pl-6 space-y-1 text-slate-600">
+                                    <li>Rotación de cultivos y diversificación</li>
+                                    <li>Manejo integrado de plagas</li>
+                                    <li>Conservación de suelos y agua</li>
+                                    <li>Uso eficiente de fertilizantes</li>
+                                    <li>Energías renovables</li>
+                                    <li>Certificaciones ambientales</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Casos de Estudio -->
+                    <section id="casos-estudio" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-search"></i>
+                                <h2>Casos de Estudio</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <div class="space-y-8">
+                                <div class="border rounded-xl p-6 bg-gradient-to-r from-green-50 to-blue-50 relative overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse-custom"></div>
+                                    <div class="relative z-10">
+                                        <div class="flex items-center mb-4">
+                                            <i class="fas fa-map-marker-alt text-3xl text-green-600 mr-4 animate-float"></i>
+                                            <h3 class="text-green-800 text-2xl font-bold">Caso 1: Explotación Mixta - Santa Fe</h3>
+                                        </div>
+                                        <div class="grid md:grid-cols-2 gap-6">
+                                            <div class="space-y-3">
+                                                <h4 class="font-semibold text-lg flex items-center text-slate-800">
+                                                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                                                    Características:
+                                                </h4>
+                                                <ul class="space-y-2 text-slate-600">
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.1s; opacity: 0;">
+                                                        <i class="fas fa-expand-arrows-alt text-green-500"></i>
+                                                        <span><strong>500 hectáreas</strong> de superficie total</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.2s; opacity: 0;">
+                                                        <i class="fas fa-seedling text-yellow-500"></i>
+                                                        <span><strong>Soja, maíz</strong> y ganadería integrada</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.3s; opacity: 0;">
+                                                        <i class="fas fa-microchip text-purple-500"></i>
+                                                        <span><strong>Tecnología media</strong> con GPS básico</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="space-y-3">
+                                                <h4 class="font-semibold text-lg flex items-center text-slate-800">
+                                                    <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                                                    Desafíos y Soluciones:
+                                                </h4>
+                                                <ul class="space-y-2 text-slate-600">
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.4s; opacity: 0;">
+                                                        <i class="fas fa-balance-scale text-blue-500"></i>
+                                                        <span><strong>Diversificación</strong> de riesgos climáticos</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.5s; opacity: 0;">
+                                                        <i class="fas fa-sync-alt text-green-500"></i>
+                                                        <span><strong>Integración</strong> agricultura-ganadería</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.6s; opacity: 0;">
+                                                        <i class="fas fa-chart-line text-red-500"></i>
+                                                        <span><strong>Optimización</strong> de recursos limitados</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="mt-6 p-4 bg-white bg-opacity-50 rounded-lg">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm font-medium text-slate-600">Rentabilidad Anual:</span>
+                                                <span class="text-2xl font-bold text-green-600" data-count="15">0</span><span class="text-green-600">%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                                <div class="bg-green-500 h-2 rounded-full animate-pulse-custom" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border rounded-xl p-6 bg-gradient-to-r from-yellow-50 to-orange-50 relative overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                                    <div class="absolute top-0 left-0 w-32 h-32 bg-orange-200 rounded-full opacity-20 animate-float"></div>
+                                    <div class="relative z-10">
+                                        <div class="flex items-center mb-4">
+                                            <i class="fas fa-users text-3xl text-orange-600 mr-4 animate-float" style="animation-delay: 1s;"></i>
+                                            <h3 class="text-orange-800 text-2xl font-bold">Caso 2: Cooperativa de Productores</h3>
+                                        </div>
+                                        <div class="grid md:grid-cols-2 gap-6">
+                                            <div class="space-y-3">
+                                                <h4 class="font-semibold text-lg flex items-center text-slate-800">
+                                                    <i class="fas fa-sitemap text-blue-600 mr-2"></i>
+                                                    Modelo Cooperativo:
+                                                </h4>
+                                                <ul class="space-y-2 text-slate-600">
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.1s; opacity: 0;">
+                                                        <i class="fas fa-user-friends text-blue-500"></i>
+                                                        <span><strong>150 productores</strong> asociados activos</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.2s; opacity: 0;">
+                                                        <i class="fas fa-handshake text-green-500"></i>
+                                                        <span><strong>Comercialización</strong> conjunta estratégica</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.3s; opacity: 0;">
+                                                        <i class="fas fa-tools text-purple-500"></i>
+                                                        <span><strong>Servicios técnicos</strong> compartidos</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="space-y-3">
+                                                <h4 class="font-semibold text-lg flex items-center text-slate-800">
+                                                    <i class="fas fa-trophy text-yellow-600 mr-2"></i>
+                                                    Resultados Obtenidos:
+                                                </h4>
+                                                <ul class="space-y-2 text-slate-600">
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.4s; opacity: 0;">
+                                                        <i class="fas fa-dollar-sign text-green-500"></i>
+                                                        <span><strong>+25% mejores</strong> precios de venta</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.5s; opacity: 0;">
+                                                        <i class="fas fa-arrow-down text-blue-500"></i>
+                                                        <span><strong>-30% reducción</strong> de costos operativos</span>
+                                                    </li>
+                                                    <li class="flex items-center space-x-3 animate-slide-in" style="animation-delay: 0.6s; opacity: 0;">
+                                                        <i class="fas fa-graduation-cap text-purple-500"></i>
+                                                        <span><strong>100% acceso</strong> a transferencia tecnológica</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="mt-6 grid grid-cols-3 gap-4">
+                                            <div class="text-center p-3 bg-white bg-opacity-50 rounded-lg">
+                                                <div class="text-2xl font-bold text-orange-600" data-count="150">0</div>
+                                                <div class="text-sm text-gray-600">Productores</div>
+                                            </div>
+                                            <div class="text-center p-3 bg-white bg-opacity-50 rounded-lg">
+                                                <div class="text-2xl font-bold text-green-600" data-count="25">0</div><span class="text-green-600">%</span>
+                                                <div class="text-sm text-gray-600">Mejor Precio</div>
+                                            </div>
+                                            <div class="text-center p-3 bg-white bg-opacity-50 rounded-lg">
+                                                <div class="text-2xl font-bold text-blue-600" data-count="30">0</div><span class="text-blue-600">%</span>
+                                                <div class="text-sm text-gray-600">Menos Costos</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Conclusión -->
+                    <section id="conclusion" class="card">
+                        <div class="section-header">
+                            <div class="icon-section">
+                                <i class="fas fa-flag-checkered"></i>
+                                <h2>Conclusión</h2>
+                            </div>
+                            <i class="fas fa-chevron-right chevron"></i>
+                        </div>
+                        <div class="section-content">
+                            <p class="text-lg mb-4 text-slate-600">
+                                La gestión agropecuaria es una disciplina dinámica que combina ciencia, tecnología y negocios. El éxito radica en la capacidad de adaptarse, innovar y gestionar los recursos de manera eficiente y sostenible.
+                            </p>
+                            <div class="highlight-box">
+                                <h3>Próximos Pasos para el Estudiante</h3>
+                                <ul class="list-disc pl-6 space-y-2 text-slate-700">
+                                    <li>Profundizar en cada área de gestión mediante investigación adicional</li>
+                                    <li>Realizar visitas a explotaciones agropecuarias para observar la gestión en la práctica</li>
+                                    <li>Utilizar software de simulación para practicar la toma de decisiones</li>
+                                    <li>Desarrollar un plan de negocios para un proyecto agropecuario hipotético</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center p-8 bg-slate-100 text-slate-500 mt-16 border-t border-slate-200">
+        <p>&copy; 2025 Guía de Gestión Agropecuaria. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Desarrollado para EETP Nª691 "Laureana Ferrari de Olazabal"</p>
+    </footer>
+
+    <script>
+        // --- Script para el menú de hojas ---
+        const leafMenuBtn = document.getElementById('leafMenuBtn');
+        const leafDropdown = document.getElementById('leafDropdown');
+        
+        function toggleLeafMenu() {
+            leafDropdown.classList.toggle('active');
+            leafMenuBtn.classList.toggle('active');
+        }
+
+        function closeLeafMenu() {
+            leafDropdown.classList.remove('active');
+            leafMenuBtn.classList.remove('active');
+        }
+
+        // Cerrar menú al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            if (!leafMenuBtn.contains(event.target) && !leafDropdown.contains(event.target)) {
+                closeLeafMenu();
+            }
+        });
+
+        // --- Barra de progreso de lectura ---
+        function updateReadingProgress() {
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolledPercentage = (window.scrollY / scrollableHeight) * 100;
+            const progressBar = document.getElementById('reading-progress-bar');
+            if (progressBar) {
+                progressBar.style.width = `${scrolledPercentage}%`;
+            }
+        }
+
+        // --- Animaciones al hacer scroll ---
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-slide-in, .animate-fade-in, .animate-float');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
+                    el.style.opacity = '1';
+                    el.classList.add('start-animation');
+                }
+            });
+
+            const counters = document.querySelectorAll('[data-count]');
+            counters.forEach(counter => {
+                const rect = counter.getBoundingClientRect();
+                if (rect.top < window.innerHeight && !counter.classList.contains('counted')) {
+                    counter.classList.add('counted');
+                    const target = +counter.getAttribute('data-count');
+                    let count = 0;
+                    const increment = () => {
+                        const speed = 100; // Lower is faster
+                        const inc = target / speed;
+                        if (count < target) {
+                            count += inc;
+                            counter.innerText = Math.ceil(count);
+                            setTimeout(increment, 15);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    increment();
+                }
+            });
+        }
+
+        // --- Secciones colapsables ---
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+                
+                // Cerrar menú si está abierto
+                closeLeafMenu();
+            });
+        });
+
+        // --- Event Listeners ---
+        window.addEventListener('scroll', () => {
+            updateReadingProgress();
+            animateOnScroll();
+        });
+
+        // Navegación suave y cierre de menú
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // Cerrar menú después de navegar
+                    closeLeafMenu();
+                }
+            });
+        });
+
+        // Activar animaciones iniciales
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(animateOnScroll, 100);
+        });
+
+        // Cerrar menú al presionar Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLeafMenu();
+            }
+        });
+    </script>
+</body>
+</html>
